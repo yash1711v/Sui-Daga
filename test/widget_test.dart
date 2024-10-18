@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:sui_daga/main.dart';
+import 'package:sui_daga/main_common.dart';
 import 'package:sui_daga/view/SplashScreen/splash_screen.dart';
 
 void main() {

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sui_daga/controllers/BookingController/booking_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/booking_state.dart';
+import 'package:sui_daga/view/BookingScreen/SubParts/HomeService/home_service.dart';
 import 'package:sui_daga/widget/custom_textfield.dart';
 
 import '../../routes/routes_helper.dart';
@@ -174,67 +175,58 @@ class BookingScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          BlocProvider<BookingCubit>(
-            create: (BuildContext context) => BookingCubit(),
-            child: BlocBuilder<BookingCubit, BookingState>(
-              builder: (context, state) {
-                return SizedBox(
-                  width: double.infinity,
-                  height: 45,
-                  child: CustomChipSelection(
-                    onSelected: (int index) {
-                      context.read<BookingCubit>().selectMakeBookingItem(index);
-                    },
-                    items: state.makeBookingItems ?? [],
-                    width: 181,
-                    height: 45,
-                    scrollDirection: Axis.horizontal,
-                    selectedItems: state.selectedMakeBookingItem ?? [],
-                  ),
-                );
-              },
-            ),
-          ),
-
           BlocBuilder<BookingCubit, BookingState>(
             builder: (context, state) {
-              return Padding(
-                padding: const EdgeInsets.only(
-                    left: 16.0, right: 16.0, top: 150),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: CustomButton(
-                        onPressed: () {
-                          debugPrint("Selected Item: ${state
-                              .selectedMakeBookingItem}");
-                          Navigator.pushNamed(context, HomeService.id);
-                          if (state.selectedMakeBookingItem!.contains(
-                              "Home Service")) {
-                            Navigator.pushNamed(context, HomeService.id);
-                          }
-                        },
-                        child: const Text(
-                          'NEXT',
-                          style: TextStyle(
-                            color: Color(0xFF212121),
-                            fontSize: 14,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+              return SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: CustomChipSelection(
+                  onSelected: (int index) {
+                    context.read<BookingCubit>().selectMakeBookingItem(index);
+                  },
+                  items: state.makeBookingItems ?? [],
+                  width: 181,
+                  height: 45,
+                  scrollDirection: Axis.horizontal,
+                  selectedItems: state.selectedMakeBookingItem ?? [],
                 ),
               );
             },
           ),
-          const SizedBox(
-            height: 20,
-          ),
         ],
+      ),
+
+      bottomNavigationBar: BlocBuilder<BookingCubit, BookingState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.only(
+              left: 16.0, right: 16.0,bottom: 90),
+            child: Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () {
+                      if (state.selectedMakeBookingItem!.contains(
+                          "Home Service")) {
+                        Navigator.pushNamed(context, HomeService.id);
+                      }
+                    },
+                    child: const Text(
+                      'NEXT',
+                      style: TextStyle(
+                        color: Color(0xFF212121),
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

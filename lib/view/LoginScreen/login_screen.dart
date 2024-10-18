@@ -115,6 +115,7 @@ class LoginScreen extends StatelessWidget {
                           ],
                         ),
                         child: CustomTextField(
+                          style: Style.h14.copyWith(color: Pallet.white),
                           controller: numberController,
                           hintText: "Enter your phone number",
                           keyboardType: TextInputType.phone,
@@ -177,9 +178,6 @@ class LoginScreen extends StatelessWidget {
                   context.read<LoginCubit>().onLogin(context: context);
                 },
               ),
-            ),
-            const SizedBox(
-              height: 20,
             ),
           ],
         ),

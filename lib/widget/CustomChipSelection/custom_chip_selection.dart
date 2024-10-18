@@ -26,14 +26,15 @@ class CustomChipSelection extends StatelessWidget {
       itemCount: items.length,
       physics: physics,
       scrollDirection: scrollDirection,
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       shrinkWrap: true,
       itemBuilder: (context, index) {
         final isSelected = selectedItems.isNotEmpty && items[index] == selectedItems.first;
 
-        return GestureDetector(
-          onTap: () => onSelected!(index),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0),
+        return Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: GestureDetector(
+            onTap: () => onSelected!(index),
             child: Container(
               width: width,
               height: height,
