@@ -33,12 +33,12 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) =>
                 HomeCubit()..getHomeData(),
           ),
+          BlocProvider<BookingCubit>(
+            create: (BuildContext context) => BookingCubit(),
+          ),
           BlocProvider<MainScreenCubit>(
             create: (BuildContext context) =>
             MainScreenCubit()..getMainScreenData(),
-          ),
-          BlocProvider<BookingCubit>(
-            create: (BuildContext context) => BookingCubit()..selectMakeBookingItem(0),
           ),
         ],
         child: MaterialApp(

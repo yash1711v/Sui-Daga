@@ -9,6 +9,7 @@ import '../../style/Pallet.dart';
 import '../../style/style.dart';
 import '../../widget/CustomChipSelection/custom_chip_selection.dart';
 import '../../widget/custom_app_bar.dart';
+import '../../widget/custom_button.dart';
 import '../../widget/custom_calender.dart';
 import '../../widget/drop_down.dart';
 
@@ -136,7 +137,8 @@ class BookingScreen extends StatelessWidget {
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (context) => Dialog(
+                        builder: (context) =>
+                            Dialog(
                               backgroundColor: Colors.transparent,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -172,26 +174,65 @@ class BookingScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          BlocProvider<BookingCubit>(
+            create: (BuildContext context) => BookingCubit(),
+            child: BlocBuilder<BookingCubit, BookingState>(
+              builder: (context, state) {
+                return SizedBox(
+                  width: double.infinity,
+                  height: 45,
+                  child: CustomChipSelection(
+                    onSelected: (int index) {
+                      context.read<BookingCubit>().selectMakeBookingItem(index);
+                    },
+                    items: state.makeBookingItems ?? [],
+                    width: 181,
+                    height: 45,
+                    scrollDirection: Axis.horizontal,
+                    selectedItems: state.selectedMakeBookingItem ?? [],
+                  ),
+                );
+              },
+            ),
+          ),
+
           BlocBuilder<BookingCubit, BookingState>(
             builder: (context, state) {
-              debugPrint("Make Booking Items: ${state.makeBookingItems}");
-              debugPrint("Make Booking Items: ${state.selectedMakeBookingItem}");
-              return SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: CustomChipSelection(
-                  onSelected: (int index) {
-                    context.read<BookingCubit>().selectMakeBookingItem(index);
-                  },
-                  items: state.makeBookingItems ?? [],
-                  width: 181,
-                  height: 45,
-                  scrollDirection: Axis.horizontal,
-                  selectedItems:
-                      state.selectedMakeBookingItem ?? [],
+              return Padding(
+                padding: const EdgeInsets.only(
+                    left: 16.0, right: 16.0, top: 150),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CustomButton(
+                        onPressed: () {
+                          debugPrint("Selected Item: ${state
+                              .selectedMakeBookingItem}");
+                          Navigator.pushNamed(context, HomeService.id);
+                          if (state.selectedMakeBookingItem!.contains(
+                              "Home Service")) {
+                            Navigator.pushNamed(context, HomeService.id);
+                          }
+                        },
+                        child: const Text(
+                          'NEXT',
+                          style: TextStyle(
+                            color: Color(0xFF212121),
+                            fontSize: 14,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w500,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
+          ),
+          const SizedBox(
+            height: 20,
           ),
         ],
       ),
