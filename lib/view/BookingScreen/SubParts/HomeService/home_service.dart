@@ -15,6 +15,10 @@ class HomeService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController addressController = TextEditingController();
+    TextEditingController area = TextEditingController();
+    TextEditingController pincode = TextEditingController();
+    TextEditingController landMark = TextEditingController();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(412, 221),
@@ -33,7 +37,7 @@ class HomeService extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(Icons.arrow_back_ios, color: Pallet.white)),
+                      child: const Icon(Icons.arrow_back_ios, color: Pallet.white)),
                   Text(
                     "Home Booking",
                     style:
@@ -63,7 +67,7 @@ class HomeService extends StatelessWidget {
                 const SizedBox(
                   height: 37,
                 ),
-                Text(
+                const Text(
                   'Fill Address Details',
                   style: TextStyle(
                     color: Color(0xB2212121),
@@ -85,6 +89,9 @@ class HomeService extends StatelessWidget {
                     height: 0,
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Container(
                     width: 380,
                     height: 45,
@@ -94,7 +101,91 @@ class HomeService extends StatelessWidget {
                     ),
                     child: CustomTextField(
                       style: const TextStyle(color: Colors.black),
-                      controller: TextEditingController(),
+                      controller: addressController,
+                      hintText: "Address",
+                    )),
+                const SizedBox(
+                  height: 28,
+                ),
+                const Text(
+                  'Area',
+                  style: TextStyle(
+                    color: Color(0xB2212121),
+                    fontSize: 16,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 380,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF4F4F4),
+                      border: Border.all(color: const Color(0xFFF4F4F4)),
+                    ),
+                    child: CustomTextField(
+                      style: const TextStyle(color: Colors.black),
+                      controller: area,
+                      hintText: "Area",
+                    )),
+                const SizedBox(
+                  height: 28,
+                ),
+                const Text(
+                  'Pincode',
+                  style: TextStyle(
+                    color: Color(0xB2212121),
+                    fontSize: 16,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 380,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF4F4F4),
+                      border: Border.all(color: const Color(0xFFF4F4F4)),
+                    ),
+                    child: CustomTextField(
+                      style: const TextStyle(color: Colors.black),
+                      controller: pincode,
+                      hintText: "Pincode",
+                    )),
+                const SizedBox(
+                  height: 28,
+                ),
+                const Text(
+                  'Landmark (optional)',
+                  style: TextStyle(
+                    color: Color(0xB2212121),
+                    fontSize: 16,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 380,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF4F4F4),
+                      border: Border.all(color: const Color(0xFFF4F4F4)),
+                    ),
+                    child: CustomTextField(
+                      style: const TextStyle(color: Colors.black),
+                      controller: landMark,
                       hintText: "Address",
                     )),
                 const Spacer(),
@@ -118,7 +209,7 @@ class HomeService extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 17,
+                  height: 30,
                 ),
               ],
             ),
