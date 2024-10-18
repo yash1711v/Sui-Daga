@@ -38,7 +38,7 @@ class MainScreen extends StatelessWidget {
             currentPage: state.index ?? 0,
             scrollController: scrollController,
             onTap: (int i) {
-              context.read<MainScreenCubit>().changeIndex(i);
+              context.read<MainScreenCubit>().changeIndex(i, context);
             },
           );
         },

@@ -9,8 +9,9 @@ import 'package:sui_daga/style/Pallet.dart';
 import 'package:sui_daga/view/SplashScreen/splash_screen.dart';
 
 import 'controllers/LoginScreenController/login_cubit.dart';
+import 'flavors/config/flavor_config.dart';
 
-void main() {
+Future mainCommon() async {
   runApp(const MyApp());
 }
 
@@ -42,11 +43,11 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          title: "Sui Daga",
+          title: FlavorConfig.instance.appName,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: Routes.generateRoute,
           theme: ThemeData(
-            appBarTheme:  AppBarTheme(
+            appBarTheme:  const AppBarTheme(
                 foregroundColor: Colors.transparent,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
