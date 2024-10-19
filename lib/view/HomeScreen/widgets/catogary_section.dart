@@ -1,4 +1,5 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
 import 'package:sui_daga/models/HomeScreenModels/CategoriesModel/categories_model.dart';
 import 'package:sui_daga/widget/custom_button.dart';
 
@@ -77,7 +78,9 @@ class CategorySection extends StatelessWidget {
                           "Make Booking",
                           style: Style.h15,
                         ),
-                        onPressed: () {})),
+                        onPressed: () {
+                          context.read<MainScreenCubit>().jumpToBookingScreen();
+                        })),
               ],
             ),
           )

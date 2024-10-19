@@ -3,6 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class CustomCalendar extends StatefulWidget {
+  final DateTime? selectedDate;
+  final void Function(DateTime) onDateSelected;
+
+  const CustomCalendar({super.key, this.selectedDate, required this.onDateSelected});
   @override
   _CustomCalendarState createState() => _CustomCalendarState();
 }
@@ -15,7 +19,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
   void initState() {
     super.initState();
     // Set the current date as the default selected date
-    _selectedDate = DateTime(_currentDate.year, _currentDate.month, _currentDate.day);
+    _selectedDate =  widget.selectedDate ?? DateTime(_currentDate.year, _currentDate.month, _currentDate.day);
   }
 
   void _previousMonth() {
@@ -56,9 +60,11 @@ class _CustomCalendarState extends State<CustomCalendar> {
     if (dayString.isNotEmpty) {
       final selectedDay = DateTime(_currentDate.year, _currentDate.month, int.parse(dayString));
        if(!ispast){
+         widget.onDateSelected(selectedDay);
          setState(() {
            _selectedDate = selectedDay;
          });
+         debugPrint('Selected date: ${DateFormat("dd/MM/yy").format(_selectedDate!)}');
        }
     }
   }
@@ -87,8 +93,8 @@ class _CustomCalendarState extends State<CustomCalendar> {
             side: const BorderSide(width: 0.61, color: Color(0xFFEAEAEA)),
             borderRadius: BorderRadius.circular(7.33),
           ),
-          shadows: [
-            const BoxShadow(
+          shadows: const [
+            BoxShadow(
               color: Color(0x07AAAAAA),
               blurRadius: 19.54,
               offset: Offset(0, 2.44),

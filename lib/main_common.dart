@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sui_daga/controllers/BookingController/HomeService/home_service_cubit.dart';
+import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/booking_cubit.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_cubit.dart';
 import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
                 HomeCubit()..getHomeData(),
           ),
           BlocProvider<BookingCubit>(
-            create: (BuildContext context) => BookingCubit(),
+            create: (BuildContext context) => BookingCubit()..setBookingScreen(),
           ),
           BlocProvider<MainScreenCubit>(
             create: (BuildContext context) =>
@@ -44,7 +45,11 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<HomeServiceCubit>(
             create: (BuildContext context) =>
-            HomeServiceCubit(),
+            HomeServiceCubit()..setHomeServiceScreen(),
+          ),
+          BlocProvider<MeasurementCubit>(
+            create: (BuildContext context) =>
+                MeasurementCubit()..setMeasurementScreen(),
           ),
         ],
         child: MaterialApp(
