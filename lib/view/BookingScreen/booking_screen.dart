@@ -97,9 +97,15 @@ class BookingScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: CustomDropDown(
-              items: const ["Kurti", "Pant", "Dress", "Gown"],
-              onChanged: (String? value) {},
+            child: Row(
+              children: [
+                Expanded(
+                  child: CustomDropDown(
+                    items: const ["Kurti", "Pant", "Dress", "Gown"],
+                    onChanged: (String? value) {},
+                  ),
+                ),
+              ],
             ),
           ),
           const Padding(
@@ -123,38 +129,44 @@ class BookingScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Container(
-                width: 380,
-                height: 45,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF4F4F4),
-                  border: Border.all(color: const Color(0xFFF4F4F4)),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                      width: 380,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF4F4F4),
+                        border: Border.all(color: const Color(0xFFF4F4F4)),
+                      ),
+                      child: CustomTextField(
+                        readOnly: true,
+                        style: const TextStyle(color: Colors.black),
+                        controller: TextEditingController(text: "dd/mm/yyyy"),
+                        hintText: "Select",
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  Dialog(
+                                    backgroundColor: Colors.transparent,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
+                                      child: CustomCalendar(),
+                                    ),
+                                  ));
+                        },
+                        suffix: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: SvgPicture.asset(
+                            "assets/Images/Icons/calender_icon.svg",
+                          ),
+                        ),
+                      )),
                 ),
-                child: CustomTextField(
-                  readOnly: true,
-                  style: const TextStyle(color: Colors.black),
-                  controller: TextEditingController(text: "dd/mm/yyyy"),
-                  hintText: "Select",
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            Dialog(
-                              backgroundColor: Colors.transparent,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: CustomCalendar(),
-                              ),
-                            ));
-                  },
-                  suffix: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: SvgPicture.asset(
-                      "assets/Images/Icons/calender_icon.svg",
-                    ),
-                  ),
-                )),
+              ],
+            ),
           ),
           const Padding(
             padding: EdgeInsets.only(
@@ -175,23 +187,26 @@ class BookingScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          BlocBuilder<BookingCubit, BookingState>(
-            builder: (context, state) {
-              return SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: CustomChipSelection(
-                  onSelected: (int index) {
-                    context.read<BookingCubit>().selectMakeBookingItem(index);
-                  },
-                  items: state.makeBookingItems ?? [],
-                  width: 181,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: BlocBuilder<BookingCubit, BookingState>(
+              builder: (context, state) {
+                return SizedBox(
+                  width: double.infinity,
                   height: 45,
-                  scrollDirection: Axis.horizontal,
-                  selectedItems: state.selectedMakeBookingItem ?? [],
-                ),
-              );
-            },
+                  child: CustomChipSelection(
+                    onSelected: (int index) {
+                      context.read<BookingCubit>().selectMakeBookingItem(index);
+                    },
+                    items: state.makeBookingItems ?? [],
+                    width: 181,
+                    height: 45,
+                    scrollDirection: Axis.horizontal,
+                    selectedItems: state.selectedMakeBookingItem ?? [],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
