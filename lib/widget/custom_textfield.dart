@@ -26,15 +26,45 @@ class CustomTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final List<TextInputFormatter>? inputFormatters;
   final bool? enabledInteractiveSelection;
+  final FocusNode? focusNode;
   final TextStyle? style;
+
   final void Function()? onTap;
 
-  const CustomTextField({super.key, this.hintText, required this.controller, this.keyboardType, this.obscureText, this.readOnly, this.enabled, this.maxLines, this.minLines, this.maxLength, this.maxWords, this.minWords, this.expands, this.maxLengthEnforced, this.onChanged, this.onEditingComplete, this.onFieldSubmitted, this.onSaved, this.validator, this.inputFormatters, this.enabledInteractiveSelection, this.prefix, this.suffix, this.onTap, this.style});
+  const CustomTextField({
+    super.key,
+    this.hintText,
+    required this.controller,
+    this.keyboardType,
+    this.obscureText,
+    this.readOnly,
+    this.enabled,
+    this.maxLines,
+    this.minLines,
+    this.maxLength,
+    this.maxWords,
+    this.minWords,
+    this.expands,
+    this.maxLengthEnforced,
+    this.onChanged,
+    this.onEditingComplete,
+    this.onFieldSubmitted,
+    this.onSaved,
+    this.validator,
+    this.inputFormatters,
+    this.enabledInteractiveSelection,
+    this.prefix,
+    this.suffix,
+    this.onTap,
+    this.style,
+    this.focusNode,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       style: style,
+      focusNode: focusNode,
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText ?? false,
@@ -74,7 +104,8 @@ class CustomTextField extends StatelessWidget {
 
 class NumericTextInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     // Only allow digits
     final regex = RegExp(r'^[0-9]*$');
     if (regex.hasMatch(newValue.text)) {

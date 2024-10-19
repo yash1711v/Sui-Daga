@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sui_daga/controllers/BookingController/HomeService/home_service_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/booking_cubit.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_cubit.dart';
 import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
@@ -40,6 +41,10 @@ class MyApp extends StatelessWidget {
           BlocProvider<MainScreenCubit>(
             create: (BuildContext context) =>
             MainScreenCubit()..getMainScreenData(),
+          ),
+          BlocProvider<HomeServiceCubit>(
+            create: (BuildContext context) =>
+            HomeServiceCubit(),
           ),
         ],
         child: MaterialApp(
