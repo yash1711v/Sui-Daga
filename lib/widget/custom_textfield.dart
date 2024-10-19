@@ -80,7 +80,7 @@ class CustomTextField extends StatelessWidget {
       onTap: onTap,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         fillColor: Colors.transparent,
         prefixIcon: prefix,
         suffixIcon: suffix,

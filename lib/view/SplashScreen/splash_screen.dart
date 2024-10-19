@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sui_daga/controllers/SplashScreen/splash_screen_cubit.dart';
 import 'package:sui_daga/controllers/SplashScreen/splash_screen_state.dart';
 
 import '../../routes/routes_helper.dart';
-import '../LoginScreen/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static const id = "/";

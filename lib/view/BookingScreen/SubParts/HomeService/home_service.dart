@@ -20,10 +20,6 @@ class HomeService extends StatefulWidget {
 }
 
 class _HomeServiceState extends State<HomeService> {
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController areaController = TextEditingController();
-  final TextEditingController pincodeController = TextEditingController();
-  final TextEditingController landmarkController = TextEditingController();
 
   final ScrollController _scrollController = ScrollController();
 
@@ -56,10 +52,6 @@ class _HomeServiceState extends State<HomeService> {
 
   @override
   void dispose() {
-    addressController.dispose();
-    areaController.dispose();
-    pincodeController.dispose();
-    landmarkController.dispose();
     _addressFocus.dispose();
     _areaFocus.dispose();
     _pincodeFocus.dispose();
@@ -154,7 +146,7 @@ class _HomeServiceState extends State<HomeService> {
                                       color: const Color(0xFFF4F4F4)),
                                 ),
                                 child: CustomTextField(
-                                  controller: addressController,
+                                  controller: state.addressController ?? TextEditingController(),
                                   focusNode: _addressFocus,
                                   hintText: "Address",
                                   onChanged: (value) {
@@ -213,7 +205,7 @@ class _HomeServiceState extends State<HomeService> {
                                       color: const Color(0xFFF4F4F4)),
                                 ),
                                 child: CustomTextField(
-                                  controller: areaController,
+                                  controller: state.areaController ?? TextEditingController(),
                                   focusNode: _areaFocus,
                                   hintText: "Area",
                                   onChanged: (value) {
@@ -272,7 +264,7 @@ class _HomeServiceState extends State<HomeService> {
                                       color: const Color(0xFFF4F4F4)),
                                 ),
                                 child: CustomTextField(
-                                  controller: pincodeController,
+                                  controller: state.pincodeController ?? TextEditingController(),
                                   focusNode: _pincodeFocus,
                                   maxLength: 6,
                                   inputFormatters: [
@@ -336,7 +328,7 @@ class _HomeServiceState extends State<HomeService> {
                                       color: const Color(0xFFF4F4F4)),
                                 ),
                                 child: CustomTextField(
-                                  controller: landmarkController,
+                                  controller: state.landmarkController ?? TextEditingController(),
                                   focusNode: _landmarkFocus,
                                   hintText: "Landmark",
                                   onChanged: (value) {
@@ -372,7 +364,7 @@ class _HomeServiceState extends State<HomeService> {
           ),
         ),
       ),
-      bottomNavigationBar:         Padding(
+      bottomNavigationBar:  Padding(
         padding: const EdgeInsets.only(left: 16.0,right: 16,bottom: 16),
         child: Row(
           children: [

@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sui_daga/controllers/BookingController/booking_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/booking_state.dart';
-import 'package:sui_daga/view/BookingScreen/SubParts/HomeService/home_service.dart';
 import 'package:sui_daga/widget/custom_textfield.dart';
 
 import '../../routes/routes_helper.dart';
@@ -95,23 +94,47 @@ class BookingScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: CustomDropDown(
-                    items: const ["Kurti", "Pant", "Dress", "Gown"],
-                    onChanged: (String? value) {},
-                  ),
+          BlocBuilder<BookingCubit, BookingState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomDropDown(
+                            items: const ["Kurti", "Pant", "Dress", "Gown"],
+                            onChanged: (String? value) {
+                              context
+                                  .read<BookingCubit>()
+                                  .onSelectStitching(value);
+                            },
+                            hintText: '',
+                          ),
+                        ),
+                      ],
+                    ),
+                    Visibility(
+                        visible: state.selectedStitchingItem != null &&
+                            state.selectedStitchingItem!.isNotEmpty,
+                        child: Text(
+                          state.selectedStitchingItem ?? "",
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
+                        )),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
           const Padding(
             padding: EdgeInsets.only(
               left: 16.0,
-              top: 28,
+              top: 15,
             ),
             child: Text(
               'Ready On',
@@ -129,43 +152,69 @@ class BookingScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                      width: 380,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF4F4F4),
-                        border: Border.all(color: const Color(0xFFF4F4F4)),
-                      ),
-                      child: CustomTextField(
-                        readOnly: true,
-                        style: const TextStyle(color: Colors.black),
-                        controller: TextEditingController(text: "dd/mm/yyyy"),
-                        hintText: "Select",
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) =>
-                                  Dialog(
-                                    backgroundColor: Colors.transparent,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: CustomCalendar(),
-                                    ),
-                                  ));
-                        },
-                        suffix: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: SvgPicture.asset(
-                            "assets/Images/Icons/calender_icon.svg",
-                          ),
+            child: BlocBuilder<BookingCubit, BookingState>(
+              builder: (context, state) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                              width: 380,
+                              height: 45,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF4F4F4),
+                                border: Border.all(color: const Color(0xFFF4F4F4)),
+                              ),
+                              child: CustomTextField(
+                                readOnly: true,
+                                style: const TextStyle(color: Colors.black),
+                                controller: state.dateController ?? TextEditingController(),
+                                hintText: "Select",
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          Dialog(
+                                            backgroundColor: Colors.transparent,
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 16.0),
+                                              child: CustomCalendar(
+                                                onDateSelected: (DateTime date) {
+                                                  context
+                                                      .read<BookingCubit>()
+                                                      .onSelectDate(date);
+                                                  Navigator.pop(context);
+                                                },),
+                                            ),
+                                          ));
+                                },
+                                suffix: Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: SvgPicture.asset(
+                                    "assets/Images/Icons/calender_icon.svg",
+                                  ),
+                                ),
+                              )),
+
                         ),
-                      )),
-                ),
-              ],
+                      ],
+                    ),
+                    Visibility(
+                        visible: state.dateError != null &&
+                            state.dateError!.isNotEmpty,
+                        child: Text(
+                          state.dateError ?? "",
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
+                        )),
+                  ],
+                );
+              },
             ),
           ),
           const Padding(
@@ -187,13 +236,13 @@ class BookingScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: BlocBuilder<BookingCubit, BookingState>(
-              builder: (context, state) {
-                return SizedBox(
-                  width: double.infinity,
+          BlocBuilder<BookingCubit, BookingState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: SizedBox(
                   height: 45,
+                  width: double.infinity,
                   child: CustomChipSelection(
                     onSelected: (int index) {
                       context.read<BookingCubit>().selectMakeBookingItem(index);
@@ -203,28 +252,25 @@ class BookingScreen extends StatelessWidget {
                     height: 45,
                     scrollDirection: Axis.horizontal,
                     selectedItems: state.selectedMakeBookingItem ?? [],
+                    radius: 5,
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ],
       ),
-
       bottomNavigationBar: BlocBuilder<BookingCubit, BookingState>(
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0, right: 16.0,bottom: 90),
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 90),
             child: Row(
               children: [
                 Expanded(
                   child: CustomButton(
                     onPressed: () {
-                      if (state.selectedMakeBookingItem!.contains(
-                          "Home Service")) {
-                        Navigator.pushNamed(context, HomeService.id);
-                      }
+                      context.read<BookingCubit>().checkingTheFields(context);
+
                     },
                     child: const Text(
                       'NEXT',
