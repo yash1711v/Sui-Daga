@@ -20,7 +20,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(412, 221),
-
         child: CustomAppBar(
           textUnderLogo: Padding(
             padding: const EdgeInsets.only(
@@ -69,28 +68,34 @@ class HomeScreen extends StatelessWidget {
             ),
             BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
-                  return Banners(
-                    banners: const [
-                      "assets/Images/HomeScreenCategories/banner_image1.png",
-                      "assets/Images/HomeScreenCategories/banner_image2.png"
-                    ],
-                    index: state.index ?? 0,
-                    onPageChanged: (int value) {
-                      context.read<HomeCubit>().changeIndex(value);
-                    },
-                    pageController: state.pageController,
-                  );
-
+                return Banners(
+                  banners: const [
+                    "assets/Images/HomeScreenCategories/banner_image1.png",
+                    "assets/Images/HomeScreenCategories/banner_image2.png"
+                  ],
+                  index: state.index ?? 0,
+                  onPageChanged: (int value) {
+                    context.read<HomeCubit>().changeIndex(value);
+                  },
+                  pageController: state.pageController,
+                );
               },
             ),
             const SizedBox(
               height: 36,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 12.0),
-              child: Creations(),
+            const Creations(
+              images: [
+                'assets/Images/HomeScreenCategories/creation_1.png',
+                'assets/Images/HomeScreenCategories/creation_2.png',
+                'assets/Images/HomeScreenCategories/creation_3.png',
+                'assets/Images/HomeScreenCategories/creation_4.png',
+                'assets/Images/HomeScreenCategories/creation_5.png',
+              ],
             ),
-
+            const SizedBox(
+              height: 25,
+            ),
           ],
         ),
       ),
