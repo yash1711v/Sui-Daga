@@ -5,6 +5,7 @@ import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/mea
 import 'package:sui_daga/controllers/BookingController/booking_cubit.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_cubit.dart';
 import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
+import 'package:sui_daga/controllers/OtpController/otp_cubit.dart';
 import 'package:sui_daga/controllers/SplashScreen/splash_screen_cubit.dart';
 import 'package:sui_daga/routes/routes.dart';
 import 'package:sui_daga/style/Pallet.dart';
@@ -50,6 +51,10 @@ class MyApp extends StatelessWidget {
           BlocProvider<MeasurementCubit>(
             create: (BuildContext context) =>
                 MeasurementCubit()..setMeasurementScreen(),
+          ),
+          BlocProvider<OtpCubit>(
+            create: (BuildContext context) =>
+            OtpCubit()..setUpOtpScreen(),
           ),
         ],
         child: MaterialApp(
