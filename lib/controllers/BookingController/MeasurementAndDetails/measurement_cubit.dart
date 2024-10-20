@@ -259,7 +259,7 @@ class MeasurementCubit extends Cubit<MeasurementState> {
               damanError: 'Daman is required'));
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('All values are correct'),
+              content: Text('All fill the required fields'),
             ),
           );
         }
