@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
               builder: (context, state) {
                 return Banners(
                   banners: const [
-                    "assets/Images/HomeScreenCategories/banner_image1.png",
+                    "assets/Images/HomeScreenCategories/banner_image2.png",
                     "assets/Images/HomeScreenCategories/banner_image2.png"
                   ],
                   index: state.index ?? 0,

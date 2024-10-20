@@ -15,7 +15,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController numberController = TextEditingController();
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -116,17 +115,8 @@ class LoginScreen extends StatelessWidget {
                           ),
                         child: PhoneFieldHint(
                           autoFocus: true,
-                          controller: numberController,
+                          controller: context.read<LoginCubit>().numberController,
                           child: TextField(
-                            onTap: () async {
-                                  try {
-                                  final value = await SmsAutoFill().hint;
-                                  if (value != null) {
-                                    numberController.text = value;}
-                                  } catch (e) {
-                                    debugPrint("error: $e");
-                                  }
-                           },
                             onChanged: (value) {
                               context.read<LoginCubit>().onNumberChange(value);
                             },

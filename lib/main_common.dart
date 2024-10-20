@@ -6,6 +6,7 @@ import 'package:sui_daga/controllers/BookingController/booking_cubit.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_cubit.dart';
 import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
 import 'package:sui_daga/controllers/OtpController/otp_cubit.dart';
+import 'package:sui_daga/controllers/ProfileScreenController/profile_cubit.dart';
 import 'package:sui_daga/controllers/SplashScreen/splash_screen_cubit.dart';
 import 'package:sui_daga/routes/routes.dart';
 import 'package:sui_daga/style/Pallet.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<LoginCubit>(
             create: (BuildContext context) =>
-            LoginCubit(),
+            LoginCubit()..setUpLoginScreen(),
           ),
           BlocProvider<HomeCubit>(
             create: (BuildContext context) =>
@@ -55,6 +56,10 @@ class MyApp extends StatelessWidget {
           BlocProvider<OtpCubit>(
             create: (BuildContext context) =>
             OtpCubit()..setUpOtpScreen(),
+          ),
+          BlocProvider<ProfileCubit>(
+            create: (BuildContext context) =>
+            ProfileCubit()..setProfileScreen(),
           ),
         ],
         child: MaterialApp(
