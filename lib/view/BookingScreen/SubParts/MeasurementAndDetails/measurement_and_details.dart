@@ -7,6 +7,7 @@ import '../../../../routes/routes_helper.dart';
 import '../../../../style/Pallet.dart';
 import '../../../../style/style.dart';
 import '../../../../widget/CustomChipSelection/custom_chip_selection.dart';
+import '../../../../widget/Helper/widgets.dart';
 import '../../../../widget/custom_app_bar.dart';
 import '../../../../widget/custom_button.dart';
 import '../../../../widget/drop_down.dart';
@@ -42,7 +43,7 @@ class MeasurementAndDetails extends StatelessWidget {
                   Text(
                     "Measurement Details",
                     style:
-                    Style.h18.copyWith(color: Pallet.primary, fontSize: 16),
+                        Style.h18.copyWith(color: Pallet.primary, fontSize: 16),
                   ),
                 ],
               ),
@@ -113,7 +114,7 @@ class MeasurementAndDetails extends StatelessWidget {
                               ),
                               Visibility(
                                   visible: state.selectMeasureMentError !=
-                                      null &&
+                                          null &&
                                       state.selectMeasureMentError!.isNotEmpty,
                                   child: Text(
                                     state.selectMeasureMentError ?? "",
@@ -211,7 +212,7 @@ class MeasurementAndDetails extends StatelessWidget {
                         underline: const SizedBox(),
                         // Hides the default underline
                         isExpanded:
-                        true, // Makes dropdown take full width// Optional: Makes the dropdown transparent
+                            true, // Makes dropdown take full width// Optional: Makes the dropdown transparent
                       ),
                     ),
                     const SizedBox(
@@ -240,7 +241,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                           .onLengthChange(value);
                                     },
                                     keyboardType: TextInputType.number,
-                                    controller: state.lengthController ?? TextEditingController(),
+                                    controller: state.lengthController ??
+                                        TextEditingController(),
                                     hintText: "Length",
                                   )),
                               Visibility(
@@ -271,7 +273,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
-                                    controller: state.chestController ?? TextEditingController(),
+                                    controller: state.chestController ??
+                                        TextEditingController(),
                                     onChanged: (value) {
                                       context
                                           .read<MeasurementCubit>()
@@ -290,7 +293,6 @@ class MeasurementAndDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
                             ],
                           );
                         },
@@ -320,7 +322,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                           .read<MeasurementCubit>()
                                           .onWaistChange(value);
                                     },
-                                    controller: state.waistController ?? TextEditingController(),
+                                    controller: state.waistController ??
+                                        TextEditingController(),
                                     hintText: "Waist",
                                   )),
                               Visibility(
@@ -332,7 +335,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                     color: Colors.red,
                                     fontSize: 12,
                                   ),
-                                ),),
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -355,10 +359,10 @@ class MeasurementAndDetails extends StatelessWidget {
                                           .onHipChange(value);
                                     },
                                     keyboardType: TextInputType.number,
-                                    controller: state.hipController ?? TextEditingController(),
+                                    controller: state.hipController ??
+                                        TextEditingController(),
                                     hintText: "Hip",
                                   )),
-
                               Visibility(
                                 visible: state.hipError != null &&
                                     state.hipError!.isNotEmpty,
@@ -368,7 +372,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                     color: Colors.red,
                                     fontSize: 12,
                                   ),
-                                ),),
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -398,7 +403,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                           .onShoulderChange(value);
                                     },
                                     keyboardType: TextInputType.number,
-                                    controller: state.shoulderController ?? TextEditingController(),
+                                    controller: state.shoulderController ??
+                                        TextEditingController(),
                                     hintText: "Shoulder",
                                   )),
                               Visibility(
@@ -434,10 +440,10 @@ class MeasurementAndDetails extends StatelessWidget {
                                           .read<MeasurementCubit>()
                                           .onArmChange(value);
                                     },
-                                    controller: state.armController ?? TextEditingController(),
+                                    controller: state.armController ??
+                                        TextEditingController(),
                                     hintText: "Arm",
                                   )),
-
                               Visibility(
                                 visible: state.armError != null &&
                                     state.armError!.isNotEmpty,
@@ -446,7 +452,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                   style: const TextStyle(
                                     color: Colors.red,
                                     fontSize: 12,
-                                  ),),
+                                  ),
+                                ),
                               )
                             ],
                           ),
@@ -477,7 +484,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                           .read<MeasurementCubit>()
                                           .onWristChange(value);
                                     },
-                                    controller: state.wristController ?? TextEditingController(),
+                                    controller: state.wristController ??
+                                        TextEditingController(),
                                     hintText: "Wrist",
                                   )),
                               Visibility(
@@ -513,7 +521,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                           .read<MeasurementCubit>()
                                           .onSleetsChange(value);
                                     },
-                                    controller: state.sleetsController ?? TextEditingController(),
+                                    controller: state.sleetsController ??
+                                        TextEditingController(),
                                     hintText: "Sleeves",
                                   )),
                               Visibility(
@@ -551,7 +560,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
-                                    controller: state.colarController ?? TextEditingController(),
+                                    controller: state.colarController ??
+                                        TextEditingController(),
                                     onChanged: (value) {
                                       context
                                           .read<MeasurementCubit>()
@@ -592,7 +602,8 @@ class MeasurementAndDetails extends StatelessWidget {
                                           .onDamanChange(value);
                                     },
                                     keyboardType: TextInputType.number,
-                                    controller: state.damanController ?? TextEditingController(),
+                                    controller: state.damanController ??
+                                        TextEditingController(),
                                     hintText: "Daman",
                                   )),
                               Visibility(
@@ -621,30 +632,36 @@ class MeasurementAndDetails extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
-        child: Row(
-          children: [
-            Expanded(
-              child: CustomButton(
-                onPressed: () {
-                  // Handle next action
-                  context.read<MeasurementCubit>().onCheckAllValues(context);
-                },
-                child: const Text(
-                  'REQUEST BOOKING',
-                  style: TextStyle(
-                    color: Color(0xFF212121),
-                    fontSize: 14,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
+      bottomNavigationBar: BlocBuilder<MeasurementCubit, MeasurementState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () {
+                      // Handle next action
+                      context
+                          .read<MeasurementCubit>()
+                          .onCheckAllValues(context);
+                    },
+                    child: const Text(
+                      'REQUEST BOOKING',
+                      style: TextStyle(
+                        color: Color(0xFF212121),
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                        height: 0,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

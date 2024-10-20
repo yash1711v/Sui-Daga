@@ -20,6 +20,6 @@ class LoginCubit extends Cubit<LoginState> {
 
   void onLogin({required BuildContext context,}) {
     // Login logic
-    Navigator.pushReplacementNamed(context, MainScreen.id);
+    Navigator.pushReplacementNamed(context, OtpScreen.id);
   }
 }

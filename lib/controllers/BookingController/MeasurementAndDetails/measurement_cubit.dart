@@ -233,10 +233,40 @@ class MeasurementCubit extends Cubit<MeasurementState> {
         }
       }
     } else {
+      if (state.selectMeasureMentError == null &&
+          state.lengthError == null &&
+          state.chestError == null &&
+          state.waistError == null &&
+          state.hipError == null &&
+          state.shoulderError == null &&
+          state.armError == null &&
+          state.wristError == null &&
+          state.sleetsError == null &&
+          state.colarError == null &&
+          state.damanError == null) {
+        {
+          emit(state.copyWith(
+              selectMeasureMentError: 'Select measurement',
+              chestError: 'Chest is required',
+              lengthError: 'Length is required',
+              waistError: 'Waist is required',
+              hipError: 'Hip is required',
+              shoulderError: 'Shoulder is required',
+              armError: 'Arm is required',
+              wristError: 'Wrist is required',
+              sleetsError: 'Sleets is required',
+              colarError: 'Colar is required',
+              damanError: 'Daman is required'));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('All values are correct'),
+            ),
+          );
+        }
+
       if (state.selectMeasureMentError == null) {
         emit(state.copyWith(selectMeasureMentError: 'Select measurement'));
       }
-
         if (state.lengthError == null) {
           emit(state.copyWith(lengthError: 'Length is required'));
         }
@@ -268,36 +298,6 @@ class MeasurementCubit extends Cubit<MeasurementState> {
           emit(state.copyWith(chestError: 'chest is required'));
         }
 
-          if (state.selectMeasureMentError == null &&
-              state.lengthError == null &&
-              state.chestError == null &&
-              state.waistError == null &&
-              state.hipError == null &&
-              state.shoulderError == null &&
-              state.armError == null &&
-              state.wristError == null &&
-              state.sleetsError == null &&
-              state.colarError == null &&
-              state.damanError == null) {
-            {
-              emit(state.copyWith(
-                  selectMeasureMentError: 'Select measurement',
-                  chestError: 'Chest is required',
-                  lengthError: 'Length is required',
-                  waistError: 'Waist is required',
-                  hipError: 'Hip is required',
-                  shoulderError: 'Shoulder is required',
-                  armError: 'Arm is required',
-                  wristError: 'Wrist is required',
-                  sleetsError: 'Sleets is required',
-                  colarError: 'Colar is required',
-                  damanError: 'Daman is required'));
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('All values are correct'),
-                ),
-              );
-            }
           }
 
       vibratePhone();

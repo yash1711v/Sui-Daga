@@ -57,10 +57,13 @@ class BookingCubit extends Cubit<BookingState> {
         emit(state.copyWith(dateError: 'Select date'));
       }
       vibratePhone();
+      Navigator.pop(context);
     } else {
       if (state.selectedMakeBookingItem!.contains("Home Service")) {
+        Navigator.pop(context);
         Navigator.pushNamed(context, HomeService.id);
       } else {
+        Navigator.pop(context);
         Navigator.pushNamed(context, MeasurementAndDetails.id);
       }
     }

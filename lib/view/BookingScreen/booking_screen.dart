@@ -8,6 +8,7 @@ import '../../routes/routes_helper.dart';
 import '../../style/Pallet.dart';
 import '../../style/style.dart';
 import '../../widget/CustomChipSelection/custom_chip_selection.dart';
+import '../../widget/Helper/widgets.dart';
 import '../../widget/custom_app_bar.dart';
 import '../../widget/custom_button.dart';
 import '../../widget/custom_calender.dart';
@@ -269,6 +270,7 @@ class BookingScreen extends StatelessWidget {
                 Expanded(
                   child: CustomButton(
                     onPressed: () {
+                      showLoader(context);
                       context.read<BookingCubit>().checkingTheFields(context);
 
                     },
