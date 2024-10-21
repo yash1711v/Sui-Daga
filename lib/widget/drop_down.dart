@@ -27,7 +27,7 @@ class CustomDropDown extends StatelessWidget {
         child: DropdownButtonFormField<String>(
           value: selectedValue,
           style: style,
-          hint:  hintText.isNotEmpty? Text(hintText): Text("${items[0]},${items[1]},${items[2]},${items[3]}...") ,
+          hint:  hintText.isNotEmpty? Text(hintText): Text("${items[0]},${items[1]},${items[2]}...") ,
           decoration: const InputDecoration(
             border: InputBorder.none,
           ),

@@ -64,12 +64,8 @@ class ProfileScreen extends StatelessWidget {
                           radius: 48,
                           backgroundImage: isValidUrl(state.profileModel!
                               .profileImage) ? NetworkImage(state.profileModel!
-                              .profileImage) : (state.profileModel!
-                              .profileImage is File ?FileImage(File(state.profileModel!
-                              .profileImage) ): AssetImage(state.profileModel!
-                              .profileImage)),
-                      ),
-                    );
+                              .profileImage) :AssetImage("assets/Images/dummyProfileImage.png")),
+                      );
                   },
                 ),
               ],
@@ -113,10 +109,7 @@ class ProfileScreen extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                SvgPicture.asset("assets/Images/editIcon.svg")
+
               ],
             ),
             const SizedBox(
@@ -311,6 +304,9 @@ class ProfileScreen extends StatelessWidget {
                                 .read<ProfileCubit>()
                                 .nameFocusNode,
                             hintText: 'Edit your name',
+                            onChanged: (value) {
+                              context.read<ProfileCubit>().onChangeName(value);
+                            },
                             suffix: Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: SvgPicture.asset(
@@ -371,11 +367,6 @@ class ProfileScreen extends StatelessWidget {
                                 .numberFocusNode,
                             readOnly: true,
                             hintText: 'Edit your Number',
-                            suffix: Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: SvgPicture.asset(
-                                  "assets/Images/editIcon.svg"),
-                            ),
                             controller: context
                                 .read<ProfileCubit>()
                                 .numberController),
@@ -438,6 +429,9 @@ class ProfileScreen extends StatelessWidget {
                               child: SvgPicture.asset(
                                   "assets/Images/editIcon.svg"),
                             ),
+                            onChanged: (value) {
+                              context.read<ProfileCubit>().onChangeAddress(value);
+                            },
                             controller: context
                                 .read<ProfileCubit>()
                                 .addressControler),

@@ -37,16 +37,18 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void onLogin({required BuildContext context,}) {
-    showLoader(context);
-     _repo.login(number: (state.number ?? "").trim()).then((value) {
-       if(value['status']){
-         context.read<OtpCubit>().setPhoneNumber(state.number ?? "");
-         Navigator.pushReplacementNamed(context, OtpScreen.id);
-       }
-       else{
-         emit(LoginState(error: "Something went wrong",number: state.number));
-       }
-    });
-
+    if(state.number != null && state.number!.length == 10) {
+      showLoader(context);
+      _repo.login(number: (state.number ?? "").trim()).then((value) {
+        if (value['status']) {
+          context.read<OtpCubit>().setPhoneNumber(state.number ?? "");
+          Navigator.pushReplacementNamed(context, OtpScreen.id);
+        } else {
+          emit(LoginState(error: "Something went wrong", number: state.number));
+        }
+      });
+    } else {
+      emit(LoginState(error: "Please enter a valid number", number: state.number));
+    }
   }
 }

@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
               builder: (context, state) {
                 return Banners(
                   banners: const [
-                    "assets/Images/HomeScreenCategories/banner_image2.png",
+                    "assets/Images/HomeScreenCategories/banner_image1.png",
                     "assets/Images/HomeScreenCategories/banner_image2.png"
                   ],
                   index: state.index ?? 0,
@@ -95,6 +95,44 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(
               height: 25,
+            ),
+            Center(
+              child: SizedBox(
+                width: 400,
+                height: 500,
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: [
+                      "assets/Images/HomeScreenCategories/banner_image1.png",
+                      "assets/Images/HomeScreenCategories/banner_image2.png"
+                    ].length,
+                    itemBuilder: (context,index){
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Container(
+                          width: 381,
+                          height: 241.31,
+                          decoration: ShapeDecoration(
+                            image: DecorationImage(
+                              image: AssetImage([
+                                "assets/Images/HomeScreenCategories/banner_image1.png",
+                                "assets/Images/HomeScreenCategories/banner_image2.png"
+                              ][index]),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+            ),
+            const SizedBox(
+              height: 90,
             ),
           ],
         ),

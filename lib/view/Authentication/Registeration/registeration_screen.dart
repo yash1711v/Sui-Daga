@@ -4,6 +4,7 @@ import 'package:sui_daga/controllers/RegisteratonScreenController/registeration_
 import 'package:sui_daga/widget/custom_button.dart';
 
 import '../../../controllers/BookingController/booking_cubit.dart';
+import '../../../models/ProfileModel/profile_model.dart';
 import '../../../routes/routes_helper.dart';
 import '../../../style/Pallet.dart';
 import '../../../style/style.dart';
@@ -16,6 +17,7 @@ class RegisterationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(412, 221),
@@ -144,7 +146,7 @@ class RegisterationScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomDropDown(
-                            items: const ["Monthly", "Quartely", "yearly", "Gown"],
+                            items: const  ['Weekly', 'Monthly', 'Quarterly', 'Yearly'],
                             onChanged: (String? value) {
                               context
                                   .read<RegisterationCubit>()
@@ -185,6 +187,7 @@ class RegisterationScreen extends StatelessWidget {
             ),
             BlocBuilder<RegisterationCubit, RegisterationState>(
               builder: (context, state) {
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -192,7 +195,7 @@ class RegisterationScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomDropDown(
-                            items: const ["Casual", "Weeding", "Party", "Gown"],
+                            items: state.dresses ?? [],
                             onChanged: (String? value) {
                               context
                                   .read<RegisterationCubit>()

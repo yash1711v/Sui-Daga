@@ -29,6 +29,10 @@ class SplashScreen extends StatelessWidget {
                   Future.delayed(const Duration(milliseconds: 1),(){
                     Navigator.pushReplacementNamed(context, LoginScreen.id);
                   });
+                } else {
+                  Future.delayed(const Duration(milliseconds: 1),(){
+                    Navigator.pushReplacementNamed(context, MainScreen.id);
+                  });
                 }
               }
               return AnimatedContainer(

@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_state.dart';
 import 'package:sui_daga/models/ProfileModel/profile_model.dart';
 import 'package:sui_daga/routes/routes_helper.dart';
+
+import '../../repo/repository.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(const ProfileState());
@@ -15,6 +18,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   FocusNode nameFocusNode = FocusNode();
   FocusNode numberFocusNode = FocusNode();
   FocusNode addressFocusNode = FocusNode();
+  final Repo _repo = Repo();
 
   void setProfileScreen(ProfileModel profileModel) {
     emit(state.copyWith(profileModel: profileModel));
@@ -24,35 +28,70 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   void setProfilePic(BuildContext context) {
-    showDialog(context: context, builder: (context) {
-      return CupertinoAlertDialog(
-        title: const Text("Choose Image"),
-        actions: [
-          CupertinoDialogAction(
-            onPressed: () {
-              Navigator.pop(context);
-              _pickImage(ImageSource.camera);
-            },
-            child: const Text("Camera", style: TextStyle(color: Colors.black)),
-          ),
-          CupertinoDialogAction(
-            onPressed: () {
-              Navigator.pop(context);
-              _pickImage(ImageSource.gallery);
-            },
-            child: const Text("Gallery", style: TextStyle(color: Colors.black)),
-          ),
-        ],
-      );
-    });
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text("Choose Image"),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+                child:
+                    const Text("Camera", style: TextStyle(color: Colors.black)),
+              ),
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
+                },
+                child: const Text("Gallery",
+                    style: TextStyle(color: Colors.black)),
+              ),
+            ],
+          );
+        });
   }
 
   void _pickImage(ImageSource source) async {
     final XFile? pickedFile = await ImagePicker().pickImage(source: source);
-    debugPrint("pickedFile: $pickedFile");
-     ProfileModel profileModel = state.profileModel!.copyWith(profileImage: pickedFile!.path);
+    debugPrint("pickedFile: ${pickedFile!.path}");
 
-       // emit(state.copyWith(profileModel: profileModel));
+    ProfileModel profileModel = state.profileModel!;
+    File _image = File(pickedFile.path);
+    debugPrint("pickedFile: ${_image.path}");
+    _repo
+        .updateData(
+          profileModel:
+              profileModel.copyWith(profileImage: _image.path),
+        )
+        .then((value) {
+          debugPrint("value: $value");
+    });
+
+    // emit(state.copyWith(profileModel: profileModel));
   }
 
+  void onChangeName(String value) {
+    ProfileModel profileModel = state.profileModel!;
+    _repo
+        .updateData(
+      profileModel:
+      profileModel.copyWith(name: value),
+    ).then((value) {
+      emit(state.copyWith(profileModel: profileModel));
+    });
+  }
+  void onChangeAddress(String value) {
+    ProfileModel profileModel = state.profileModel!;
+    _repo
+        .updateData(
+      profileModel:
+      profileModel.copyWith(address: value),
+    ).then((value) {
+      emit(state.copyWith(profileModel: profileModel));
+    });
+  }
 }

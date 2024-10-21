@@ -12,8 +12,7 @@ class ProfileModel with _$ProfileModel {
     @Default(true)
     bool newUser,
     @JsonKey(name: "pincode")
-    @Default("")
-    String pincode,
+    int? pincode,
     @JsonKey(name: "landmark")
     @Default("")
     String landmark,
@@ -22,7 +21,7 @@ class ProfileModel with _$ProfileModel {
     String area,
     @JsonKey(name: "intrested_dresses")
     @Default([])
-    List<String>? intrestedDresses,
+    List<dynamic>? intrestedDresses,
     @JsonKey(name: "order_frequency")
     @Default("")
     String? orderFrequency,
@@ -38,8 +37,37 @@ class ProfileModel with _$ProfileModel {
     @JsonKey(name: "address")
     @Default("Lorem ipsum dolor sit amet, consr adipiscing elit. Sed do eiusmod")
     String address,
+    @JsonKey(name: "data")
+    List<CategoryModel>? categoryModel,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, Object?> json)
   => _$ProfileModelFromJson(json);
+}
+
+@freezed
+class CategoryModel with _$CategoryModel {
+  const factory CategoryModel({
+  @JsonKey(name:"_id")
+  String? id,
+  @JsonKey(name:"name")
+  String? name,
+  @JsonKey(name:"image")
+  String? image,
+  @JsonKey(name:"description")
+  String? description,
+  @JsonKey(name:"priority")
+  int? priority,
+  @JsonKey(name:"status")
+  String? status,
+  @JsonKey(name:"is_deleted")
+  bool? isDeleted,
+  @JsonKey(name:"created_at")
+  String? createdAt,
+  @JsonKey(name:"updated_at")
+  String? updatedAt,
+  }) = _CategoryModel;
+
+  factory CategoryModel.fromJson(Map<String, Object?> json)
+  => _$CategoryModelFromJson(json);
 }

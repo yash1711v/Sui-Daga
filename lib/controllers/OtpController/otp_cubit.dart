@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_cubit.dart';
+import 'package:sui_daga/controllers/RegisteratonScreenController/registeration_cubit.dart';
 
 import '../../cache/shared_preference.dart';
 import '../../models/ProfileModel/profile_model.dart';
@@ -8,6 +9,7 @@ import '../../repo/repository.dart';
 import '../../routes/routes_helper.dart';
 import '../../view/Authentication/Registeration/registeration_screen.dart';
 import '../../widget/Helper/widgets.dart';
+import '../MainScreenController/main_screen_cubit.dart';
 import 'otp_state.dart';
 
 class OtpCubit extends Cubit<OtpState> with CodeAutoFill {
@@ -44,16 +46,28 @@ class OtpCubit extends Cubit<OtpState> with CodeAutoFill {
     String otp = otpController.text;
     if (otp.toString().trim().length == 4) {
       _repo.otp(otp: otp, phoneNumber: phoneNumber).then((value) {
+        debugPrint("otp: $value");
         if (value['status']) {
           Pref().pref.setString("Token", value['data']['token']);
           ProfileModel profileModel =
               ProfileModel.fromJson(value['data']['user']);
-          context.read<ProfileCubit>().setProfileScreen(profileModel);
-          if (profileModel.newUser) {
-            Navigator.pushReplacementNamed(context, RegisterationScreen.id);
-          } else {
-            Navigator.pushReplacementNamed(context, MainScreen.id);
-          }
+          _repo.getCategories().then((value){
+            List<CategoryModel> categoryModel = [];
+            for (var item in value['data']) {
+              categoryModel.add(CategoryModel.fromJson(item));
+            }
+            profileModel = profileModel.copyWith(categoryModel: categoryModel);
+            context.read<ProfileCubit>().setProfileScreen(profileModel);
+            context.read<RegisterationCubit>().addDresses(profileModel.categoryModel!,profileModel);
+            context.read<MainScreenCubit>().setProfileModel(profileModel!,context);
+            debugPrint("profileModel ${profileModel.newUser}");
+
+            if(profileModel.newUser){
+              Navigator.pushReplacementNamed(context, RegisterationScreen.id,arguments: profileModel);
+            } else {
+              Navigator.pushReplacementNamed(context, MainScreen.id);
+            }
+          });
         } else {
           emit(state.copyWith(error: "Something went wrong", otp: otp));
         }

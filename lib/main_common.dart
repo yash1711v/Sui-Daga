@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<MainScreenCubit>(
             create: (BuildContext context) =>
-            MainScreenCubit()..getMainScreenData(),
+            MainScreenCubit()..getMainScreenData(context),
           ),
           BlocProvider<HomeServiceCubit>(
             create: (BuildContext context) =>
