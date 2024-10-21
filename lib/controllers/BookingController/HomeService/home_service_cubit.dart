@@ -92,23 +92,13 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
   }
 
   void onLandmarkChange(String landmark) {
-    final RegExp validLandMarkRegex =
-        RegExp(r"^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s,.'-]+$");
-    if (landmark.isEmpty) {
-      emit(state.copyWith(landmarkError: "landmark cannot be empty"));
-    } else if (!validLandMarkRegex.hasMatch(landmark)) {
-      emit(state.copyWith(
-          landmarkError: "Invalid landmark. Must include letters or numbers."));
-    } else {
-      emit(state.copyWith(landmarkError: ""));
-    }
+
   }
 
   void onAllFieldsValid(BuildContext context) {
     if (state.addressError != null &&
         state.areaError != null &&
-        state.pinCodeError != null &&
-        state.landmarkError != null) {
+        state.pinCodeError != null ) {
       if (state.addressError != null && state.addressError!.isNotEmpty) {
         vibratePhone();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -130,15 +120,7 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
             content: Text(state.pinCodeError ?? ""),
           ),
         );
-      } else if (state.landmarkError != null &&
-          state.landmarkError!.isNotEmpty) {
-        vibratePhone();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(state.landmarkError ?? ""),
-          ),
-        );
-      } else {
+      }  else {
         context.read<MeasurementCubit>().resetValues();
         Navigator.pushNamed(context, MeasurementAndDetails.id);
       }
@@ -153,7 +135,7 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
           addressError: "Address cannot be empty",
           areaError: "Area cannot be empty",
           pinCodeError: "Pin code cannot be empty",
-          landmarkError: "Landmark cannot be empty"));
+          ));
     }
   }
 }

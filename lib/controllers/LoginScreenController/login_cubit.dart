@@ -1,12 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sms_autofill/sms_autofill.dart';
+import 'package:sui_daga/controllers/OtpController/otp_cubit.dart';
+import 'package:sui_daga/widget/Helper/widgets.dart';
+import '../../repo/repository.dart';
 import '../../routes/routes_helper.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(const LoginState());
+  final Repo _repo = Repo();
 
 
   TextEditingController numberController = TextEditingController();
@@ -24,16 +28,25 @@ class LoginCubit extends Cubit<LoginState> {
     final regex = RegExp(r'^[0-9]{10}$');
 
     if (number.length < 10) {
-      emit(const LoginState(error: "Number must be at least 10 digits"));
+      emit(LoginState(error: "Number must be at least 10 digits",number: number ));
     } else if (!regex.hasMatch(number)) {
-      emit(const LoginState(error: "Number must contain only digits and be 10 digits long"));
+      emit( LoginState(error: "Number must contain only digits and be 10 digits long",number: number));
     } else {
-      emit(const LoginState()); // Valid number
+      emit( LoginState(number: number)); // Valid number
     }
   }
 
   void onLogin({required BuildContext context,}) {
-    // Login logic
-    Navigator.pushReplacementNamed(context, OtpScreen.id);
+    showLoader(context);
+     _repo.login(number: (state.number ?? "").trim()).then((value) {
+       if(value['status']){
+         context.read<OtpCubit>().setPhoneNumber(state.number ?? "");
+         Navigator.pushReplacementNamed(context, OtpScreen.id);
+       }
+       else{
+         emit(LoginState(error: "Something went wrong",number: state.number));
+       }
+    });
+
   }
 }

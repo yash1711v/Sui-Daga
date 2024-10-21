@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sui_daga/controllers/BookingController/HomeService/home_service_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:sui_daga/controllers/HomeScreenController/home_cubit.dart';
 import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
 import 'package:sui_daga/controllers/OtpController/otp_cubit.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_cubit.dart';
+import 'package:sui_daga/controllers/RegisteratonScreenController/registeration_cubit.dart';
 import 'package:sui_daga/controllers/SplashScreen/splash_screen_cubit.dart';
 import 'package:sui_daga/routes/routes.dart';
 import 'package:sui_daga/style/Pallet.dart';
@@ -14,8 +16,10 @@ import 'package:sui_daga/view/SplashScreen/splash_screen.dart';
 
 import 'controllers/LoginScreenController/login_cubit.dart';
 import 'flavors/config/flavor_config.dart';
+import 'models/ProfileModel/profile_model.dart';
 
 Future mainCommon() async {
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
@@ -59,7 +63,11 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<ProfileCubit>(
             create: (BuildContext context) =>
-            ProfileCubit()..setProfileScreen(),
+            ProfileCubit()..setProfileScreen(const ProfileModel()),
+          ),
+          BlocProvider<RegisterationCubit>(
+            create: (BuildContext context) =>
+                RegisterationCubit(),
           ),
         ],
         child: MaterialApp(

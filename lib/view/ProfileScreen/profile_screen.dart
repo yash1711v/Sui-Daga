@@ -102,7 +102,7 @@ class ProfileScreen extends StatelessWidget {
                 BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {
                     return Text(
-                      state.profileModel!.number,
+                      state.profileModel!.number.toString(),
                       style: Style.h18.copyWith(
                         color: const Color(0xB2212121),
                         fontSize: 14,

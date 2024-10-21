@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:sui_daga/controllers/OtpController/otp_cubit.dart';
 import 'package:sui_daga/controllers/OtpController/otp_state.dart';
+import 'package:sui_daga/view/Authentication/Registeration/registeration_screen.dart';
 
 import '../../../routes/routes_helper.dart';
 import '../../../style/Pallet.dart';
@@ -131,7 +132,7 @@ class OtpScreen extends StatelessWidget{
                                   Colors.white.withOpacity(0.20000000298023224), Colors.white.withOpacity(0.20000000298023224))),
                           // currentCode: state.otp,
                           onCodeSubmitted: (code) {
-                            context.read<OtpCubit>().verifyOTP();
+                            context.read<OtpCubit>().verifyOTP(context);
                           },
                           onCodeChanged: (code) {
                           },
@@ -205,13 +206,7 @@ class OtpScreen extends StatelessWidget{
                   },
                 ),
                 onPressed: () {
-                  showLoader(context);
-                  context.read<OtpCubit>().verifyOTP();
-                  if(context.read<OtpCubit>().state.error == ""){
-                    Navigator.pushNamed(context, MainScreen.id);
-                  } else {
-                    Navigator.pop(context);
-                  }
+                  context.read<OtpCubit>().verifyOTP(context);
                 },
               ),
             ),

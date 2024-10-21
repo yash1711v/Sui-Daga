@@ -29,7 +29,7 @@ class FlavorConfig {
       case BuildFlavor.dev:
         {
           buildFlavor = BuildFlavor.dev;
-          baseUrl = "";
+          baseUrl = "https://dev.invoidea.in/sui_daaga";
           appName = "SUI DAAGA (Dev)";
           packageName = "com.suidaaga.sui_daga.dev";
           fcmServerKey =
@@ -39,7 +39,7 @@ class FlavorConfig {
       case BuildFlavor.prod:
         {
           buildFlavor = BuildFlavor.prod;
-          baseUrl = "";
+          baseUrl = "https://dev.invoidea.in/sui_daaga";
           appName = "SUI DAAGA";
           packageName = "com.suidaaga.sui_daga";
           fcmServerKey =

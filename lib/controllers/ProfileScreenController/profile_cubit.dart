@@ -16,12 +16,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   FocusNode numberFocusNode = FocusNode();
   FocusNode addressFocusNode = FocusNode();
 
-  void setProfileScreen() {
-    nameController.text = state.profileModel!.name;
-    numberController.text = state.profileModel!.number;
-    addressControler.text = state.profileModel!.address;
-
-    emit(state.copyWith());
+  void setProfileScreen(ProfileModel profileModel) {
+    emit(state.copyWith(profileModel: profileModel));
+    nameController.text = profileModel.name;
+    numberController.text = profileModel.number.toString();
+    addressControler.text = profileModel.address;
   }
 
   void setProfilePic(BuildContext context) {

@@ -20,9 +20,25 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProfileModel {
+  @JsonKey(name: "new_user")
+  bool get newUser => throw _privateConstructorUsedError;
+  @JsonKey(name: "pincode")
+  String get pincode => throw _privateConstructorUsedError;
+  @JsonKey(name: "landmark")
+  String get landmark => throw _privateConstructorUsedError;
+  @JsonKey(name: "area")
+  String get area => throw _privateConstructorUsedError;
+  @JsonKey(name: "intrested_dresses")
+  List<String>? get intrestedDresses => throw _privateConstructorUsedError;
+  @JsonKey(name: "order_frequency")
+  String? get orderFrequency => throw _privateConstructorUsedError;
+  @JsonKey(name: "name")
   String get name => throw _privateConstructorUsedError;
-  String get number => throw _privateConstructorUsedError;
+  @JsonKey(name: "phone_number")
+  int get number => throw _privateConstructorUsedError;
+  @JsonKey(name: "profile_image")
   dynamic get profileImage => throw _privateConstructorUsedError;
+  @JsonKey(name: "address")
   String get address => throw _privateConstructorUsedError;
 
   /// Serializes this ProfileModel to a JSON map.
@@ -41,7 +57,17 @@ abstract class $ProfileModelCopyWith<$Res> {
           ProfileModel value, $Res Function(ProfileModel) then) =
       _$ProfileModelCopyWithImpl<$Res, ProfileModel>;
   @useResult
-  $Res call({String name, String number, dynamic profileImage, String address});
+  $Res call(
+      {@JsonKey(name: "new_user") bool newUser,
+      @JsonKey(name: "pincode") String pincode,
+      @JsonKey(name: "landmark") String landmark,
+      @JsonKey(name: "area") String area,
+      @JsonKey(name: "intrested_dresses") List<String>? intrestedDresses,
+      @JsonKey(name: "order_frequency") String? orderFrequency,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "phone_number") int number,
+      @JsonKey(name: "profile_image") dynamic profileImage,
+      @JsonKey(name: "address") String address});
 }
 
 /// @nodoc
@@ -59,12 +85,42 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? newUser = null,
+    Object? pincode = null,
+    Object? landmark = null,
+    Object? area = null,
+    Object? intrestedDresses = freezed,
+    Object? orderFrequency = freezed,
     Object? name = null,
     Object? number = null,
     Object? profileImage = freezed,
     Object? address = null,
   }) {
     return _then(_value.copyWith(
+      newUser: null == newUser
+          ? _value.newUser
+          : newUser // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pincode: null == pincode
+          ? _value.pincode
+          : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      landmark: null == landmark
+          ? _value.landmark
+          : landmark // ignore: cast_nullable_to_non_nullable
+              as String,
+      area: null == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as String,
+      intrestedDresses: freezed == intrestedDresses
+          ? _value.intrestedDresses
+          : intrestedDresses // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      orderFrequency: freezed == orderFrequency
+          ? _value.orderFrequency
+          : orderFrequency // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -72,7 +128,7 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
       number: null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       profileImage: freezed == profileImage
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
@@ -93,7 +149,17 @@ abstract class _$$ProfileModelImplCopyWith<$Res>
       __$$ProfileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String number, dynamic profileImage, String address});
+  $Res call(
+      {@JsonKey(name: "new_user") bool newUser,
+      @JsonKey(name: "pincode") String pincode,
+      @JsonKey(name: "landmark") String landmark,
+      @JsonKey(name: "area") String area,
+      @JsonKey(name: "intrested_dresses") List<String>? intrestedDresses,
+      @JsonKey(name: "order_frequency") String? orderFrequency,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "phone_number") int number,
+      @JsonKey(name: "profile_image") dynamic profileImage,
+      @JsonKey(name: "address") String address});
 }
 
 /// @nodoc
@@ -109,12 +175,42 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? newUser = null,
+    Object? pincode = null,
+    Object? landmark = null,
+    Object? area = null,
+    Object? intrestedDresses = freezed,
+    Object? orderFrequency = freezed,
     Object? name = null,
     Object? number = null,
     Object? profileImage = freezed,
     Object? address = null,
   }) {
     return _then(_$ProfileModelImpl(
+      newUser: null == newUser
+          ? _value.newUser
+          : newUser // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pincode: null == pincode
+          ? _value.pincode
+          : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      landmark: null == landmark
+          ? _value.landmark
+          : landmark // ignore: cast_nullable_to_non_nullable
+              as String,
+      area: null == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as String,
+      intrestedDresses: freezed == intrestedDresses
+          ? _value._intrestedDresses
+          : intrestedDresses // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      orderFrequency: freezed == orderFrequency
+          ? _value.orderFrequency
+          : orderFrequency // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -122,7 +218,7 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
       number: null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       profileImage: freezed == profileImage
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
@@ -139,31 +235,67 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
   const _$ProfileModelImpl(
-      {this.name = "User",
-      this.number = "+91 997XXXXXXX",
+      {@JsonKey(name: "new_user") this.newUser = true,
+      @JsonKey(name: "pincode") this.pincode = "",
+      @JsonKey(name: "landmark") this.landmark = "",
+      @JsonKey(name: "area") this.area = "",
+      @JsonKey(name: "intrested_dresses")
+      final List<String>? intrestedDresses = const [],
+      @JsonKey(name: "order_frequency") this.orderFrequency = "",
+      @JsonKey(name: "name") this.name = "User",
+      @JsonKey(name: "phone_number") this.number = 91,
+      @JsonKey(name: "profile_image")
       this.profileImage = "assets/Images/dummyProfileImage.png",
-      this.address =
-          "Lorem ipsum dolor sit amet, consr adipiscing elit. Sed do eiusmod"});
+      @JsonKey(name: "address") this.address =
+          "Lorem ipsum dolor sit amet, consr adipiscing elit. Sed do eiusmod"})
+      : _intrestedDresses = intrestedDresses;
 
   factory _$ProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileModelImplFromJson(json);
 
   @override
-  @JsonKey()
+  @JsonKey(name: "new_user")
+  final bool newUser;
+  @override
+  @JsonKey(name: "pincode")
+  final String pincode;
+  @override
+  @JsonKey(name: "landmark")
+  final String landmark;
+  @override
+  @JsonKey(name: "area")
+  final String area;
+  final List<String>? _intrestedDresses;
+  @override
+  @JsonKey(name: "intrested_dresses")
+  List<String>? get intrestedDresses {
+    final value = _intrestedDresses;
+    if (value == null) return null;
+    if (_intrestedDresses is EqualUnmodifiableListView)
+      return _intrestedDresses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey(name: "order_frequency")
+  final String? orderFrequency;
+  @override
+  @JsonKey(name: "name")
   final String name;
   @override
-  @JsonKey()
-  final String number;
+  @JsonKey(name: "phone_number")
+  final int number;
   @override
-  @JsonKey()
+  @JsonKey(name: "profile_image")
   final dynamic profileImage;
   @override
-  @JsonKey()
+  @JsonKey(name: "address")
   final String address;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProfileModel(name: $name, number: $number, profileImage: $profileImage, address: $address)';
+    return 'ProfileModel(newUser: $newUser, pincode: $pincode, landmark: $landmark, area: $area, intrestedDresses: $intrestedDresses, orderFrequency: $orderFrequency, name: $name, number: $number, profileImage: $profileImage, address: $address)';
   }
 
   @override
@@ -171,6 +303,12 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ProfileModel'))
+      ..add(DiagnosticsProperty('newUser', newUser))
+      ..add(DiagnosticsProperty('pincode', pincode))
+      ..add(DiagnosticsProperty('landmark', landmark))
+      ..add(DiagnosticsProperty('area', area))
+      ..add(DiagnosticsProperty('intrestedDresses', intrestedDresses))
+      ..add(DiagnosticsProperty('orderFrequency', orderFrequency))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('number', number))
       ..add(DiagnosticsProperty('profileImage', profileImage))
@@ -182,6 +320,15 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileModelImpl &&
+            (identical(other.newUser, newUser) || other.newUser == newUser) &&
+            (identical(other.pincode, pincode) || other.pincode == pincode) &&
+            (identical(other.landmark, landmark) ||
+                other.landmark == landmark) &&
+            (identical(other.area, area) || other.area == area) &&
+            const DeepCollectionEquality()
+                .equals(other._intrestedDresses, _intrestedDresses) &&
+            (identical(other.orderFrequency, orderFrequency) ||
+                other.orderFrequency == orderFrequency) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.number, number) || other.number == number) &&
             const DeepCollectionEquality()
@@ -191,8 +338,18 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, number,
-      const DeepCollectionEquality().hash(profileImage), address);
+  int get hashCode => Object.hash(
+      runtimeType,
+      newUser,
+      pincode,
+      landmark,
+      area,
+      const DeepCollectionEquality().hash(_intrestedDresses),
+      orderFrequency,
+      name,
+      number,
+      const DeepCollectionEquality().hash(profileImage),
+      address);
 
   /// Create a copy of ProfileModel
   /// with the given fields replaced by the non-null parameter values.
@@ -212,21 +369,49 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
 
 abstract class _ProfileModel implements ProfileModel {
   const factory _ProfileModel(
-      {final String name,
-      final String number,
-      final dynamic profileImage,
-      final String address}) = _$ProfileModelImpl;
+      {@JsonKey(name: "new_user") final bool newUser,
+      @JsonKey(name: "pincode") final String pincode,
+      @JsonKey(name: "landmark") final String landmark,
+      @JsonKey(name: "area") final String area,
+      @JsonKey(name: "intrested_dresses") final List<String>? intrestedDresses,
+      @JsonKey(name: "order_frequency") final String? orderFrequency,
+      @JsonKey(name: "name") final String name,
+      @JsonKey(name: "phone_number") final int number,
+      @JsonKey(name: "profile_image") final dynamic profileImage,
+      @JsonKey(name: "address") final String address}) = _$ProfileModelImpl;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$ProfileModelImpl.fromJson;
 
   @override
+  @JsonKey(name: "new_user")
+  bool get newUser;
+  @override
+  @JsonKey(name: "pincode")
+  String get pincode;
+  @override
+  @JsonKey(name: "landmark")
+  String get landmark;
+  @override
+  @JsonKey(name: "area")
+  String get area;
+  @override
+  @JsonKey(name: "intrested_dresses")
+  List<String>? get intrestedDresses;
+  @override
+  @JsonKey(name: "order_frequency")
+  String? get orderFrequency;
+  @override
+  @JsonKey(name: "name")
   String get name;
   @override
-  String get number;
+  @JsonKey(name: "phone_number")
+  int get number;
   @override
+  @JsonKey(name: "profile_image")
   dynamic get profileImage;
   @override
+  @JsonKey(name: "address")
   String get address;
 
   /// Create a copy of ProfileModel
