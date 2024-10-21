@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sui_daga/controllers/SplashScreen/splash_screen_state.dart';
 
 import '../../cache/shared_preference.dart';
+import '../../routes/routes_helper.dart';
 
 class SplashScreenCubit extends Cubit<SplashScreenState> {
   SplashScreenCubit() : super(const SplashScreenStates());
@@ -18,18 +19,18 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
 
 
     await Future.delayed(const Duration(seconds: 1));
-    emit(const SplashScreenStates(startAnimation: true));
+    emit(const SplashScreenStates(startAnimation: true,));
     goAnotherScreen();
   }
 
   void goAnotherScreen() async {
     final _pref = Pref().pref;
-    if (_pref.getString("Token") != null) {
-      await Future.delayed(const Duration(seconds: 2));
-      emit(const SplashScreenStates(isAuth: false));
+    String? token = await _pref.getString("Token");
+    await Future.delayed(const Duration(seconds: 1));
+    if (token != null) {
+      emit(const SplashScreenStates(isAuth: true,startAnimation: true));
     } else {
-      await Future.delayed(const Duration(seconds: 2));
-      emit(const SplashScreenStates(isAuth: true));
+      emit(const SplashScreenStates(isAuth: false,startAnimation: true));
     }
   }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../controllers/SplashScreen/splash_screen_cubit.dart';
 import '../../controllers/SplashScreen/splash_screen_state.dart';
 import '../../routes/routes_helper.dart';
-
-
 
 class SplashScreen extends StatelessWidget {
   static const id = "/";
@@ -23,20 +22,23 @@ class SplashScreen extends StatelessWidget {
           BlocBuilder<SplashScreenCubit, SplashScreenState>(
             builder: (context, state) {
               bool startAnimation = false;
-              if(state is SplashScreenStates){
+              if (state is SplashScreenStates) {
                 startAnimation = state.startAnimation ?? false;
-                if(state.isAuth ?? false){
-                  Future.delayed(const Duration(milliseconds: 1),(){
-                    Navigator.pushReplacementNamed(context, LoginScreen.id);
+                debugPrint("Start Animation: ${state.isAuth}");
+                if (state.isAuth == true) {
+                  Future.delayed(const Duration(seconds: 1), () {
+                    Navigator.pushReplacementNamed(
+                        context, MainScreen.id);
                   });
-                } else {
-                  Future.delayed(const Duration(milliseconds: 1),(){
-                    Navigator.pushReplacementNamed(context, MainScreen.id);
+                } else if (state.isAuth == false) {
+                  Future.delayed(const Duration(seconds: 1), () {
+                    Navigator.pushReplacementNamed(
+                        context, LoginScreen.id);
                   });
                 }
               }
               return AnimatedContainer(
-                  width: startAnimation ? 300 :0,
+                  width: startAnimation ? 300 : 0,
                   duration: const Duration(seconds: 1),
                   child: SvgPicture.asset("assets/Images/logoImage.svg"));
             },

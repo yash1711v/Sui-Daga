@@ -27,7 +27,7 @@ class Repo {
       "name": profileModel.name,
       "address": profileModel.address,
       "order_frequency": profileModel.orderFrequency,
-      "intrested_dresses": profileModel.intrestedDresses![0],
+      "intrested_dresses": profileModel.intrestedDresses![0] ?? [],
       "profile_image": profileModel.profileImage,
     };
     debugPrint("body: $body");

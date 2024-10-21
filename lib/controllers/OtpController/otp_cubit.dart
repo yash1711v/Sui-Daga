@@ -51,15 +51,17 @@ class OtpCubit extends Cubit<OtpState> with CodeAutoFill {
           Pref().pref.setString("Token", value['data']['token']);
           ProfileModel profileModel =
               ProfileModel.fromJson(value['data']['user']);
+          debugPrint("profileModel ${profileModel}");
           _repo.getCategories().then((value){
             List<CategoryModel> categoryModel = [];
             for (var item in value['data']) {
               categoryModel.add(CategoryModel.fromJson(item));
             }
             profileModel = profileModel.copyWith(categoryModel: categoryModel);
+            debugPrint("profileModel ${profileModel}");
             context.read<ProfileCubit>().setProfileScreen(profileModel);
             context.read<RegisterationCubit>().addDresses(profileModel.categoryModel!,profileModel);
-            context.read<MainScreenCubit>().setProfileModel(profileModel!,context);
+            context.read<MainScreenCubit>().setProfileModel(profileModel);
             debugPrint("profileModel ${profileModel.newUser}");
 
             if(profileModel.newUser){

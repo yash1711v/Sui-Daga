@@ -15,8 +15,9 @@ class MainScreenCubit extends Cubit<MainScreenState> {
   final Repo _repo = Repo();
   final _pref = Pref().pref;
 
-  getMainScreenData(BuildContext context) {
-    if(_pref.getString("Token") != null) {
+ void getMainScreenData(BuildContext context) async {
+    String? token = await _pref.getString("Token");
+    if(token != null) {
       _repo.getProfileData().then((value) {
         ProfileModel profileModel = ProfileModel.fromJson(value['data']);
         _repo.getHomeScreenData().then((value) {
@@ -24,26 +25,25 @@ class MainScreenCubit extends Cubit<MainScreenState> {
           for (var item in value['data']['category']) {
             categoryModel.add(CategoryModel.fromJson(item));
           }
-          profileModel = ProfileModel(categoryModel: categoryModel);
+          profileModel = profileModel.copyWith(categoryModel: categoryModel);
           debugPrint("profileModel: $profileModel");
           emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: 0));
         });
 
       });
     } else {
-
+      emit(state.copyWith(pageController: pageController, index: 0));
     }
-    emit(state.copyWith(pageController: pageController, index: 0));
+
   }
 
-  void setProfileModel(ProfileModel profileModel, BuildContext context) {
+  void setProfileModel(ProfileModel profileModel,) {
     _repo.getHomeScreenData().then((value) {
       List<CategoryModel> categoryModel = [];
       for (var item in value['data']['category']) {
         categoryModel.add(CategoryModel.fromJson(item));
       }
       profileModel = profileModel.copyWith(categoryModel: categoryModel);
-      context.read<ProfileCubit>().setProfileScreen(profileModel);
       emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: 0));
     });
   }

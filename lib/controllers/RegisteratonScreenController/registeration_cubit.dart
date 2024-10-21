@@ -131,7 +131,7 @@ class RegisterationCubit extends Cubit<RegisterationState> {
             landmark: value['data']['user']['landmark'],
             pincode: value['data']['user']['pincode'],
           );
-          context.read<MainScreenCubit>().setProfileModel(profileModel!,context);
+          context.read<MainScreenCubit>().setProfileModel(profileModel!,);
           Navigator.pushReplacementNamed(context, MainScreen.id);
         }
       });

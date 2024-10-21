@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -65,7 +66,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     _repo
         .updateData(
           profileModel:
-              profileModel.copyWith(profileImage: _image.path),
+              profileModel.copyWith(profileImage: base64Encode(await _image.readAsBytes())),
         )
         .then((value) {
           debugPrint("value: $value");
@@ -75,11 +76,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   void onChangeName(String value) {
-    ProfileModel profileModel = state.profileModel!;
+    ProfileModel profileModel = state.profileModel!.copyWith(name: value);
+    debugPrint("profileModel: $profileModel");
     _repo
         .updateData(
-      profileModel:
-      profileModel.copyWith(name: value),
+      profileModel: profileModel,
     ).then((value) {
       emit(state.copyWith(profileModel: profileModel));
     });
