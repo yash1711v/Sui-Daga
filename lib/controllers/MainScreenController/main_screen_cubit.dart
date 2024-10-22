@@ -15,7 +15,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
   final Repo _repo = Repo();
   final _pref = Pref().pref;
 
- void getMainScreenData(BuildContext context) async {
+ void getMainScreenData(BuildContext context,[int? index]) async {
     String? token = await _pref.getString("Token");
     if(token != null) {
       _repo.getProfileData().then((value) {
@@ -26,26 +26,39 @@ class MainScreenCubit extends Cubit<MainScreenState> {
             categoryModel.add(CategoryModel.fromJson(item));
           }
           profileModel = profileModel.copyWith(categoryModel: categoryModel);
-          debugPrint("profileModel: $profileModel");
-          emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: 0));
+
+          emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: index ?? 0, firtTimeOpen: true));
+
+          addDresses(profileModel);
         });
 
       });
     } else {
-      emit(state.copyWith(pageController: pageController, index: 0));
+      emit(state.copyWith(pageController: pageController, index: 0, firtTimeOpen: false));
     }
 
   }
 
-  void setProfileModel(ProfileModel profileModel,) {
+  void setProfileModel(ProfileModel profileModel,[int? index]) {
     _repo.getHomeScreenData().then((value) {
       List<CategoryModel> categoryModel = [];
       for (var item in value['data']['category']) {
         categoryModel.add(CategoryModel.fromJson(item));
       }
       profileModel = profileModel.copyWith(categoryModel: categoryModel);
-      emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: 0));
+      emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: index ?? 0));
+      addDresses(profileModel);
     });
+  }
+
+
+  void addDresses(ProfileModel profileModel) {
+    List<String> dresses = [];
+    List<CategoryModel>? categoryModel = profileModel.categoryModel;
+    for (var item in (categoryModel ?? [CategoryModel()])) {
+      dresses.add(item.name!);
+    }
+    emit(state.copyWith(dresses: dresses,profileModel: profileModel, pageController: pageController));
   }
 
   void changeIndex(int index, BuildContext context) {
@@ -58,7 +71,6 @@ class MainScreenCubit extends Cubit<MainScreenState> {
       context.read<BookingCubit>().selectMakeBookingItem(0);
     }
     emit(state.copyWith(index: index, pageController: pageController));
-    context.read<ProfileCubit>().setProfileScreen(state.profileModel ?? ProfileModel());
   }
 
   void jumpToBookingScreen() {
@@ -68,5 +80,12 @@ class MainScreenCubit extends Cubit<MainScreenState> {
       curve: Curves.easeInOut,               // Define the curve for the animation
     );
     emit(state.copyWith(index: 1, pageController: pageController));
+  }
+
+  void runEvery10Seconds(BuildContext context) {
+    Future.delayed(const Duration(seconds: 60), () {
+      getMainScreenData(context, state.index);
+      runEvery10Seconds(context);
+    });
   }
 }

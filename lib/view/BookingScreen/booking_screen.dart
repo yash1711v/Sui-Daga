@@ -2,8 +2,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sui_daga/controllers/BookingController/booking_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/booking_state.dart';
+import 'package:sui_daga/models/ProfileModel/profile_model.dart';
 import 'package:sui_daga/widget/custom_textfield.dart';
 
+import '../../controllers/BookingController/MeasurementAndDetails/measurement_cubit.dart';
 import '../../routes/routes_helper.dart';
 import '../../style/Pallet.dart';
 import '../../style/style.dart';
@@ -15,7 +17,9 @@ import '../../widget/custom_calender.dart';
 import '../../widget/drop_down.dart';
 
 class BookingScreen extends StatelessWidget {
-  const BookingScreen({super.key});
+  final ProfileModel profileModel;
+  final List<String> makeBookingItems;
+  const BookingScreen({super.key, required this.profileModel,required this.makeBookingItems });
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +110,14 @@ class BookingScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomDropDown(
-                            items: const ["Kurti", "Pant", "Dress", "Gown"],
+                            items: makeBookingItems,
                             onChanged: (String? value) {
                               context
                                   .read<BookingCubit>()
-                                  .onSelectStitching(value);
+                                  .onSelectStitching(value, profileModel);
+                              context
+                                  .read<MeasurementCubit>()
+                                  .selectMeasureMentItem(0, [value ?? ""]);
                             },
                             hintText: '',
                           ),
@@ -245,8 +252,8 @@ class BookingScreen extends StatelessWidget {
                   height: 45,
                   width: double.infinity,
                   child: CustomChipSelection(
-                    onSelected: (int index) {
-                      context.read<BookingCubit>().selectMakeBookingItem(index);
+                    onSelected: (List<String> value) {
+                      context.read<BookingCubit>().selectMakeBookingItem(0, value);
                     },
                     items: state.makeBookingItems ?? [],
                     width: 181,
@@ -271,7 +278,10 @@ class BookingScreen extends StatelessWidget {
                   child: CustomButton(
                     onPressed: () {
                       showLoader(context);
-                      context.read<BookingCubit>().checkingTheFields(context);
+                      context.read<BookingCubit>().checkingTheFields(context,
+                          profileModel,
+                         profileModel.categoryModel,
+                           makeBookingItems,);
 
                     },
                     child: const Text(

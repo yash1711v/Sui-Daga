@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_cubit.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_state.dart';
+import 'package:sui_daga/flavors/config/flavor_config.dart';
 import 'package:sui_daga/helpers/Methods/methods.dart';
 import 'package:sui_daga/widget/custom_textfield.dart';
 
+import '../../controllers/MainScreenController/main_screen_cubit.dart';
 import '../../routes/routes_helper.dart';
 import '../../style/Pallet.dart';
 import '../../style/style.dart';
@@ -56,15 +58,17 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {
+                    context.read<MainScreenCubit>().setProfileModel(state.profileModel!, 2);
                     return GestureDetector(
                       onTap: () {
                         context.read<ProfileCubit>().setProfilePic(context);
                       },
                       child: CircleAvatar(
                           radius: 48,
-                          backgroundImage: isValidUrl(state.profileModel!
-                              .profileImage) ? NetworkImage(state.profileModel!
-                              .profileImage) :AssetImage("assets/Images/dummyProfileImage.png")),
+                          backgroundImage: state.profileModel!.profileImage == null
+                              ? const AssetImage("assets/Images/dummyProfileImage.png")
+                              : NetworkImage("${FlavorConfig().baseUrl}/${state.profileModel!.profileImage!}"),
+                      ),
                       );
                   },
                 ),

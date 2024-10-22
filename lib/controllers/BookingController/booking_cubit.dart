@@ -1,8 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sui_daga/controllers/BookingController/HomeService/home_service_state.dart';
+import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_cubit.dart';
+import 'package:sui_daga/models/ProfileModel/profile_model.dart';
 
 import '../../helpers/Methods/methods.dart';
+import '../../models/BookingModel/booking_model.dart';
 import '../../routes/routes_helper.dart';
 import 'booking_state.dart';
 
@@ -21,10 +24,12 @@ class BookingCubit extends Cubit<BookingState> {
     emit(state.copyWith(dateController: dateController));
   }
 
-  void selectMakeBookingItem(int index) {
-    if (index < 0 || index > state.makeBookingItems!.length) return;
-
-    selectedMakeBookingItem = [state.makeBookingItems![index]];
+  void selectMakeBookingItem(int index , [List<String>? values]) {
+    if(values != null) {
+      selectedMakeBookingItem = values;
+    } else {
+      selectedMakeBookingItem = [state.makeBookingItems![index]];
+    }
     emit(state.copyWith(
       selectedMakeBookingItem: selectedMakeBookingItem, // Use a copy
       makeBookingItems: state.makeBookingItems,
@@ -39,15 +44,26 @@ class BookingCubit extends Cubit<BookingState> {
     ));
   }
 
-  void onSelectStitching(String? value) {
+  void onSelectStitching(String? value, ProfileModel profileModel) {
     if (value == null || value.isEmpty) {
       emit(state.copyWith(selectedStitchingItem: 'Select measurement'));
     } else {
-      emit(state.copyWith(selectedStitchingItem: ""));
+      profileModel.categoryModel!.forEach((element) {
+        if (element.name == value) {
+          debugPrint("Category Id: ${element.id}");
+          emit(state.copyWith(
+              selectedStitchingItem: "", CategoryId: element.id));
+        }
+      });
     }
   }
 
-  void checkingTheFields(BuildContext context) {
+  void checkingTheFields(
+    BuildContext context, [
+    ProfileModel? profileModel,
+    List<CategoryModel>? categoryList,
+    List<String>? measureMentItems,
+  ]) {
     if (state.selectedStitchingItem == null || state.selectedDate == null) {
       if (state.selectedStitchingItem == null) {
         emit(state.copyWith(selectedStitchingItem: 'Select measurement'));
@@ -63,10 +79,30 @@ class BookingCubit extends Cubit<BookingState> {
         Navigator.pop(context);
         Navigator.pushNamed(context, HomeService.id);
       } else {
+        addingDataToModel(context, profileModel, categoryList, measureMentItems);
         Navigator.pop(context);
         Navigator.pushNamed(context, MeasurementAndDetails.id);
       }
     }
   }
 
+  void addingDataToModel(  BuildContext context,
+      [
+    ProfileModel? profileModel,
+    List<CategoryModel>? categoryList,
+    List<String>? measureMentItems,
+
+  ]) {
+    Booking bookingModel = Booking(
+      categoryId: state.CategoryId,
+      ready_by_date: state.dateController!.text,
+      type: state.selectedMakeBookingItem![0],
+    );
+    context.read<MeasurementCubit>().setMeasurementScreen(
+    profileModel,
+      categoryList,
+      measureMentItems,
+      bookingModel,
+    );
+  }
 }

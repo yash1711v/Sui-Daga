@@ -33,6 +33,9 @@ class Repo {
     debugPrint("body: $body");
     return await _apiCaller.patch("/api/user", body,withToken: true,isMultipart: true);
   }
+  Future<dynamic> updateProfilePhoto({required ProfileModel profileModel}) async {
+    return await _apiCaller.uploadProfileData(profileModel);
+  }
 
   Future<dynamic> getCategories() async {
     return await _apiCaller.get("/api/user/category", withToken: true);

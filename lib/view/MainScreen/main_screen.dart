@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
 import 'package:sui_daga/controllers/MainScreenController/main_screen_state.dart';
+import 'package:sui_daga/controllers/ProfileScreenController/profile_cubit.dart';
 import 'package:sui_daga/view/BookingScreen/booking_screen.dart';
 import 'package:upgrader/upgrader.dart';
 
+import '../../models/ProfileModel/profile_model.dart';
 import '../../routes/routes_helper.dart';
 import '../../widget/BottomNavigationBar/bottom_navigation_bar.dart';
 import '../HomeScreen/home_screen.dart';
@@ -17,6 +19,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
+    context.read<MainScreenCubit>().runEvery10Seconds(context);
     return UpgradeAlert(
       dialogStyle: UpgradeDialogStyle.cupertino,
       showIgnore: false,
@@ -25,13 +28,16 @@ class MainScreen extends StatelessWidget {
         extendBody: true,
         body: BlocBuilder<MainScreenCubit, MainScreenState>(
           builder: (context, state) {
+            if(state.firtTimeOpen ?? false) {
+              context.read<ProfileCubit>().setProfileScreen(state.profileModel!);
+            }
             return PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: state.pageController,
-              children: const [
-                HomeScreen(),
-                BookingScreen(),
-                ProfileScreen(),
+              children: [
+                const HomeScreen(),
+                BookingScreen(profileModel: (state.profileModel ?? ProfileModel()), makeBookingItems: state.dresses ?? ["Kurti", "Pant", "Dress", "Gown"],),
+                const ProfileScreen(),
               ],
             );
           },

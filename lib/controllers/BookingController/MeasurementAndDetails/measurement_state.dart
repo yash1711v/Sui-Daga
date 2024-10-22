@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:sui_daga/models/ProfileModel/profile_model.dart';
 
+import '../../../models/BookingModel/booking_model.dart';
 import '../../../routes/routes_helper.dart';
 
 final class MeasurementState extends Equatable {
@@ -26,6 +28,10 @@ final class MeasurementState extends Equatable {
   final TextEditingController? damanController;
   final List<String>? measureMentItems;
   final List<String>? selectedMeasureMentItems;
+  final List<CategoryModel>? categoryList;
+  final ProfileModel? profileData;
+  final Booking? bookingModel;
+  final String? selectedMeasurementType;
 
    MeasurementState({
     this.selectMeasureMentError,
@@ -57,7 +63,10 @@ final class MeasurementState extends Equatable {
     this.sleetsController,
     this.colarController,
     this.damanController,
-  });
+     this.categoryList, this.profileData,
+    this.bookingModel,
+     this.selectedMeasurementType,
+   });
 
   MeasurementState copyWith({
     String? selectMeasureMentError,
@@ -83,6 +92,10 @@ final class MeasurementState extends Equatable {
     TextEditingController? sleetsController,
     TextEditingController? colarController,
     TextEditingController? damanController,
+     List<CategoryModel>? categoryList,
+  ProfileModel? profileData,
+    Booking? bookingModel,
+    String? selectedMeasurementType
   }) {
     return MeasurementState(
       selectMeasureMentError:
@@ -110,6 +123,10 @@ final class MeasurementState extends Equatable {
       sleetsController: sleetsController ?? this.sleetsController,
       colarController: colarController ?? this.colarController,
       damanController: damanController ?? this.damanController,
+      categoryList: categoryList ?? this.categoryList,
+      profileData: profileData ?? this.profileData,
+      bookingModel: bookingModel ?? this.bookingModel,
+      selectedMeasurementType: selectedMeasurementType ?? this.selectedMeasurementType,
     );
   }
 
@@ -148,5 +165,9 @@ final class MeasurementState extends Equatable {
         sleetsController,
         colarController,
         damanController,
+        categoryList,
+        profileData,
+        bookingModel,
+        selectedMeasurementType
       ];
 }

@@ -6,9 +6,10 @@ class CustomChipSelection extends StatelessWidget {
   final double height;
   final Axis scrollDirection;
   final ScrollPhysics? physics;
-  final Function(int)? onSelected;
+  final Function(List<String>)? onSelected; // Change to accept a list for multiple selection
   final List<String> selectedItems;
   final double radius;
+  final bool? isMultipleSelection; // New optional parameter
 
   const CustomChipSelection({
     super.key,
@@ -18,7 +19,9 @@ class CustomChipSelection extends StatelessWidget {
     required this.scrollDirection,
     this.physics,
     this.onSelected,
-    required this.selectedItems, required this.radius,
+    required this.selectedItems,
+    required this.radius,
+    this.isMultipleSelection, // Initialize the new parameter
   });
 
   @override
@@ -29,12 +32,26 @@ class CustomChipSelection extends StatelessWidget {
       scrollDirection: scrollDirection,
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        final isSelected = selectedItems.isNotEmpty && items[index] == selectedItems.first;
+        final isSelected = selectedItems.contains(items[index]); // Check if the item is selected
 
         return Padding(
-          padding: EdgeInsets.only(left: index == 0 ? 0 :10.0),
+          padding: EdgeInsets.only(left: index == 0 ? 0 : 10.0),
           child: GestureDetector(
-            onTap: () => onSelected!(index),
+            onTap: () {
+              if (isMultipleSelection == true) {
+                // For multiple selection
+                final newSelectedItems = List<String>.from(selectedItems);
+                if (newSelectedItems.contains(items[index])) {
+                  newSelectedItems.remove(items[index]); // Deselect if already selected
+                } else {
+                  newSelectedItems.add(items[index]); // Select if not selected
+                }
+                onSelected?.call(newSelectedItems); // Pass the updated list
+              } else {
+                // For single selection
+                onSelected?.call([items[index]]); // Pass the selected item as a single-item list
+              }
+            },
             child: Container(
               width: width,
               height: height,
@@ -43,13 +60,16 @@ class CustomChipSelection extends StatelessWidget {
                 borderRadius: BorderRadius.circular(radius),
               ),
               child: Center(
-                child: Text(
-                  items[index],
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
-                    fontSize: 16,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w400,
+                child: FittedBox(
+                  fit: BoxFit.fitWidth, // Scale down to fit the container
+                  child: Text(
+                    items[index],
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.black,
+                      fontSize: 16,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ),

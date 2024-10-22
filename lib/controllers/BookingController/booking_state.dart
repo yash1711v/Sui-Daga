@@ -7,8 +7,9 @@ class BookingState {
   final String? dateError;
   final DateTime? selectedDate;
   final TextEditingController? dateController;
+  final String? CategoryId;
 
-  const BookingState({
+  const BookingState( {
      this.dateController,
     this.makeBookingItems = const [
       "Visit Shop",
@@ -16,6 +17,7 @@ class BookingState {
     ],
     this.selectedMakeBookingItem = const [],
     this.selectedStitchingItem,
+    this.CategoryId,
     this.dateError,
     this.selectedDate,
   });
@@ -27,6 +29,7 @@ class BookingState {
     String? dateError,
     DateTime? selectedDate,
     TextEditingController? dateController,
+    String? CategoryId,
   }) {
     return BookingState(
       makeBookingItems: makeBookingItems ?? this.makeBookingItems,
@@ -35,6 +38,7 @@ class BookingState {
       selectedStitchingItem: selectedStitchingItem ?? this.selectedStitchingItem,
       dateError: dateError ?? this.dateError,
       selectedDate: selectedDate ?? this.selectedDate, dateController: dateController ?? this.dateController,
+      CategoryId: CategoryId ?? this.CategoryId,
     );
   }
 

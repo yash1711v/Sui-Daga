@@ -30,12 +30,14 @@ class MeasurementAndDetails extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16.0),
             child: GestureDetector(
               onTap: () {
+                context.read<MeasurementCubit>().resetValues();
                 Navigator.pop(context);
               },
               child: Row(
                 children: [
                   GestureDetector(
                       onTap: () {
+                        context.read<MeasurementCubit>().resetValues();
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.arrow_back_ios,
@@ -94,6 +96,7 @@ class MeasurementAndDetails extends StatelessWidget {
                 const SizedBox(height: 10),
                 BlocBuilder<MeasurementCubit, MeasurementState>(
                   builder: (context, state) {
+
                     return Row(
                       children: [
                         Expanded(
@@ -135,14 +138,24 @@ class MeasurementAndDetails extends StatelessWidget {
                 ),
                 BlocBuilder<MeasurementCubit, MeasurementState>(
                   builder: (context, state) {
+                    // if(state.bookingModel?.categoryId != null ){
+                    //   for (var item in state.categoryList ?? []) {
+                    //     if (item.id == state.bookingModel?.categoryId) {
+                    //       context
+                    //           .read<MeasurementCubit>()
+                    //           .selectMeasureMentItem(0, [item.name ?? ""]);
+                    //     }
+                    //   }
+                    // }
                     return SizedBox(
                       width: double.infinity,
                       height: 40,
                       child: CustomChipSelection(
-                        onSelected: (int index) {
+                        isMultipleSelection: true,
+                        onSelected: (List<String> values) {
                           context
                               .read<MeasurementCubit>()
-                              .selectMeasureMentItem(index);
+                              .selectMeasureMentItem(0, values);
                         },
                         items: state.measureMentItems ?? [],
                         width: 80,
@@ -236,9 +249,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onLengthChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onLengthChange(value);
                                     },
                                     keyboardType: TextInputType.number,
                                     controller: state.lengthController ??
@@ -276,9 +289,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                     controller: state.chestController ??
                                         TextEditingController(),
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onChestChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onChestChange(value);
                                     },
                                     hintText: "Chest",
                                   )),
@@ -318,9 +331,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onWaistChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onWaistChange(value);
                                     },
                                     controller: state.waistController ??
                                         TextEditingController(),
@@ -354,9 +367,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onHipChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onHipChange(value);
                                     },
                                     keyboardType: TextInputType.number,
                                     controller: state.hipController ??
@@ -398,9 +411,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onShoulderChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onShoulderChange(value);
                                     },
                                     keyboardType: TextInputType.number,
                                     controller: state.shoulderController ??
@@ -436,9 +449,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onArmChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onArmChange(value);
                                     },
                                     controller: state.armController ??
                                         TextEditingController(),
@@ -480,9 +493,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onWristChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onWristChange(value);
                                     },
                                     controller: state.wristController ??
                                         TextEditingController(),
@@ -517,9 +530,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onSleetsChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onSleetsChange(value);
                                     },
                                     controller: state.sleetsController ??
                                         TextEditingController(),
@@ -563,9 +576,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                     controller: state.colarController ??
                                         TextEditingController(),
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onColarChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onColarChange(value);
                                     },
                                     hintText: "Collar",
                                   )),
@@ -597,9 +610,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onDamanChange(value);
+                                      // context
+                                      //     .read<MeasurementCubit>()
+                                      //     .onDamanChange(value);
                                     },
                                     keyboardType: TextInputType.number,
                                     controller: state.damanController ??

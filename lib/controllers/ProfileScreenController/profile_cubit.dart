@@ -9,6 +9,7 @@ import 'package:sui_daga/models/ProfileModel/profile_model.dart';
 import 'package:sui_daga/routes/routes_helper.dart';
 
 import '../../repo/repository.dart';
+import '../MainScreenController/main_screen_cubit.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(const ProfileState());
@@ -58,21 +59,23 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void _pickImage(ImageSource source) async {
     final XFile? pickedFile = await ImagePicker().pickImage(source: source);
-    debugPrint("pickedFile: ${pickedFile!.path}");
 
-    ProfileModel profileModel = state.profileModel!;
-    File _image = File(pickedFile.path);
-    debugPrint("pickedFile: ${_image.path}");
-    _repo
-        .updateData(
-          profileModel:
-              profileModel.copyWith(profileImage: base64Encode(await _image.readAsBytes())),
-        )
-        .then((value) {
-          debugPrint("value: $value");
-    });
+    if (pickedFile != null) {
 
-    // emit(state.copyWith(profileModel: profileModel));
+      ProfileModel profileModel = state.profileModel!;
+      File _image = File(pickedFile.path);
+
+
+      _repo
+          .updateProfilePhoto(
+        profileModel: profileModel.copyWith(profileImage: pickedFile.path),
+      ).then((value) {
+       profileModel = profileModel.copyWith(profileImage: value["data"]["user"]['profile_image']);
+        emit(state.copyWith(profileModel: profileModel));
+      });
+    } else {
+      debugPrint("No image selected.");
+    }
   }
 
   void onChangeName(String value) {
