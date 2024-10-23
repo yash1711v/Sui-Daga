@@ -1,12 +1,19 @@
+import '../../../flavors/config/flavor_config.dart';
+import '../../../helpers/Methods/methods.dart';
 import '../../../routes/routes_helper.dart';
 
 class Banners extends StatelessWidget {
-  final List<String> banners;
- final void Function(int)? onPageChanged;
- final PageController? pageController;
- final int index;
+  final List<dynamic> banners;
+  final void Function(int)? onPageChanged;
+  final PageController? pageController;
+  final int index;
 
-  const Banners({super.key, required this.banners, this.onPageChanged, required this.index, this.pageController});
+  const Banners(
+      {super.key,
+      required this.banners,
+      this.onPageChanged,
+      required this.index,
+      this.pageController});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +35,11 @@ class Banners extends StatelessWidget {
                     height: 241.31,
                     decoration: ShapeDecoration(
                       image: DecorationImage(
-                        image: AssetImage(banners[i]),
+                        image: isValidUrl(
+                                "${FlavorConfig().baseUrl}/${banners[0].image}")
+                            ? NetworkImage(
+                                "${FlavorConfig().baseUrl}/${banners[0].image}")
+                            : AssetImage(banners[i]),
                         fit: BoxFit.fill,
                       ),
                       shape: RoundedRectangleBorder(
@@ -47,7 +58,8 @@ class Banners extends StatelessWidget {
   }
 }
 
-Widget _buildDotIndicator({required int currentPage,required List<String> banners}) {
+Widget _buildDotIndicator(
+    {required int currentPage, required List<dynamic> banners}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: List.generate(banners.length, (index) {

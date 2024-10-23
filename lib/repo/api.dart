@@ -17,7 +17,8 @@ class ApiCaller {
   Dio dio = Dio();
 
   Future<dynamic> post(String url, dynamic data,
-      {bool withToken = false, Map<String, String>? query}) async {
+      {bool withToken = false, Map<String, String>? query}) async
+  {
     var responseJson;
     try {
       final Map<String, String> header = {
@@ -26,9 +27,11 @@ class ApiCaller {
       if (withToken) {
         header["Authorization"] = "Bearer ${_pref.getString("Token") ?? ''}";
       }
+
       final response = await dio.post(Uri.parse('$_baseUrl$url').toString(),
           options: Options(headers: header), data: jsonEncode(data));
       responseJson = response.data;
+
     } on SocketException {
       debugPrint('No Internet connection');
     } catch (e) {

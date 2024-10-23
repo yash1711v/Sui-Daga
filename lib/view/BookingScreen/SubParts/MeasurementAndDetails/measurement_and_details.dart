@@ -7,7 +7,6 @@ import '../../../../routes/routes_helper.dart';
 import '../../../../style/Pallet.dart';
 import '../../../../style/style.dart';
 import '../../../../widget/CustomChipSelection/custom_chip_selection.dart';
-import '../../../../widget/Helper/widgets.dart';
 import '../../../../widget/custom_app_bar.dart';
 import '../../../../widget/custom_button.dart';
 import '../../../../widget/drop_down.dart';
@@ -45,7 +44,7 @@ class MeasurementAndDetails extends StatelessWidget {
                   Text(
                     "Measurement Details",
                     style:
-                        Style.h18.copyWith(color: Pallet.primary, fontSize: 16),
+                    Style.h18.copyWith(color: Pallet.primary, fontSize: 16),
                   ),
                 ],
               ),
@@ -96,7 +95,6 @@ class MeasurementAndDetails extends StatelessWidget {
                 const SizedBox(height: 10),
                 BlocBuilder<MeasurementCubit, MeasurementState>(
                   builder: (context, state) {
-
                     return Row(
                       children: [
                         Expanded(
@@ -117,7 +115,7 @@ class MeasurementAndDetails extends StatelessWidget {
                               ),
                               Visibility(
                                   visible: state.selectMeasureMentError !=
-                                          null &&
+                                      null &&
                                       state.selectMeasureMentError!.isNotEmpty,
                                   child: Text(
                                     state.selectMeasureMentError ?? "",
@@ -151,7 +149,7 @@ class MeasurementAndDetails extends StatelessWidget {
                       width: double.infinity,
                       height: 40,
                       child: CustomChipSelection(
-                        isMultipleSelection: true,
+                        isMultipleSelection: false,
                         onSelected: (List<String> values) {
                           context
                               .read<MeasurementCubit>()
@@ -192,40 +190,49 @@ class MeasurementAndDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(
                             0), // Optional: Rounded corners
                       ),
-                      child: DropdownButton<String>(
-                        padding: const EdgeInsets.symmetric(horizontal: 9),
-                        hint: const Text(
-                          'CM',
-                          style: TextStyle(
-                            color: Color(0xFF212121),
-                            fontSize: 14,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                          ), // Text color for the hint
-                        ),
-                        items: <String>['CM', 'M']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: const TextStyle(
+                      child: BlocBuilder<MeasurementCubit, MeasurementState>(
+                        builder: (context, state) {
+                          return DropdownButton<String>(
+                            padding: const EdgeInsets.symmetric(horizontal: 9),
+                            hint: const Text(
+                              'CM',
+                              style: TextStyle(
                                 color: Color(0xFF212121),
                                 fontSize: 14,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w400,
                                 height: 0,
-                              ), // Text color for dropdown items
+                              ), // Text color for the hint
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {},
-                        iconSize: 18,
-                        underline: const SizedBox(),
-                        // Hides the default underline
-                        isExpanded:
+                            value: state.measurementUnit,
+                            items: <String>['CM', 'In']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: const TextStyle(
+                                    color: Color(0xFF212121),
+                                    fontSize: 14,
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ), // Text color for dropdown items
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              context
+                                  .read<MeasurementCubit>()
+                                  .onChangeMeasurementUnit(newValue ?? "CM");
+                            },
+                            iconSize: 18,
+                            underline: const SizedBox(),
+                            // Hides the default underline
+                            isExpanded:
                             true, // Makes dropdown take full width// Optional: Makes the dropdown transparent
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -249,9 +256,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onLengthChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onLengthChange(value);
                                     },
                                     keyboardType: TextInputType.number,
                                     controller: state.lengthController ??
@@ -289,9 +296,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                     controller: state.chestController ??
                                         TextEditingController(),
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onChestChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onChestChange(value);
                                     },
                                     hintText: "Chest",
                                   )),
@@ -331,9 +338,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onWaistChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onWaistChange(value);
                                     },
                                     controller: state.waistController ??
                                         TextEditingController(),
@@ -367,9 +374,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onHipChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onHipChange(value);
                                     },
                                     keyboardType: TextInputType.number,
                                     controller: state.hipController ??
@@ -411,9 +418,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onShoulderChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onShoulderChange(value);
                                     },
                                     keyboardType: TextInputType.number,
                                     controller: state.shoulderController ??
@@ -449,9 +456,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onArmChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onArmChange(value);
                                     },
                                     controller: state.armController ??
                                         TextEditingController(),
@@ -493,9 +500,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onWristChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onWristChange(value);
                                     },
                                     controller: state.wristController ??
                                         TextEditingController(),
@@ -530,9 +537,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                   child: CustomTextField(
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onSleetsChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onSleetsChange(value);
                                     },
                                     controller: state.sleetsController ??
                                         TextEditingController(),
@@ -576,9 +583,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                     controller: state.colarController ??
                                         TextEditingController(),
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onColarChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onColarChange(value);
                                     },
                                     hintText: "Collar",
                                   )),
@@ -610,9 +617,9 @@ class MeasurementAndDetails extends StatelessWidget {
                                       color: Color(0xFFF4F4F4)),
                                   child: CustomTextField(
                                     onChanged: (value) {
-                                      // context
-                                      //     .read<MeasurementCubit>()
-                                      //     .onDamanChange(value);
+                                      context
+                                          .read<MeasurementCubit>()
+                                          .onDamanChange(value);
                                     },
                                     keyboardType: TextInputType.number,
                                     controller: state.damanController ??

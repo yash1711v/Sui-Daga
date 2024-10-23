@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_cubit.dart';
+import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_state.dart';
 
 import '../../../helpers/Methods/methods.dart';
+import '../../../models/BookingModel/booking_model.dart';
 import '../../../routes/routes_helper.dart';
 import 'home_service_state.dart';
 
@@ -13,12 +15,13 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
   TextEditingController pincodeController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
 
-  void setHomeServiceScreen() {
+  void setHomeServiceScreen([Booking? bookingData]) {
     emit(state.copyWith(
       addressController: addressController,
       areaController: areaController,
       pincodeController: pincodeController,
       landmarkController: landmarkController,
+      bookingData: bookingData ?? state.bookingData,
     ));
   }
 
@@ -28,10 +31,6 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
     pincodeController.clear();
     landmarkController.clear();
 
-    addressController.dispose();
-    areaController.dispose();
-    pincodeController.dispose();
-    landmarkController.dispose();
 
     state.addressError = null;
     state.areaError = null;
@@ -50,7 +49,7 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
     address = address.trim();
 
     final RegExp validAddressRegex =
-        RegExp(r"^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s,.'-]+$");
+    RegExp(r"^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s,.'-]+$");
 
     if (address.isEmpty) {
       emit(state.copyWith(addressError: "Address cannot be empty"));
@@ -66,7 +65,7 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
     area = area.trim();
 
     final RegExp validAreaRegex =
-        RegExp(r"^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s,.'-]+$");
+    RegExp(r"^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s,.'-]+$");
 
     if (area.isEmpty) {
       emit(state.copyWith(areaError: "Area cannot be empty"));
@@ -85,7 +84,7 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
     if (pinCode.isEmpty) {
       emit(state.copyWith(pinCodeError: "Pin code cannot be empty"));
     } else if (!pinCodeRegex.hasMatch(pinCode)) {
-      emit(state.copyWith(pinCodeError: "Invalid pin code"));
+      emit(state.copyWith(pinCodeError: "Invalid pin code",pincodeController: pincodeController));
     } else {
       emit(state.copyWith(pinCodeError: ""));
     }
@@ -98,7 +97,7 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
   void onAllFieldsValid(BuildContext context) {
     if (state.addressError != null &&
         state.areaError != null &&
-        state.pinCodeError != null ) {
+        state.pinCodeError != null) {
       if (state.addressError != null && state.addressError!.isNotEmpty) {
         vibratePhone();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -120,8 +119,18 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
             content: Text(state.pinCodeError ?? ""),
           ),
         );
-      }  else {
-        context.read<MeasurementCubit>().resetValues();
+      } else {
+        debugPrint("All fields are valid ${state.bookingData}");
+        Booking booking = state.bookingData!.copyWith(
+          address: Address(
+            houseAddress: addressController.text,
+            area: areaController.text,
+            pincode: pincodeController.text,
+            landmark: landmarkController.text,
+          ),
+        );
+        debugPrint("All fields are valid ${booking}");
+        context.read<MeasurementCubit>().setBookingModelFromHomeService(booking);
         Navigator.pushNamed(context, MeasurementAndDetails.id);
       }
     } else {
@@ -132,10 +141,10 @@ class HomeServiceCubit extends Cubit<HomeServiceState> {
         ),
       );
       emit(state.copyWith(
-          addressError: "Address cannot be empty",
-          areaError: "Area cannot be empty",
-          pinCodeError: "Pin code cannot be empty",
-          ));
+        addressError: "Address cannot be empty",
+        areaError: "Area cannot be empty",
+        pinCodeError: "Pin code cannot be empty",
+      ));
     }
   }
 }

@@ -30,12 +30,14 @@ final class MeasurementState extends Equatable {
   final List<String>? selectedMeasureMentItems;
   final List<CategoryModel>? categoryList;
   final ProfileModel? profileData;
-  final Booking? bookingModel;
+   Booking? bookingModel;
   final String? selectedMeasurementType;
+  final String? measurementUnit;
 
    MeasurementState({
     this.selectMeasureMentError,
-    this.chestError,
+     this.measurementUnit = "CM",
+     this.chestError,
     this.lengthError,
     this.waistError,
     this.hipError,
@@ -95,7 +97,8 @@ final class MeasurementState extends Equatable {
      List<CategoryModel>? categoryList,
   ProfileModel? profileData,
     Booking? bookingModel,
-    String? selectedMeasurementType
+    String? selectedMeasurementType,
+    String? measurementUnit,
   }) {
     return MeasurementState(
       selectMeasureMentError:
@@ -127,6 +130,7 @@ final class MeasurementState extends Equatable {
       profileData: profileData ?? this.profileData,
       bookingModel: bookingModel ?? this.bookingModel,
       selectedMeasurementType: selectedMeasurementType ?? this.selectedMeasurementType,
+      measurementUnit: measurementUnit ?? this.measurementUnit,
     );
   }
 
@@ -168,6 +172,7 @@ final class MeasurementState extends Equatable {
         categoryList,
         profileData,
         bookingModel,
-        selectedMeasurementType
+        selectedMeasurementType,
+        measurementUnit,
       ];
 }

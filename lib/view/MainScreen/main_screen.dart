@@ -31,11 +31,14 @@ class MainScreen extends StatelessWidget {
             if(state.firtTimeOpen ?? false) {
               context.read<ProfileCubit>().setProfileScreen(state.profileModel!);
             }
+            if(state.profileModel == null) {
+             return const Center(child: CircularProgressIndicator(),);
+            }
             return PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: state.pageController,
               children: [
-                const HomeScreen(),
+                HomeScreen(profileModel: (state.profileModel ?? ProfileModel()),),
                 BookingScreen(profileModel: (state.profileModel ?? ProfileModel()), makeBookingItems: state.dresses ?? ["Kurti", "Pant", "Dress", "Gown"],),
                 const ProfileScreen(),
               ],

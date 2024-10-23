@@ -39,6 +39,14 @@ class ProfileModel with _$ProfileModel {
     String address,
     @JsonKey(name: "data")
     List<CategoryModel>? categoryModel,
+    @JsonKey(name: "upper_banner")
+    List<BannerModel>? upperBanner,
+    @JsonKey(name: "middle_banner")
+    List<BannerModel>? middleBanner,
+    @JsonKey(name: "lower_banner")
+    List<BannerModel>? lowerBanner
+    ,@JsonKey(name: "collection_banner")
+    List<BannerModel>? collectionBanner,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, Object?> json)
@@ -70,4 +78,22 @@ class CategoryModel with _$CategoryModel {
 
   factory CategoryModel.fromJson(Map<String, Object?> json)
   => _$CategoryModelFromJson(json);
+}
+
+@freezed
+class BannerModel with _$BannerModel {
+  const factory BannerModel({
+    @JsonKey(name: '_id') required String id,
+    required String image,
+    required int priority,
+    required String type,
+    required String status,
+    @JsonKey(name: 'is_deleted') required bool isDeleted,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @JsonKey(name: '__v') required int v,
+  }) = _BannerModel;
+
+  factory BannerModel.fromJson(Map<String, dynamic> json) =>
+      _$BannerModelFromJson(json);
 }

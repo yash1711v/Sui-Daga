@@ -20,7 +20,6 @@ class HomeService extends StatefulWidget {
 }
 
 class _HomeServiceState extends State<HomeService> {
-
   final ScrollController _scrollController = ScrollController();
 
   final FocusNode _addressFocus = FocusNode();
@@ -70,6 +69,7 @@ class _HomeServiceState extends State<HomeService> {
             padding: const EdgeInsets.only(left: 16.0),
             child: GestureDetector(
               onTap: () {
+                context.read<HomeServiceCubit>().resetValues();
                 Navigator.pop(context);
               },
               child: Row(
@@ -146,7 +146,8 @@ class _HomeServiceState extends State<HomeService> {
                                       color: const Color(0xFFF4F4F4)),
                                 ),
                                 child: CustomTextField(
-                                  controller: state.addressController ?? TextEditingController(),
+                                  controller: state.addressController ??
+                                      TextEditingController(),
                                   focusNode: _addressFocus,
                                   hintText: "Address",
                                   onChanged: (value) {
@@ -205,7 +206,8 @@ class _HomeServiceState extends State<HomeService> {
                                       color: const Color(0xFFF4F4F4)),
                                 ),
                                 child: CustomTextField(
-                                  controller: state.areaController ?? TextEditingController(),
+                                  controller: state.areaController ??
+                                      TextEditingController(),
                                   focusNode: _areaFocus,
                                   hintText: "Area",
                                   onChanged: (value) {
@@ -264,7 +266,8 @@ class _HomeServiceState extends State<HomeService> {
                                       color: const Color(0xFFF4F4F4)),
                                 ),
                                 child: CustomTextField(
-                                  controller: state.pincodeController ?? TextEditingController(),
+                                  controller: state.pincodeController ??
+                                      TextEditingController(),
                                   focusNode: _pincodeFocus,
                                   maxLength: 6,
                                   inputFormatters: [
@@ -328,7 +331,8 @@ class _HomeServiceState extends State<HomeService> {
                                       color: const Color(0xFFF4F4F4)),
                                 ),
                                 child: CustomTextField(
-                                  controller: state.landmarkController ?? TextEditingController(),
+                                  controller: state.landmarkController ??
+                                      TextEditingController(),
                                   focusNode: _landmarkFocus,
                                   hintText: "Landmark",
                                   onChanged: (value) {
@@ -364,30 +368,36 @@ class _HomeServiceState extends State<HomeService> {
           ),
         ),
       ),
-      bottomNavigationBar:  Padding(
-        padding: const EdgeInsets.only(left: 16.0,right: 16,bottom: 16),
-        child: Row(
-          children: [
-            Expanded(
-              child: CustomButton(
-                onPressed: () {
-                  // Handle next action
-                  context.read<HomeServiceCubit>().onAllFieldsValid(context);
-                },
-                child: const Text(
-                  'NEXT',
-                  style: TextStyle(
-                    color: Color(0xFF212121),
-                    fontSize: 14,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
+      bottomNavigationBar: BlocBuilder<HomeServiceCubit, HomeServiceState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () {
+                      // Handle next action
+                      context
+                          .read<HomeServiceCubit>()
+                          .onAllFieldsValid(context);
+                    },
+                    child: const Text(
+                      'NEXT',
+                      style: TextStyle(
+                        color: Color(0xFF212121),
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                        height: 0,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

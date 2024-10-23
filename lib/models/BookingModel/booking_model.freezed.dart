@@ -20,11 +20,17 @@ Booking _$BookingFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Booking {
+  @JsonKey(name: "category_id")
   String? get categoryId => throw _privateConstructorUsedError;
+  @JsonKey(name: "ready_by_date")
   String? get ready_by_date => throw _privateConstructorUsedError;
+  @JsonKey(name: "type")
   String? get type => throw _privateConstructorUsedError;
+  @JsonKey(name: "address")
   Address? get address => throw _privateConstructorUsedError;
+  @JsonKey(name: "measurement_unit")
   String? get measurementUnit => throw _privateConstructorUsedError;
+  @JsonKey(name: "measurement_details")
   List<MeasurementDetail>? get measurementDetails =>
       throw _privateConstructorUsedError;
 
@@ -43,11 +49,12 @@ abstract class $BookingCopyWith<$Res> {
       _$BookingCopyWithImpl<$Res, Booking>;
   @useResult
   $Res call(
-      {String? categoryId,
-      String? ready_by_date,
-      String? type,
-      Address? address,
-      String? measurementUnit,
+      {@JsonKey(name: "category_id") String? categoryId,
+      @JsonKey(name: "ready_by_date") String? ready_by_date,
+      @JsonKey(name: "type") String? type,
+      @JsonKey(name: "address") Address? address,
+      @JsonKey(name: "measurement_unit") String? measurementUnit,
+      @JsonKey(name: "measurement_details")
       List<MeasurementDetail>? measurementDetails});
 
   $AddressCopyWith<$Res>? get address;
@@ -126,11 +133,12 @@ abstract class _$$BookingImplCopyWith<$Res> implements $BookingCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? categoryId,
-      String? ready_by_date,
-      String? type,
-      Address? address,
-      String? measurementUnit,
+      {@JsonKey(name: "category_id") String? categoryId,
+      @JsonKey(name: "ready_by_date") String? ready_by_date,
+      @JsonKey(name: "type") String? type,
+      @JsonKey(name: "address") Address? address,
+      @JsonKey(name: "measurement_unit") String? measurementUnit,
+      @JsonKey(name: "measurement_details")
       List<MeasurementDetail>? measurementDetails});
 
   @override
@@ -190,11 +198,12 @@ class __$$BookingImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BookingImpl implements _Booking {
   const _$BookingImpl(
-      {this.categoryId,
-      this.ready_by_date,
-      this.type,
-      this.address,
-      this.measurementUnit,
+      {@JsonKey(name: "category_id") this.categoryId,
+      @JsonKey(name: "ready_by_date") this.ready_by_date,
+      @JsonKey(name: "type") this.type,
+      @JsonKey(name: "address") this.address,
+      @JsonKey(name: "measurement_unit") this.measurementUnit,
+      @JsonKey(name: "measurement_details")
       final List<MeasurementDetail>? measurementDetails})
       : _measurementDetails = measurementDetails;
 
@@ -202,17 +211,23 @@ class _$BookingImpl implements _Booking {
       _$$BookingImplFromJson(json);
 
   @override
+  @JsonKey(name: "category_id")
   final String? categoryId;
   @override
+  @JsonKey(name: "ready_by_date")
   final String? ready_by_date;
   @override
+  @JsonKey(name: "type")
   final String? type;
   @override
+  @JsonKey(name: "address")
   final Address? address;
   @override
+  @JsonKey(name: "measurement_unit")
   final String? measurementUnit;
   final List<MeasurementDetail>? _measurementDetails;
   @override
+  @JsonKey(name: "measurement_details")
   List<MeasurementDetail>? get measurementDetails {
     final value = _measurementDetails;
     if (value == null) return null;
@@ -273,26 +288,33 @@ class _$BookingImpl implements _Booking {
 
 abstract class _Booking implements Booking {
   const factory _Booking(
-      {final String? categoryId,
-      final String? ready_by_date,
-      final String? type,
-      final Address? address,
-      final String? measurementUnit,
+      {@JsonKey(name: "category_id") final String? categoryId,
+      @JsonKey(name: "ready_by_date") final String? ready_by_date,
+      @JsonKey(name: "type") final String? type,
+      @JsonKey(name: "address") final Address? address,
+      @JsonKey(name: "measurement_unit") final String? measurementUnit,
+      @JsonKey(name: "measurement_details")
       final List<MeasurementDetail>? measurementDetails}) = _$BookingImpl;
 
   factory _Booking.fromJson(Map<String, dynamic> json) = _$BookingImpl.fromJson;
 
   @override
+  @JsonKey(name: "category_id")
   String? get categoryId;
   @override
+  @JsonKey(name: "ready_by_date")
   String? get ready_by_date;
   @override
+  @JsonKey(name: "type")
   String? get type;
   @override
+  @JsonKey(name: "address")
   Address? get address;
   @override
+  @JsonKey(name: "measurement_unit")
   String? get measurementUnit;
   @override
+  @JsonKey(name: "measurement_details")
   List<MeasurementDetail>? get measurementDetails;
 
   /// Create a copy of Booking
@@ -309,9 +331,13 @@ Address _$AddressFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Address {
+  @JsonKey(name: "house_address")
   String get houseAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: "area")
   String get area => throw _privateConstructorUsedError;
+  @JsonKey(name: "pincode")
   String get pincode => throw _privateConstructorUsedError;
+  @JsonKey(name: "landmark")
   String get landmark => throw _privateConstructorUsedError;
 
   /// Serializes this Address to a JSON map.
@@ -329,7 +355,10 @@ abstract class $AddressCopyWith<$Res> {
       _$AddressCopyWithImpl<$Res, Address>;
   @useResult
   $Res call(
-      {String houseAddress, String area, String pincode, String landmark});
+      {@JsonKey(name: "house_address") String houseAddress,
+      @JsonKey(name: "area") String area,
+      @JsonKey(name: "pincode") String pincode,
+      @JsonKey(name: "landmark") String landmark});
 }
 
 /// @nodoc
@@ -381,7 +410,10 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String houseAddress, String area, String pincode, String landmark});
+      {@JsonKey(name: "house_address") String houseAddress,
+      @JsonKey(name: "area") String area,
+      @JsonKey(name: "pincode") String pincode,
+      @JsonKey(name: "landmark") String landmark});
 }
 
 /// @nodoc
@@ -427,21 +459,25 @@ class __$$AddressImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AddressImpl implements _Address {
   const _$AddressImpl(
-      {required this.houseAddress,
-      required this.area,
-      required this.pincode,
-      required this.landmark});
+      {@JsonKey(name: "house_address") required this.houseAddress,
+      @JsonKey(name: "area") required this.area,
+      @JsonKey(name: "pincode") required this.pincode,
+      @JsonKey(name: "landmark") required this.landmark});
 
   factory _$AddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddressImplFromJson(json);
 
   @override
+  @JsonKey(name: "house_address")
   final String houseAddress;
   @override
+  @JsonKey(name: "area")
   final String area;
   @override
+  @JsonKey(name: "pincode")
   final String pincode;
   @override
+  @JsonKey(name: "landmark")
   final String landmark;
 
   @override
@@ -485,20 +521,25 @@ class _$AddressImpl implements _Address {
 
 abstract class _Address implements Address {
   const factory _Address(
-      {required final String houseAddress,
-      required final String area,
-      required final String pincode,
-      required final String landmark}) = _$AddressImpl;
+          {@JsonKey(name: "house_address") required final String houseAddress,
+          @JsonKey(name: "area") required final String area,
+          @JsonKey(name: "pincode") required final String pincode,
+          @JsonKey(name: "landmark") required final String landmark}) =
+      _$AddressImpl;
 
   factory _Address.fromJson(Map<String, dynamic> json) = _$AddressImpl.fromJson;
 
   @override
+  @JsonKey(name: "house_address")
   String get houseAddress;
   @override
+  @JsonKey(name: "area")
   String get area;
   @override
+  @JsonKey(name: "pincode")
   String get pincode;
   @override
+  @JsonKey(name: "landmark")
   String get landmark;
 
   /// Create a copy of Address
@@ -515,8 +556,11 @@ MeasurementDetail _$MeasurementDetailFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MeasurementDetail {
+  @JsonKey(name: "categoryId")
   String get categoryId => throw _privateConstructorUsedError;
+  @JsonKey(name: "name")
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: "value")
   String get value => throw _privateConstructorUsedError;
 
   /// Serializes this MeasurementDetail to a JSON map.
@@ -535,7 +579,10 @@ abstract class $MeasurementDetailCopyWith<$Res> {
           MeasurementDetail value, $Res Function(MeasurementDetail) then) =
       _$MeasurementDetailCopyWithImpl<$Res, MeasurementDetail>;
   @useResult
-  $Res call({String categoryId, String name, String value});
+  $Res call(
+      {@JsonKey(name: "categoryId") String categoryId,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "value") String value});
 }
 
 /// @nodoc
@@ -582,7 +629,10 @@ abstract class _$$MeasurementDetailImplCopyWith<$Res>
       __$$MeasurementDetailImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String categoryId, String name, String value});
+  $Res call(
+      {@JsonKey(name: "categoryId") String categoryId,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "value") String value});
 }
 
 /// @nodoc
@@ -623,16 +673,21 @@ class __$$MeasurementDetailImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MeasurementDetailImpl implements _MeasurementDetail {
   const _$MeasurementDetailImpl(
-      {required this.categoryId, required this.name, required this.value});
+      {@JsonKey(name: "categoryId") required this.categoryId,
+      @JsonKey(name: "name") required this.name,
+      @JsonKey(name: "value") required this.value});
 
   factory _$MeasurementDetailImpl.fromJson(Map<String, dynamic> json) =>
       _$$MeasurementDetailImplFromJson(json);
 
   @override
+  @JsonKey(name: "categoryId")
   final String categoryId;
   @override
+  @JsonKey(name: "name")
   final String name;
   @override
+  @JsonKey(name: "value")
   final String value;
 
   @override
@@ -674,18 +729,22 @@ class _$MeasurementDetailImpl implements _MeasurementDetail {
 
 abstract class _MeasurementDetail implements MeasurementDetail {
   const factory _MeasurementDetail(
-      {required final String categoryId,
-      required final String name,
-      required final String value}) = _$MeasurementDetailImpl;
+          {@JsonKey(name: "categoryId") required final String categoryId,
+          @JsonKey(name: "name") required final String name,
+          @JsonKey(name: "value") required final String value}) =
+      _$MeasurementDetailImpl;
 
   factory _MeasurementDetail.fromJson(Map<String, dynamic> json) =
       _$MeasurementDetailImpl.fromJson;
 
   @override
+  @JsonKey(name: "categoryId")
   String get categoryId;
   @override
+  @JsonKey(name: "name")
   String get name;
   @override
+  @JsonKey(name: "value")
   String get value;
 
   /// Create a copy of MeasurementDetail

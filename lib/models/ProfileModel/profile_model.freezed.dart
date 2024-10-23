@@ -42,6 +42,14 @@ mixin _$ProfileModel {
   String get address => throw _privateConstructorUsedError;
   @JsonKey(name: "data")
   List<CategoryModel>? get categoryModel => throw _privateConstructorUsedError;
+  @JsonKey(name: "upper_banner")
+  List<BannerModel>? get upperBanner => throw _privateConstructorUsedError;
+  @JsonKey(name: "middle_banner")
+  List<BannerModel>? get middleBanner => throw _privateConstructorUsedError;
+  @JsonKey(name: "lower_banner")
+  List<BannerModel>? get lowerBanner => throw _privateConstructorUsedError;
+  @JsonKey(name: "collection_banner")
+  List<BannerModel>? get collectionBanner => throw _privateConstructorUsedError;
 
   /// Serializes this ProfileModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -70,7 +78,11 @@ abstract class $ProfileModelCopyWith<$Res> {
       @JsonKey(name: "phone_number") int number,
       @JsonKey(name: "profile_image") dynamic profileImage,
       @JsonKey(name: "address") String address,
-      @JsonKey(name: "data") List<CategoryModel>? categoryModel});
+      @JsonKey(name: "data") List<CategoryModel>? categoryModel,
+      @JsonKey(name: "upper_banner") List<BannerModel>? upperBanner,
+      @JsonKey(name: "middle_banner") List<BannerModel>? middleBanner,
+      @JsonKey(name: "lower_banner") List<BannerModel>? lowerBanner,
+      @JsonKey(name: "collection_banner") List<BannerModel>? collectionBanner});
 }
 
 /// @nodoc
@@ -99,6 +111,10 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? profileImage = freezed,
     Object? address = null,
     Object? categoryModel = freezed,
+    Object? upperBanner = freezed,
+    Object? middleBanner = freezed,
+    Object? lowerBanner = freezed,
+    Object? collectionBanner = freezed,
   }) {
     return _then(_value.copyWith(
       newUser: null == newUser
@@ -145,6 +161,22 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.categoryModel
           : categoryModel // ignore: cast_nullable_to_non_nullable
               as List<CategoryModel>?,
+      upperBanner: freezed == upperBanner
+          ? _value.upperBanner
+          : upperBanner // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>?,
+      middleBanner: freezed == middleBanner
+          ? _value.middleBanner
+          : middleBanner // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>?,
+      lowerBanner: freezed == lowerBanner
+          ? _value.lowerBanner
+          : lowerBanner // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>?,
+      collectionBanner: freezed == collectionBanner
+          ? _value.collectionBanner
+          : collectionBanner // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>?,
     ) as $Val);
   }
 }
@@ -168,7 +200,11 @@ abstract class _$$ProfileModelImplCopyWith<$Res>
       @JsonKey(name: "phone_number") int number,
       @JsonKey(name: "profile_image") dynamic profileImage,
       @JsonKey(name: "address") String address,
-      @JsonKey(name: "data") List<CategoryModel>? categoryModel});
+      @JsonKey(name: "data") List<CategoryModel>? categoryModel,
+      @JsonKey(name: "upper_banner") List<BannerModel>? upperBanner,
+      @JsonKey(name: "middle_banner") List<BannerModel>? middleBanner,
+      @JsonKey(name: "lower_banner") List<BannerModel>? lowerBanner,
+      @JsonKey(name: "collection_banner") List<BannerModel>? collectionBanner});
 }
 
 /// @nodoc
@@ -195,6 +231,10 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
     Object? profileImage = freezed,
     Object? address = null,
     Object? categoryModel = freezed,
+    Object? upperBanner = freezed,
+    Object? middleBanner = freezed,
+    Object? lowerBanner = freezed,
+    Object? collectionBanner = freezed,
   }) {
     return _then(_$ProfileModelImpl(
       newUser: null == newUser
@@ -241,6 +281,22 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
           ? _value._categoryModel
           : categoryModel // ignore: cast_nullable_to_non_nullable
               as List<CategoryModel>?,
+      upperBanner: freezed == upperBanner
+          ? _value._upperBanner
+          : upperBanner // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>?,
+      middleBanner: freezed == middleBanner
+          ? _value._middleBanner
+          : middleBanner // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>?,
+      lowerBanner: freezed == lowerBanner
+          ? _value._lowerBanner
+          : lowerBanner // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>?,
+      collectionBanner: freezed == collectionBanner
+          ? _value._collectionBanner
+          : collectionBanner // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>?,
     ));
   }
 }
@@ -262,9 +318,18 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
       this.profileImage = "assets/Images/dummyProfileImage.png",
       @JsonKey(name: "address") this.address =
           "Lorem ipsum dolor sit amet, consr adipiscing elit. Sed do eiusmod",
-      @JsonKey(name: "data") final List<CategoryModel>? categoryModel})
+      @JsonKey(name: "data") final List<CategoryModel>? categoryModel,
+      @JsonKey(name: "upper_banner") final List<BannerModel>? upperBanner,
+      @JsonKey(name: "middle_banner") final List<BannerModel>? middleBanner,
+      @JsonKey(name: "lower_banner") final List<BannerModel>? lowerBanner,
+      @JsonKey(name: "collection_banner")
+      final List<BannerModel>? collectionBanner})
       : _intrestedDresses = intrestedDresses,
-        _categoryModel = categoryModel;
+        _categoryModel = categoryModel,
+        _upperBanner = upperBanner,
+        _middleBanner = middleBanner,
+        _lowerBanner = lowerBanner,
+        _collectionBanner = collectionBanner;
 
   factory _$ProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileModelImplFromJson(json);
@@ -319,9 +384,54 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<BannerModel>? _upperBanner;
+  @override
+  @JsonKey(name: "upper_banner")
+  List<BannerModel>? get upperBanner {
+    final value = _upperBanner;
+    if (value == null) return null;
+    if (_upperBanner is EqualUnmodifiableListView) return _upperBanner;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<BannerModel>? _middleBanner;
+  @override
+  @JsonKey(name: "middle_banner")
+  List<BannerModel>? get middleBanner {
+    final value = _middleBanner;
+    if (value == null) return null;
+    if (_middleBanner is EqualUnmodifiableListView) return _middleBanner;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<BannerModel>? _lowerBanner;
+  @override
+  @JsonKey(name: "lower_banner")
+  List<BannerModel>? get lowerBanner {
+    final value = _lowerBanner;
+    if (value == null) return null;
+    if (_lowerBanner is EqualUnmodifiableListView) return _lowerBanner;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<BannerModel>? _collectionBanner;
+  @override
+  @JsonKey(name: "collection_banner")
+  List<BannerModel>? get collectionBanner {
+    final value = _collectionBanner;
+    if (value == null) return null;
+    if (_collectionBanner is EqualUnmodifiableListView)
+      return _collectionBanner;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProfileModel(newUser: $newUser, pincode: $pincode, landmark: $landmark, area: $area, intrestedDresses: $intrestedDresses, orderFrequency: $orderFrequency, name: $name, number: $number, profileImage: $profileImage, address: $address, categoryModel: $categoryModel)';
+    return 'ProfileModel(newUser: $newUser, pincode: $pincode, landmark: $landmark, area: $area, intrestedDresses: $intrestedDresses, orderFrequency: $orderFrequency, name: $name, number: $number, profileImage: $profileImage, address: $address, categoryModel: $categoryModel, upperBanner: $upperBanner, middleBanner: $middleBanner, lowerBanner: $lowerBanner, collectionBanner: $collectionBanner)';
   }
 
   @override
@@ -339,7 +449,11 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
       ..add(DiagnosticsProperty('number', number))
       ..add(DiagnosticsProperty('profileImage', profileImage))
       ..add(DiagnosticsProperty('address', address))
-      ..add(DiagnosticsProperty('categoryModel', categoryModel));
+      ..add(DiagnosticsProperty('categoryModel', categoryModel))
+      ..add(DiagnosticsProperty('upperBanner', upperBanner))
+      ..add(DiagnosticsProperty('middleBanner', middleBanner))
+      ..add(DiagnosticsProperty('lowerBanner', lowerBanner))
+      ..add(DiagnosticsProperty('collectionBanner', collectionBanner));
   }
 
   @override
@@ -362,7 +476,15 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
                 .equals(other.profileImage, profileImage) &&
             (identical(other.address, address) || other.address == address) &&
             const DeepCollectionEquality()
-                .equals(other._categoryModel, _categoryModel));
+                .equals(other._categoryModel, _categoryModel) &&
+            const DeepCollectionEquality()
+                .equals(other._upperBanner, _upperBanner) &&
+            const DeepCollectionEquality()
+                .equals(other._middleBanner, _middleBanner) &&
+            const DeepCollectionEquality()
+                .equals(other._lowerBanner, _lowerBanner) &&
+            const DeepCollectionEquality()
+                .equals(other._collectionBanner, _collectionBanner));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -379,7 +501,11 @@ class _$ProfileModelImpl with DiagnosticableTreeMixin implements _ProfileModel {
       number,
       const DeepCollectionEquality().hash(profileImage),
       address,
-      const DeepCollectionEquality().hash(_categoryModel));
+      const DeepCollectionEquality().hash(_categoryModel),
+      const DeepCollectionEquality().hash(_upperBanner),
+      const DeepCollectionEquality().hash(_middleBanner),
+      const DeepCollectionEquality().hash(_lowerBanner),
+      const DeepCollectionEquality().hash(_collectionBanner));
 
   /// Create a copy of ProfileModel
   /// with the given fields replaced by the non-null parameter values.
@@ -409,8 +535,12 @@ abstract class _ProfileModel implements ProfileModel {
       @JsonKey(name: "phone_number") final int number,
       @JsonKey(name: "profile_image") final dynamic profileImage,
       @JsonKey(name: "address") final String address,
-      @JsonKey(name: "data")
-      final List<CategoryModel>? categoryModel}) = _$ProfileModelImpl;
+      @JsonKey(name: "data") final List<CategoryModel>? categoryModel,
+      @JsonKey(name: "upper_banner") final List<BannerModel>? upperBanner,
+      @JsonKey(name: "middle_banner") final List<BannerModel>? middleBanner,
+      @JsonKey(name: "lower_banner") final List<BannerModel>? lowerBanner,
+      @JsonKey(name: "collection_banner")
+      final List<BannerModel>? collectionBanner}) = _$ProfileModelImpl;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$ProfileModelImpl.fromJson;
@@ -448,6 +578,18 @@ abstract class _ProfileModel implements ProfileModel {
   @override
   @JsonKey(name: "data")
   List<CategoryModel>? get categoryModel;
+  @override
+  @JsonKey(name: "upper_banner")
+  List<BannerModel>? get upperBanner;
+  @override
+  @JsonKey(name: "middle_banner")
+  List<BannerModel>? get middleBanner;
+  @override
+  @JsonKey(name: "lower_banner")
+  List<BannerModel>? get lowerBanner;
+  @override
+  @JsonKey(name: "collection_banner")
+  List<BannerModel>? get collectionBanner;
 
   /// Create a copy of ProfileModel
   /// with the given fields replaced by the non-null parameter values.
@@ -819,5 +961,354 @@ abstract class _CategoryModel implements CategoryModel {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CategoryModelImplCopyWith<_$CategoryModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+BannerModel _$BannerModelFromJson(Map<String, dynamic> json) {
+  return _BannerModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BannerModel {
+  @JsonKey(name: '_id')
+  String get id => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
+  int get priority => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_deleted')
+  bool get isDeleted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: '__v')
+  int get v => throw _privateConstructorUsedError;
+
+  /// Serializes this BannerModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of BannerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BannerModelCopyWith<BannerModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BannerModelCopyWith<$Res> {
+  factory $BannerModelCopyWith(
+          BannerModel value, $Res Function(BannerModel) then) =
+      _$BannerModelCopyWithImpl<$Res, BannerModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: '_id') String id,
+      String image,
+      int priority,
+      String type,
+      String status,
+      @JsonKey(name: 'is_deleted') bool isDeleted,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt,
+      @JsonKey(name: '__v') int v});
+}
+
+/// @nodoc
+class _$BannerModelCopyWithImpl<$Res, $Val extends BannerModel>
+    implements $BannerModelCopyWith<$Res> {
+  _$BannerModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of BannerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? image = null,
+    Object? priority = null,
+    Object? type = null,
+    Object? status = null,
+    Object? isDeleted = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? v = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      priority: null == priority
+          ? _value.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      isDeleted: null == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      v: null == v
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BannerModelImplCopyWith<$Res>
+    implements $BannerModelCopyWith<$Res> {
+  factory _$$BannerModelImplCopyWith(
+          _$BannerModelImpl value, $Res Function(_$BannerModelImpl) then) =
+      __$$BannerModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: '_id') String id,
+      String image,
+      int priority,
+      String type,
+      String status,
+      @JsonKey(name: 'is_deleted') bool isDeleted,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt,
+      @JsonKey(name: '__v') int v});
+}
+
+/// @nodoc
+class __$$BannerModelImplCopyWithImpl<$Res>
+    extends _$BannerModelCopyWithImpl<$Res, _$BannerModelImpl>
+    implements _$$BannerModelImplCopyWith<$Res> {
+  __$$BannerModelImplCopyWithImpl(
+      _$BannerModelImpl _value, $Res Function(_$BannerModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of BannerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? image = null,
+    Object? priority = null,
+    Object? type = null,
+    Object? status = null,
+    Object? isDeleted = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? v = null,
+  }) {
+    return _then(_$BannerModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      priority: null == priority
+          ? _value.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      isDeleted: null == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      v: null == v
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BannerModelImpl with DiagnosticableTreeMixin implements _BannerModel {
+  const _$BannerModelImpl(
+      {@JsonKey(name: '_id') required this.id,
+      required this.image,
+      required this.priority,
+      required this.type,
+      required this.status,
+      @JsonKey(name: 'is_deleted') required this.isDeleted,
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt,
+      @JsonKey(name: '__v') required this.v});
+
+  factory _$BannerModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BannerModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: '_id')
+  final String id;
+  @override
+  final String image;
+  @override
+  final int priority;
+  @override
+  final String type;
+  @override
+  final String status;
+  @override
+  @JsonKey(name: 'is_deleted')
+  final bool isDeleted;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+  @override
+  @JsonKey(name: '__v')
+  final int v;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'BannerModel(id: $id, image: $image, priority: $priority, type: $type, status: $status, isDeleted: $isDeleted, createdAt: $createdAt, updatedAt: $updatedAt, v: $v)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'BannerModel'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('priority', priority))
+      ..add(DiagnosticsProperty('type', type))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('isDeleted', isDeleted))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt))
+      ..add(DiagnosticsProperty('v', v));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BannerModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.priority, priority) ||
+                other.priority == priority) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.isDeleted, isDeleted) ||
+                other.isDeleted == isDeleted) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.v, v) || other.v == v));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, image, priority, type,
+      status, isDeleted, createdAt, updatedAt, v);
+
+  /// Create a copy of BannerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BannerModelImplCopyWith<_$BannerModelImpl> get copyWith =>
+      __$$BannerModelImplCopyWithImpl<_$BannerModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BannerModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BannerModel implements BannerModel {
+  const factory _BannerModel(
+      {@JsonKey(name: '_id') required final String id,
+      required final String image,
+      required final int priority,
+      required final String type,
+      required final String status,
+      @JsonKey(name: 'is_deleted') required final bool isDeleted,
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+      @JsonKey(name: '__v') required final int v}) = _$BannerModelImpl;
+
+  factory _BannerModel.fromJson(Map<String, dynamic> json) =
+      _$BannerModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: '_id')
+  String get id;
+  @override
+  String get image;
+  @override
+  int get priority;
+  @override
+  String get type;
+  @override
+  String get status;
+  @override
+  @JsonKey(name: 'is_deleted')
+  bool get isDeleted;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt;
+  @override
+  @JsonKey(name: '__v')
+  int get v;
+
+  /// Create a copy of BannerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BannerModelImplCopyWith<_$BannerModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

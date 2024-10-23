@@ -25,7 +25,25 @@ class MainScreenCubit extends Cubit<MainScreenState> {
           for (var item in value['data']['category']) {
             categoryModel.add(CategoryModel.fromJson(item));
           }
-          profileModel = profileModel.copyWith(categoryModel: categoryModel);
+          List<BannerModel> upperBanner = [];
+          for (var item in value['data']['upper_banner']){
+            upperBanner.add(BannerModel.fromJson(item));
+          }
+          List<BannerModel> lowerBanner = [];
+          for (var item in value['data']['lower_banner']){
+            lowerBanner.add(BannerModel.fromJson(item));
+          }
+          List<BannerModel> middleBanner = [];
+          for (var item in value['data']['middle_banner']){
+            middleBanner.add(BannerModel.fromJson(item));
+          }
+
+          List<BannerModel> collectionBanner = [];
+          for (var item in value['data']['collection_banner']){
+            collectionBanner.add(BannerModel.fromJson(item));
+          }
+
+          profileModel = profileModel.copyWith(categoryModel: categoryModel, upperBanner: upperBanner, middleBanner: middleBanner, lowerBanner: lowerBanner, collectionBanner: collectionBanner);
 
           emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: index ?? 0, firtTimeOpen: true));
 

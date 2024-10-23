@@ -1,10 +1,11 @@
 import 'package:sui_daga/helpers/Methods/methods.dart';
 
+import '../../../flavors/config/flavor_config.dart';
 import '../../../routes/routes_helper.dart';
 import 'package:flutter_gallery_3d/gallery3d.dart';
 
 class Creations extends StatelessWidget {
-   final List<String> images;
+   final List<dynamic> images;
    const Creations({super.key, required this.images});
 
   @override
@@ -44,7 +45,7 @@ class Creations extends StatelessWidget {
             return Container(
              decoration: BoxDecoration(
                image: DecorationImage(
-                 image: isValidUrl(images[index])?NetworkImage(images[index]):AssetImage(images[index]),
+                 image: isValidUrl("${FlavorConfig().baseUrl}/${images[index].image}")?NetworkImage("${FlavorConfig().baseUrl}/${images[index].image}"):AssetImage(images[index]),
                  fit: BoxFit.fill,
                ),
              ),

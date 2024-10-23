@@ -1,6 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_cubit.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_state.dart';
+import 'package:sui_daga/flavors/config/flavor_config.dart';
+import 'package:sui_daga/helpers/Methods/methods.dart';
+import 'package:sui_daga/models/ProfileModel/profile_model.dart';
 import 'package:sui_daga/view/HomeScreen/widgets/banners.dart';
 import 'package:sui_daga/view/HomeScreen/widgets/catogary_section.dart';
 import 'package:sui_daga/view/HomeScreen/widgets/creations.dart';
@@ -12,8 +15,9 @@ import '../../widget/custom_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   static const id = "/HomeScreen";
+  final ProfileModel profileModel;
 
-  const HomeScreen({super.key});
+  HomeScreen({super.key, required this.profileModel});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,13 @@ class HomeScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Image.asset("assets/Images/Banner.png"),
+              child: isValidUrl(
+                      "${FlavorConfig().baseUrl}/${profileModel!.upperBanner![0].image}")
+                  ? Image.network(
+                      "${FlavorConfig().baseUrl}/${profileModel!.upperBanner![0].image}",
+                      scale: 0.5,
+                    )
+                  : Image.asset("assets/Images/Banner.png"),
             ),
             const SizedBox(
               height: 16,
@@ -69,10 +79,13 @@ class HomeScreen extends StatelessWidget {
             BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
                 return Banners(
-                  banners: const [
-                    "assets/Images/HomeScreenCategories/banner_image1.png",
-                    "assets/Images/HomeScreenCategories/banner_image2.png"
-                  ],
+                  banners: isValidUrl(
+                          "${FlavorConfig().baseUrl}/${profileModel!.middleBanner![0].image}")
+                      ? profileModel.middleBanner ?? []
+                      : const [
+                          "assets/Images/HomeScreenCategories/banner_image1.png",
+                          "assets/Images/HomeScreenCategories/banner_image2.png"
+                        ],
                   index: state.index ?? 0,
                   onPageChanged: (int value) {
                     context.read<HomeCubit>().changeIndex(value);
@@ -84,31 +97,36 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 36,
             ),
-            const Creations(
-              images: [
-                'assets/Images/HomeScreenCategories/creation_1.png',
-                'assets/Images/HomeScreenCategories/creation_2.png',
-                'assets/Images/HomeScreenCategories/creation_3.png',
-                'assets/Images/HomeScreenCategories/creation_4.png',
-                'assets/Images/HomeScreenCategories/creation_5.png',
-              ],
+            Creations(
+              images: isValidUrl(
+                      "${FlavorConfig().baseUrl}/${profileModel.collectionBanner![0].image}")
+                  ? profileModel.collectionBanner ?? []
+                  : [
+                      'assets/Images/HomeScreenCategories/creation_1.png',
+                      'assets/Images/HomeScreenCategories/creation_2.png',
+                      'assets/Images/HomeScreenCategories/creation_3.png',
+                      'assets/Images/HomeScreenCategories/creation_4.png',
+                      'assets/Images/HomeScreenCategories/creation_5.png',
+                    ],
             ),
             const SizedBox(
               height: 25,
             ),
-            Center(
-              child: SizedBox(
-                width: 400,
-                height: 500,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Center(
                 child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: [
-                      "assets/Images/HomeScreenCategories/banner_image1.png",
-                      "assets/Images/HomeScreenCategories/banner_image2.png"
-                    ].length,
-                    itemBuilder: (context,index){
+                    itemCount: isValidUrl(
+                            "${FlavorConfig().baseUrl}/${profileModel.lowerBanner![0].image}")
+                        ? profileModel.lowerBanner!.length
+                        : [
+                            "assets/Images/HomeScreenCategories/banner_image1.png",
+                            "assets/Images/HomeScreenCategories/banner_image2.png"
+                          ].length,
+                    itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
@@ -116,10 +134,14 @@ class HomeScreen extends StatelessWidget {
                           height: 241.31,
                           decoration: ShapeDecoration(
                             image: DecorationImage(
-                              image: AssetImage([
-                                "assets/Images/HomeScreenCategories/banner_image1.png",
-                                "assets/Images/HomeScreenCategories/banner_image2.png"
-                              ][index]),
+                              image: isValidUrl(
+                                      "${FlavorConfig().baseUrl}/${profileModel.lowerBanner![0].image}")
+                                  ? NetworkImage(
+                                      "${FlavorConfig().baseUrl}/${profileModel.lowerBanner![index].image}")
+                                  : AssetImage([
+                                      "assets/Images/HomeScreenCategories/banner_image1.png",
+                                      "assets/Images/HomeScreenCategories/banner_image2.png"
+                                    ][index]),
                               fit: BoxFit.fill,
                             ),
                             shape: RoundedRectangleBorder(
@@ -132,7 +154,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 90,
+              height: 25,
             ),
           ],
         ),

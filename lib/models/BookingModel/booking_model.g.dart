@@ -8,31 +8,31 @@ part of 'booking_model.dart';
 
 _$BookingImpl _$$BookingImplFromJson(Map<String, dynamic> json) =>
     _$BookingImpl(
-      categoryId: json['categoryId'] as String?,
+      categoryId: json['category_id'] as String?,
       ready_by_date: json['ready_by_date'] as String?,
       type: json['type'] as String?,
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
-      measurementUnit: json['measurementUnit'] as String?,
-      measurementDetails: (json['measurementDetails'] as List<dynamic>?)
+      measurementUnit: json['measurement_unit'] as String?,
+      measurementDetails: (json['measurement_details'] as List<dynamic>?)
           ?.map((e) => MeasurementDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$BookingImplToJson(_$BookingImpl instance) =>
     <String, dynamic>{
-      'categoryId': instance.categoryId,
+      'category_id': instance.categoryId,
       'ready_by_date': instance.ready_by_date,
       'type': instance.type,
       'address': instance.address,
-      'measurementUnit': instance.measurementUnit,
-      'measurementDetails': instance.measurementDetails,
+      'measurement_unit': instance.measurementUnit,
+      'measurement_details': instance.measurementDetails,
     };
 
 _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
     _$AddressImpl(
-      houseAddress: json['houseAddress'] as String,
+      houseAddress: json['house_address'] as String,
       area: json['area'] as String,
       pincode: json['pincode'] as String,
       landmark: json['landmark'] as String,
@@ -40,7 +40,7 @@ _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
     <String, dynamic>{
-      'houseAddress': instance.houseAddress,
+      'house_address': instance.houseAddress,
       'area': instance.area,
       'pincode': instance.pincode,
       'landmark': instance.landmark,

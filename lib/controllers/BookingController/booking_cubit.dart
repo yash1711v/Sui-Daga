@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:sui_daga/controllers/BookingController/HomeService/home_service_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/HomeService/home_service_state.dart';
 import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_cubit.dart';
 import 'package:sui_daga/models/ProfileModel/profile_model.dart';
@@ -76,6 +77,7 @@ class BookingCubit extends Cubit<BookingState> {
       Navigator.pop(context);
     } else {
       if (state.selectedMakeBookingItem!.contains("Home Service")) {
+        addingDataToModel(context, profileModel, categoryList, measureMentItems);
         Navigator.pop(context);
         Navigator.pushNamed(context, HomeService.id);
       } else {
@@ -99,10 +101,11 @@ class BookingCubit extends Cubit<BookingState> {
       type: state.selectedMakeBookingItem![0],
     );
     context.read<MeasurementCubit>().setMeasurementScreen(
-    profileModel,
+      profileModel,
       categoryList,
       measureMentItems,
       bookingModel,
     );
+    context.read<HomeServiceCubit>().setHomeServiceScreen(bookingModel);
   }
 }
