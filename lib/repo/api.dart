@@ -52,7 +52,7 @@ class ApiCaller {
         header["Authorization"] = "Bearer ${_pref.getString("Token") ?? ''}";
       }
       final response = await dio.get(Uri.parse('$_baseUrl$url').toString(),
-          options: Options(headers: header),);
+          options: Options(headers: header),queryParameters: query);
       responseJson = response.data;
     } on SocketException {
       debugPrint('No Internet connection');

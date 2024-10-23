@@ -27,7 +27,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
     final _pref = Pref().pref;
     String? token = await _pref.getString("Token");
     await Future.delayed(const Duration(seconds: 1));
-    if (token != null) {
+    if (token != null && token.isNotEmpty) {
       emit(const SplashScreenStates(isAuth: true,startAnimation: true));
     } else {
       emit(const SplashScreenStates(isAuth: false,startAnimation: true));

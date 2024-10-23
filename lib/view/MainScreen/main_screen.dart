@@ -31,7 +31,7 @@ class MainScreen extends StatelessWidget {
             if(state.firtTimeOpen ?? false) {
               context.read<ProfileCubit>().setProfileScreen(state.profileModel!);
             }
-            if(state.profileModel == null) {
+            if(state.profileModel == null || state.dresses == null || state.pageController == null || state.index == null ) {
              return const Center(child: CircularProgressIndicator(),);
             }
             return PageView(

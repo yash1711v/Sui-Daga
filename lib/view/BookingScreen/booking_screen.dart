@@ -117,7 +117,7 @@ class BookingScreen extends StatelessWidget {
                                   .onSelectStitching(value, profileModel);
                               context
                                   .read<MeasurementCubit>()
-                                  .selectMeasureMentItem(0, [value ?? ""]);
+                                  .selectMeasureMentItem(0, [value ?? "",], profileModel.categoryModel);
                             },
                             hintText: '',
                           ),

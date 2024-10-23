@@ -13,6 +13,7 @@ class MeasurementCubit extends Cubit<MeasurementState> {
       selectedMeasureMentItems = [state.measureMentItems![0]];
     }
   }
+
   final Repo _repo = Repo();
   final TextEditingController lengthController = TextEditingController();
   final TextEditingController chestController = TextEditingController();
@@ -28,32 +29,23 @@ class MeasurementCubit extends Cubit<MeasurementState> {
   List<String>? selectedMeasureMentItems = [];
 
 
-  void setMeasurementScreen(
-      [ProfileModel? profileModel,
-      List<CategoryModel>? categoryList,
-      List<String>? measureMentItems,
-      Booking? bookingModel]) {
+  void setMeasurementScreen([ProfileModel? profileModel,
+    List<CategoryModel>? categoryList,
+    List<String>? measureMentItems,
+    Booking? bookingModel]) {
     emit(state.copyWith(
-      lengthController: lengthController,
-      chestController: chestController,
-      waistController: waistController,
-      hipController: hipController,
-      shoulderController: shoulderController,
-      armController: armController,
-      wristController: wristController,
-      sleetsController: sleetsController,
-      colarController: colarController,
-      damanController: damanController,
       categoryList: categoryList ?? state.categoryList,
       profileData: profileModel ?? state.profileData,
-      selectedMeasureMentItems: selectedMeasureMentItems ,
+      selectedMeasureMentItems: selectedMeasureMentItems,
       measureMentItems: measureMentItems ?? state.measureMentItems,
       bookingModel: bookingModel ?? state.bookingModel,
     ));
   }
- void setBookingModelFromHomeService(Booking booking) {
+
+  void setBookingModelFromHomeService(Booking booking) {
     emit(state.copyWith(bookingModel: booking));
   }
+
   void resetValues() {
     debugPrint("Calling resetValues");
     lengthController.clear();
@@ -79,16 +71,7 @@ class MeasurementCubit extends Cubit<MeasurementState> {
     state.selectMeasureMentError = null;
 
     emit(state.copyWith(
-      lengthController: lengthController,
-      chestController: chestController,
-      waistController: waistController,
-      hipController: hipController,
-      shoulderController: shoulderController,
-      armController: armController,
-      wristController: wristController,
-      sleetsController: sleetsController,
-      colarController: colarController,
-      damanController: damanController,
+
       lengthError: null,
       chestError: null,
       waistError: null,
@@ -105,214 +88,122 @@ class MeasurementCubit extends Cubit<MeasurementState> {
   }
 
 
-
-  void selectMeasureMentItem(int index, [List<String>? values]) {
+  void selectMeasureMentItem(int index, [List<String>? values, List<CategoryModel>? categoryList]) {
+    List<Map<String,String>> measurementData = [];
     if (values != null) {
-      selectedMeasureMentItems = values;
+      String itemsSelected = "";
+      for (var item in categoryList!) {
+        for (int i = 0; i < state.selectedMeasureMentItems!.length; i++) {
+          if (item.name == state.selectedMeasureMentItems![i]) {
+            itemsSelected += "${item.id}";
+          }
+        }
+      }
+      _repo.getMeasurementsFields(categoryId: itemsSelected).then((value) {
+        debugPrint("Measurement Data: ${value}");
+        if (value != null) {
+          List<Map<String,String>> measurementDataTemp = [];
+          for(var item in value['data']){
+            measurementDataTemp.add({
+              'name': item['name'].toString(),
+              'value': item['value'].toString(),
+            });
+          }
+        debugPrint("Measurement Data: ${measurementDataTemp}");
+          selectedMeasureMentItems = values;
+          state.measurementData?.clear();
+          state.measurementData?.addAll(measurementDataTemp);
+          debugPrint("Measurement Data: ${state.measurementData}");
+
+          emit(state.copyWith(
+            selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
+            measureMentItems: state.measureMentItems,
+            measurementData: state.measurementData,
+          ));
+        }
+      });
     } else {
       selectedMeasureMentItems = [state.measureMentItems![index]];
+      emit(state.copyWith(
+        selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
+        measureMentItems: state.measureMentItems,
+        measurementData: state.measurementData,
+      ));
     }
-    emit(state.copyWith(
-      selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
-      measureMentItems: state.measureMentItems,
-    ));
+
   }
 
-  void onSelectMeasurement(String? value) {
+  void onSelectMeasurement(String? value, [BuildContext? context]) {
     if (value == null || value.isEmpty) {
       emit(state.copyWith(
           selectMeasureMentError: 'Select measurement',
           selectedMeasurementType: value));
     } else {
-      emit(state.copyWith(
-          selectMeasureMentError: "", selectedMeasurementType: value));
+      if (value == "Previous Measurements") {
+        showLoader(context!);
+        String itemsSelected = "";
+        for (var item in state.categoryList!) {
+          for (int i = 0; i < state.selectedMeasureMentItems!.length; i++) {
+            if (item.name == state.selectedMeasureMentItems![i]) {
+              debugPrint("Category Id: ${item.id}");
+              itemsSelected += "${item.id}";
+            }
+          }
+        }
+        _repo.getPreviousMeasurements(categoryId: itemsSelected).then((value) {
+          if (value != null) {
+            debugPrint("Previous Measurements: ${value}");
+            if (value['data'] == null || value['data'].isEmpty) {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                      "You Don't  have previous measurements with this item"),
+                ),
+              );
+              emit(state.copyWith(
+                  selectMeasureMentError: "",
+                  selectedMeasurementType: "Add New Measurements"));
+            }
+            // emit(state.copyWith(
+            //     selectMeasureMentError: "", selectedMeasurementType: value));
+          }
+        });
+      }
+      {
+        emit(state.copyWith(
+            selectMeasureMentError: "", selectedMeasurementType: value));
+      }
     }
   }
 
-  void onLengthChange(String length) {
-    if (length.isEmpty) {
-      emit(state.copyWith(lengthError: 'Length is required'));
-    } else {
-      emit(state.copyWith(lengthError: ''));
-    }
-  }
 
-  void onChestChange(String chest) {
-    if (chest.isEmpty) {
-      emit(state.copyWith(chestError: 'Chest is required'));
-    } else {
-      emit(state.copyWith(chestError: ''));
-    }
-  }
-
-  onWaistChange(String waist) {
-    if (waist.isEmpty) {
-      emit(state.copyWith(waistError: 'Waist is required'));
-    } else {
-      emit(state.copyWith(waistError: ''));
-    }
-  }
-
-  onHipChange(String hip) {
-    if (hip.isEmpty) {
-      emit(state.copyWith(hipError: 'Hip is required'));
-    } else {
-      emit(state.copyWith(hipError: ''));
-    }
-  }
-
-  onShoulderChange(String shoulder) {
-    if (shoulder.isEmpty) {
-      emit(state.copyWith(shoulderError: 'Shoulder is required'));
-    } else {
-      emit(state.copyWith(shoulderError: ''));
-    }
-  }
-
-  onArmChange(String arm) {
-    if (arm.isEmpty) {
-      emit(state.copyWith(armError: 'Arm is required'));
-    } else {
-      emit(state.copyWith(armError: ''));
-    }
-  }
-
-  onWristChange(String wrist) {
-    if (wrist.isEmpty) {
-      emit(state.copyWith(wristError: 'Wrist is required'));
-    } else {
-      emit(state.copyWith(wristError: ''));
-    }
-  }
-
-  onSleetsChange(String sleets) {
-    if (sleets.isEmpty) {
-      emit(state.copyWith(sleetsError: 'Sleets is required'));
-    } else {
-      emit(state.copyWith(sleetsError: ''));
-    }
-  }
-
-  onColarChange(String colar) {
-    if (colar.isEmpty) {
-      emit(state.copyWith(colarError: 'Colar is required'));
-    } else {
-      emit(state.copyWith(colarError: ''));
-    }
-  }
-
-  onDamanChange(String daman) {
-    if (daman.isEmpty) {
-      emit(state.copyWith(damanError: 'Daman is required'));
-    } else {
-      emit(state.copyWith(damanError: ''));
-    }
-  }
   void onChangeMeasurementUnit(String value) {
     emit(state.copyWith(measurementUnit: value));
   }
 
   void onCheckAllValues(BuildContext context) {
-    if (state.selectMeasureMentError != null &&
-        state.lengthError != null &&
-        state.waistError != null &&
-        state.hipError != null &&
-        state.shoulderError != null &&
-        state.armError != null &&
-        state.wristError != null &&
-        state.sleetsError != null &&
-        state.colarError != null &&
-        state.damanError != null && state.chestError != null) {
-      if (state.lengthError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(lengthError: 'Length is required'));
-      } else if (state.armError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(armError: 'Arm is required'));
-      } else if (state.waistError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(waistError: 'Waist is required'));
-      } else if (state.hipError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(hipError: 'Hip is required'));
-      } else if (state.shoulderError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(shoulderError: 'Shoulder is required'));
-      } else if (state.wristError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(wristError: 'Wrist is required'));
-      } else if (state.sleetsError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(sleetsError: 'Sleets is required'));
-      } else if (state.colarError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(colarError: 'Colar is required'));
-      } else if (state.damanError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(damanError: 'Daman is required'));
-      }else if (state.chestError!.isNotEmpty) {
-        vibratePhone();
-        emit(state.copyWith(chestError: 'chest is required'));
-      } else {
-        if(state.selectMeasureMentError != null){
-         showLoader(context);
-          String itemsSelected = "";
-          for (var item in state.categoryList!) {
-            for (int i = 0; i < state.selectedMeasureMentItems!.length; i++) {
-              if (item.name == state.selectedMeasureMentItems![i]) {
-                debugPrint("Category Id: ${item.id}");
-                itemsSelected += "${item.id}";
-              }
+    if (state.selectMeasureMentError != null) {
+      if (state.selectMeasureMentError != null) {
+        showLoader(context);
+        String itemsSelected = "";
+        for (var item in state.categoryList!) {
+          for (int i = 0; i < state.selectedMeasureMentItems!.length; i++) {
+            if (item.name == state.selectedMeasureMentItems![i]) {
+              debugPrint("Category Id: ${item.id}");
+              itemsSelected += "${item.id}";
             }
           }
           Booking booking = state.bookingModel!.copyWith(
               categoryId: itemsSelected,
               measurementUnit: state.measurementUnit,
               measurementDetails: [
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Length",
-                    value: state.lengthController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Chest",
-                    value: state.chestController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Waist",
-                    value: state.waistController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Hip",
-                    value: state.hipController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Shoulder",
-                    value: state.shoulderController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Arm",
-                    value: state.armController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Wrist",
-                    value: state.wristController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Sleets",
-                    value: state.sleetsController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Collar",
-                    value: state.colarController!.text),
-                MeasurementDetail(
-                    categoryId: itemsSelected,
-                    name: "Daman",
-                    value: state.damanController!.text),
               ]);
 
           emit(state.copyWith(bookingModel: booking));
-          _repo.makeBooking(bookingData: booking).then((value) {
+          _repo.makeBooking(
+              bookingData: booking, profilemodel: state.profileData).then((
+              value) {
             if (value != null) {
               debugPrint("Booking  ${value}");
               Navigator.pop(context);
@@ -324,96 +215,24 @@ class MeasurementCubit extends Cubit<MeasurementState> {
               // Navigator.pushNamed(context, RoutesHelper.bookingScreen);
             }
           });
-
-        } else {
-          vibratePhone();
-          emit(state.copyWith(selectMeasureMentError: 'Select measurement'));
         }
       }
     } else {
-      if (state.selectMeasureMentError == null &&
-          state.lengthError == null &&
-          state.chestError == null &&
-          state.waistError == null &&
-          state.hipError == null &&
-          state.shoulderError == null &&
-          state.armError == null &&
-          state.wristError == null &&
-          state.sleetsError == null &&
-          state.colarError == null &&
-          state.damanError == null) {
+      if (state.selectMeasureMentError == null) {
         {
           emit(state.copyWith(
-              selectMeasureMentError: 'Select measurement',
-              chestError: 'Chest is required',
-              lengthError: 'Length is required',
-              waistError: 'Waist is required',
-              hipError: 'Hip is required',
-              shoulderError: 'Shoulder is required',
-              armError: 'Arm is required',
-              wristError: 'Wrist is required',
-              sleetsError: 'Sleets is required',
-              colarError: 'Colar is required',
-              damanError: 'Daman is required'));
+            selectMeasureMentError: 'Select measurement',
+          ));
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('All fill the required fields'),
             ),
           );
         }
-
-        if (state.selectMeasureMentError == null) {
-          emit(state.copyWith(selectMeasureMentError: 'Select measurement'));
-        }
-        if (state.lengthError == null) {
-          emit(state.copyWith(lengthError: 'Length is required'));
-        }
-        if (state.armError == null) {
-          emit(state.copyWith(armError: 'Arm is required'));
-        }
-        if (state.waistError == null) {
-          emit(state.copyWith(waistError: 'Waist is required'));
-        }
-        if (state.hipError == null) {
-          emit(state.copyWith(hipError: 'Hip is required'));
-        }
-        if (state.shoulderError == null) {
-          emit(state.copyWith(shoulderError: 'Shoulder is required'));
-        }
-        if (state.wristError == null) {
-          emit(state.copyWith(wristError: 'Wrist is required'));
-        }
-        if (state.sleetsError == null) {
-          emit(state.copyWith(sleetsError: 'Sleets is required'));
-        }
-        if (state.colarError == null) {
-          emit(state.copyWith(colarError: 'Colar is required'));
-        }
-        if (state.damanError == null) {
-          emit(state.copyWith(damanError: 'Daman is required'));
-        }
-        if (state.chestError == null) {
-          emit(state.copyWith(chestError: 'chest is required'));
-        }
-
+        vibratePhone();
       }
-
-      vibratePhone();
     }
+
+
   }
-
-
-  // void onCheckAllValues(BuildContext context) {
-  //
-  //   if (state.selectMeasureMentError != null) {
-  //
-  //
-  //     // Navigator.pushNamed(context, RoutesHelper.bookingScreen);
-  //   } else {
-  //     if (state.selectMeasureMentError == null) {
-  //       emit(state.copyWith(selectMeasureMentError: 'Select measurement'));
-  //     }
-  //     vibratePhone();
-  //   }
-  // }
 }

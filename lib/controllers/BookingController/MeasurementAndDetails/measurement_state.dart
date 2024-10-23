@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:sui_daga/models/ProfileModel/profile_model.dart';
 
 import '../../../models/BookingModel/booking_model.dart';
-import '../../../routes/routes_helper.dart';
 
 final class MeasurementState extends Equatable {
    String? selectMeasureMentError;
@@ -16,16 +15,6 @@ final class MeasurementState extends Equatable {
    String? sleetsError;
    String? colarError;
    String? damanError;
-  final TextEditingController? lengthController;
-  final TextEditingController? chestController;
-  final TextEditingController? waistController;
-  final TextEditingController? hipController;
-  final TextEditingController? shoulderController;
-  final TextEditingController? armController;
-  final TextEditingController? wristController;
-  final TextEditingController? sleetsController;
-  final TextEditingController? colarController;
-  final TextEditingController? damanController;
   final List<String>? measureMentItems;
   final List<String>? selectedMeasureMentItems;
   final List<CategoryModel>? categoryList;
@@ -33,9 +22,11 @@ final class MeasurementState extends Equatable {
    Booking? bookingModel;
   final String? selectedMeasurementType;
   final String? measurementUnit;
+  final List<Map<String,String>>? measurementData;
 
    MeasurementState({
-    this.selectMeasureMentError,
+     this.measurementData,
+     this.selectMeasureMentError,
      this.measurementUnit = "CM",
      this.chestError,
     this.lengthError,
@@ -55,19 +46,10 @@ final class MeasurementState extends Equatable {
       "Co-ords"
     ],
     this.selectedMeasureMentItems,
-    this.lengthController,
-    this.chestController,
-    this.waistController,
-    this.hipController,
-    this.shoulderController,
-    this.armController,
-    this.wristController,
-    this.sleetsController,
-    this.colarController,
-    this.damanController,
      this.categoryList, this.profileData,
     this.bookingModel,
      this.selectedMeasurementType,
+
    });
 
   MeasurementState copyWith({
@@ -84,21 +66,12 @@ final class MeasurementState extends Equatable {
     String? damanError,
     List<String>? measureMentItems,
     List<String>? selectedMeasureMentItems,
-    TextEditingController? lengthController,
-    TextEditingController? chestController,
-    TextEditingController? waistController,
-    TextEditingController? hipController,
-    TextEditingController? shoulderController,
-    TextEditingController? armController,
-    TextEditingController? wristController,
-    TextEditingController? sleetsController,
-    TextEditingController? colarController,
-    TextEditingController? damanController,
      List<CategoryModel>? categoryList,
   ProfileModel? profileData,
     Booking? bookingModel,
     String? selectedMeasurementType,
     String? measurementUnit,
+    List<Map<String,String>>? measurementData,
   }) {
     return MeasurementState(
       selectMeasureMentError:
@@ -116,21 +89,12 @@ final class MeasurementState extends Equatable {
       measureMentItems: measureMentItems ?? this.measureMentItems,
       selectedMeasureMentItems:
           selectedMeasureMentItems ?? this.selectedMeasureMentItems,
-      lengthController: lengthController ?? this.lengthController,
-      chestController: chestController ?? this.chestController,
-      waistController: waistController ?? this.waistController,
-      hipController: hipController ?? this.hipController,
-      shoulderController: shoulderController ?? this.shoulderController,
-      armController: armController ?? this.armController,
-      wristController: wristController ?? this.wristController,
-      sleetsController: sleetsController ?? this.sleetsController,
-      colarController: colarController ?? this.colarController,
-      damanController: damanController ?? this.damanController,
       categoryList: categoryList ?? this.categoryList,
       profileData: profileData ?? this.profileData,
       bookingModel: bookingModel ?? this.bookingModel,
       selectedMeasurementType: selectedMeasurementType ?? this.selectedMeasurementType,
       measurementUnit: measurementUnit ?? this.measurementUnit,
+      measurementData: measurementData ?? this.measurementData,
     );
   }
 
@@ -147,32 +111,15 @@ final class MeasurementState extends Equatable {
         sleetsError,
         colarError,
         damanError,
-        lengthController,
-        chestController,
-        waistController,
-        hipController,
-        shoulderController,
-        armController,
-        wristController,
-        sleetsController,
-        colarController,
-        damanController,
+
         measureMentItems,
         selectedMeasureMentItems,
-        lengthController,
-        chestController,
-        waistController,
-        hipController,
-        shoulderController,
-        armController,
-        wristController,
-        sleetsController,
-        colarController,
-        damanController,
+
         categoryList,
         profileData,
         bookingModel,
         selectedMeasurementType,
         measurementUnit,
+        measurementData,
       ];
 }

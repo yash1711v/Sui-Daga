@@ -62,228 +62,230 @@ class RegisterationScreen extends StatelessWidget {
           ),
         ),
       ),
-      body:  Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 39),
-            const Text(
-              'What’s your name?',
-              style: TextStyle(
-                color: Color(0xFF212121),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w500,
-                height: 0,
+      body:  SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 39),
+              const Text(
+                'What’s your name?',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            BlocBuilder<RegisterationCubit, RegisterationState>(
-              builder: (context, state) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 45,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF4F4F4),
-                              border: Border.all(
-                                  color: const Color(0xFFF4F4F4)),
-                            ),
-                            child: CustomTextField(
-                              controller: context.read<RegisterationCubit>().nameController,
-                              focusNode: context.read<RegisterationCubit>().nameFocusNode,
-                              hintText: "Full Name",
-                              onChanged: (value) {
-                                context
-                                    .read<RegisterationCubit>().onChangeName(value);
-                              },
-                            ),
-                          ),
-                          Visibility(
-                            visible: state.nameError != null &&
-                                state.nameError!.isNotEmpty,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text(
-                                state.nameError ?? "",
-                                style: Style.h14.copyWith(
-                                    color: Pallet.red, fontSize: 14),
+              const SizedBox(height: 10),
+              BlocBuilder<RegisterationCubit, RegisterationState>(
+                builder: (context, state) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 45,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF4F4F4),
+                                border: Border.all(
+                                    color: const Color(0xFFF4F4F4)),
                               ),
+                              child: CustomTextField(
+                                controller: context.read<RegisterationCubit>().nameController,
+                                focusNode: context.read<RegisterationCubit>().nameFocusNode,
+                                hintText: "Full Name",
+                                onChanged: (value) {
+                                  context
+                                      .read<RegisterationCubit>().onChangeName(value);
+                                },
+                              ),
+                            ),
+                            Visibility(
+                              visible: state.nameError != null &&
+                                  state.nameError!.isNotEmpty,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  state.nameError ?? "",
+                                  style: Style.h14.copyWith(
+                                      color: Pallet.red, fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 28),
+             const  Text(
+                'How often do you need custom-made dresses?',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              BlocBuilder<RegisterationCubit, RegisterationState>(
+                builder: (context, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomDropDown(
+                              items: const  ['Weekly', 'Monthly', 'Quarterly', 'Yearly'],
+                              onChanged: (String? value) {
+                                context
+                                    .read<RegisterationCubit>()
+                                    .onSelectHowOften(value);
+                              },
+                              hintText: '',
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 28),
-           const  Text(
-              'How often do you need custom-made dresses?',
-              style: TextStyle(
-                color: Color(0xFF212121),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w500,
-                height: 0,
+                      Visibility(
+                          visible: state.selectedHowOften != null &&
+                              state.selectedHowOften!.isNotEmpty,
+                          child: Text(
+                            state.selectedHowOften ?? "",
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          )),
+                    ],
+                  );
+                },
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            BlocBuilder<RegisterationCubit, RegisterationState>(
-              builder: (context, state) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomDropDown(
-                            items: const  ['Weekly', 'Monthly', 'Quarterly', 'Yearly'],
-                            onChanged: (String? value) {
-                              context
-                                  .read<RegisterationCubit>()
-                                  .onSelectHowOften(value);
-                            },
-                            hintText: '',
-                          ),
-                        ),
-                      ],
-                    ),
-                    Visibility(
-                        visible: state.selectedHowOften != null &&
-                            state.selectedHowOften!.isNotEmpty,
-                        child: Text(
-                          state.selectedHowOften ?? "",
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 12,
-                          ),
-                        )),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 28),
-            const  Text(
-              'What type of dresses are you most interested in?',
-              style: TextStyle(
-                color: Color(0xFF212121),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w500,
-                height: 0,
+              const SizedBox(height: 28),
+              const  Text(
+                'What type of dresses are you most interested in?',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            BlocBuilder<RegisterationCubit, RegisterationState>(
-              builder: (context, state) {
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomDropDown(
-                            items: state.dresses ?? [],
-                            onChanged: (String? value) {
-                              context
-                                  .read<RegisterationCubit>()
-                                  .onSelectTypeOfDress(value);
-                            },
-                            hintText: '',
-                          ),
-                        ),
-                      ],
-                    ),
-                    Visibility(
-                        visible: state.selectedTypeOfDress != null &&
-                            state.selectedTypeOfDress!.isNotEmpty,
-                        child: Text(
-                          state.selectedTypeOfDress ?? "",
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 12,
-                          ),
-                        )),
-                  ],
-                );
-              },
-            ),
-            SizedBox(
-              height: 28,
-            ),
-            const Text(
-              'Mention your address',
-              style: TextStyle(
-                color: Color(0xFF212121),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w500,
-                height: 0,
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            const SizedBox(height: 10),
-            BlocBuilder<RegisterationCubit, RegisterationState>(
-              builder: (context, state) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              BlocBuilder<RegisterationCubit, RegisterationState>(
+                builder: (context, state) {
+        
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          Container(
-                            height: 70,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF4F4F4),
-                              border: Border.all(
-                                  color: const Color(0xFFF4F4F4)),
-                            ),
-                            child: CustomTextField(
-                              maxLines: 4,
-                              controller: context.read<RegisterationCubit>().addressController,
-                              focusNode: context.read<RegisterationCubit>().addressFocusNode,
-                              hintText: "address",
-                              onChanged: (value) {
+                          Expanded(
+                            child: CustomDropDown(
+                              items: state.dresses ?? [],
+                              onChanged: (String? value) {
                                 context
-                                    .read<RegisterationCubit>().onChangeAddress(value);
+                                    .read<RegisterationCubit>()
+                                    .onSelectTypeOfDress(value);
                               },
-                            ),
-                          ),
-                          Visibility(
-                            visible: state.nameError != null &&
-                                state.nameError!.isNotEmpty,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text(
-                                state.nameError ?? "",
-                                style: Style.h14.copyWith(
-                                    color: Pallet.red, fontSize: 14),
-                              ),
+                              hintText: '',
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ],
+                      Visibility(
+                          visible: state.selectedTypeOfDress != null &&
+                              state.selectedTypeOfDress!.isNotEmpty,
+                          child: Text(
+                            state.selectedTypeOfDress ?? "",
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          )),
+                    ],
+                  );
+                },
+              ),
+              SizedBox(
+                height: 28,
+              ),
+              const Text(
+                'Mention your address',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
+              ),
+              const SizedBox(height: 10),
+              BlocBuilder<RegisterationCubit, RegisterationState>(
+                builder: (context, state) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF4F4F4),
+                                border: Border.all(
+                                    color: const Color(0xFFF4F4F4)),
+                              ),
+                              child: CustomTextField(
+                                maxLines: 4,
+                                controller: context.read<RegisterationCubit>().addressController,
+                                focusNode: context.read<RegisterationCubit>().addressFocusNode,
+                                hintText: "address",
+                                onChanged: (value) {
+                                  context
+                                      .read<RegisterationCubit>().onChangeAddress(value);
+                                },
+                              ),
+                            ),
+                            Visibility(
+                              visible: state.nameError != null &&
+                                  state.nameError!.isNotEmpty,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  state.nameError ?? "",
+                                  style: Style.h14.copyWith(
+                                      color: Pallet.red, fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16.0,right: 16.0,bottom: 20.0),
+        padding: const EdgeInsets.only(left: 16.0,right: 16.0,bottom: 50.0),
         child: Row(
           children: [
             Expanded(

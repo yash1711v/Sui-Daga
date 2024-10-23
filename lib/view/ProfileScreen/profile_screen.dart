@@ -8,6 +8,7 @@ import 'package:sui_daga/flavors/config/flavor_config.dart';
 import 'package:sui_daga/helpers/Methods/methods.dart';
 import 'package:sui_daga/widget/custom_textfield.dart';
 
+import '../../cache/shared_preference.dart';
 import '../../controllers/MainScreenController/main_screen_cubit.dart';
 import '../../routes/routes_helper.dart';
 import '../../style/Pallet.dart';
@@ -464,7 +465,9 @@ class ProfileScreen extends StatelessWidget {
                               side:
                               const BorderSide(color: Color(0xFFE22D2D)))),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<ProfileCubit>().logOut(context);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -488,5 +491,16 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension on ProfileCubit {
+  void logOut(BuildContext context) {
+    Pref().pref.clear();
+    if (Platform.isAndroid) {
+      Navigator.pushNamedAndRemoveUntil(context, LoginScreen.id, (route) => false);
+    } else {
+      Navigator.pushNamedAndRemoveUntil(context, LoginScreen.id, (route) => false);
+    }
   }
 }

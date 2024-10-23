@@ -24,7 +24,6 @@ class SplashScreen extends StatelessWidget {
               bool startAnimation = false;
               if (state is SplashScreenStates) {
                 startAnimation = state.startAnimation ?? false;
-                debugPrint("Start Animation: ${state.isAuth}");
                 if (state.isAuth == true) {
                   Future.delayed(const Duration(seconds: 1), () {
                     Navigator.pushReplacementNamed(

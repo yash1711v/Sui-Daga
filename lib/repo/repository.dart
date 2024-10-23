@@ -51,7 +51,7 @@ class Repo {
     return await _apiCaller.get("/api/user/profile_details", withToken: true);
   }
 
-  Future<dynamic> makeBooking({required Booking bookingData}) async {
+  Future<dynamic> makeBooking({required Booking bookingData,ProfileModel? profilemodel}) async {
     DateFormat dateFormat = DateFormat("dd/MM/yyyy");
 
     // Constructing measurement details as a proper list of maps
@@ -73,17 +73,25 @@ class Repo {
         "pincode": bookingData.address!.pincode,
         "landmark": bookingData.address!.landmark,
       } : {
-        "house_address": bookingData.address!.houseAddress,
-        "area": bookingData.address!.area,
-        "pincode": bookingData.address!.pincode,
-        "landmark": bookingData.address!.landmark,
+        "house_address": "house_address",
+        "area": "area",
+        "pincode": "201003",
+        "landmark": "landmark",
       },
       // Attaching the constructed list
       "measurement_details": measurementDetails,
     };
 
     // Debugging: Print the body before making the API call
+    debugPrint("Booking Body: ${jsonEncode(body)}");
     return await _apiCaller.post("/api/user/booking", body, withToken: true);
+  }
+
+  getPreviousMeasurements({required String? categoryId}) {
+    return _apiCaller.get("/api/user/measurement", withToken: true,query: {"category_id": categoryId ?? ""});
+  }
+  getMeasurementsFields({required String? categoryId}) {
+    return _apiCaller.get("/api/user/measurement_field", withToken: true,query: {"category_id": categoryId ?? ""});
   }
 
 

@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_state.dart';
@@ -102,6 +103,8 @@ class MeasurementAndDetails extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CustomDropDown(
+                                selectedValue: state.selectedMeasurementType ??
+                                    "Add New Measurements",
                                 items: const [
                                   "Previous Measurements",
                                   "Add New Measurements"
@@ -109,7 +112,7 @@ class MeasurementAndDetails extends StatelessWidget {
                                 onChanged: (String? value) {
                                   context
                                       .read<MeasurementCubit>()
-                                      .onSelectMeasurement(value);
+                                      .onSelectMeasurement(value, context);
                                 },
                                 hintText: "Select",
                               ),
@@ -153,7 +156,7 @@ class MeasurementAndDetails extends StatelessWidget {
                         onSelected: (List<String> values) {
                           context
                               .read<MeasurementCubit>()
-                              .selectMeasureMentItem(0, values);
+                              .selectMeasureMentItem(0, values,state.categoryList);
                         },
                         items: state.measureMentItems ?? [],
                         width: 80,
@@ -243,407 +246,38 @@ class MeasurementAndDetails extends StatelessWidget {
                 const SizedBox(
                   height: 23,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: BlocBuilder<MeasurementCubit, MeasurementState>(
-                        builder: (context, state) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onLengthChange(value);
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    controller: state.lengthController ??
-                                        TextEditingController(),
-                                    hintText: "Length",
-                                  )),
-                              Visibility(
-                                visible: state.lengthError != null &&
-                                    state.lengthError!.isNotEmpty,
-                                child: Text(
-                                  state.lengthError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
+                BlocBuilder<MeasurementCubit, MeasurementState>(
+                  builder: (context, state) {
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: 3.5, // Width to height ratio
+                        crossAxisCount: 2, // Two elements per row
+                        crossAxisSpacing: 10, // Horizontal space between items
+                        mainAxisSpacing: 7, // Vertical space between rows
                       ),
-                    ),
-                    const SizedBox(width: 15), // Spacing between columns
-                    Expanded(
-                      child: BlocBuilder<MeasurementCubit, MeasurementState>(
-                        builder: (context, state) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    keyboardType: TextInputType.number,
-                                    controller: state.chestController ??
-                                        TextEditingController(),
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onChestChange(value);
-                                    },
-                                    hintText: "Chest",
-                                  )),
-                              Visibility(
-                                visible: state.chestError != null &&
-                                    state.chestError!.isNotEmpty,
-                                child: Text(
-                                  state.chestError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                      itemCount: state.measurementData?.length ?? 1,
+                      // Total of 10 items (5 rows, 2 items per row)
+                      itemBuilder: (context, index) {
+                        return Container(
+                            decoration: const BoxDecoration(
+                                color: Color(0xFFF4F4F4)),
+                            child: CustomTextField(
+                              onChanged: (value) {
+
+                              },
+                              keyboardType: TextInputType.number,
+
+                              hintText: "${state
+                                  .measurementData?[index]['name']} j" ?? "",
+                              controller: TextEditingController(),
+                            ));
+                      },
+                    );
+                  },
                 ),
 
-                const SizedBox(height: 10), // Spacing between rows
-
-                // Row 2 - Waist and Hip
-                Row(
-                  children: [
-                    BlocBuilder<MeasurementCubit, MeasurementState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onWaistChange(value);
-                                    },
-                                    controller: state.waistController ??
-                                        TextEditingController(),
-                                    hintText: "Waist",
-                                  )),
-                              Visibility(
-                                visible: state.waistError != null &&
-                                    state.waistError!.isNotEmpty,
-                                child: Text(
-                                  state.waistError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 15), // Spacing between columns
-                    BlocBuilder<MeasurementCubit, MeasurementState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onHipChange(value);
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    controller: state.hipController ??
-                                        TextEditingController(),
-                                    hintText: "Hip",
-                                  )),
-                              Visibility(
-                                visible: state.hipError != null &&
-                                    state.hipError!.isNotEmpty,
-                                child: Text(
-                                  state.hipError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 10), // Spacing between rows
-
-                // Row 3 - Shoulder and Arm
-                Row(
-                  children: [
-                    BlocBuilder<MeasurementCubit, MeasurementState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onShoulderChange(value);
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    controller: state.shoulderController ??
-                                        TextEditingController(),
-                                    hintText: "Shoulder",
-                                  )),
-                              Visibility(
-                                visible: state.shoulderError != null &&
-                                    state.shoulderError!.isNotEmpty,
-                                child: Text(
-                                  state.shoulderError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 15), // Spacing between columns
-                    BlocBuilder<MeasurementCubit, MeasurementState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onArmChange(value);
-                                    },
-                                    controller: state.armController ??
-                                        TextEditingController(),
-                                    hintText: "Arm",
-                                  )),
-                              Visibility(
-                                visible: state.armError != null &&
-                                    state.armError!.isNotEmpty,
-                                child: Text(
-                                  state.armError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 10), // Spacing between rows
-
-                // Row 4 - Wrist and Sleeves
-                Row(
-                  children: [
-                    BlocBuilder<MeasurementCubit, MeasurementState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onWristChange(value);
-                                    },
-                                    controller: state.wristController ??
-                                        TextEditingController(),
-                                    hintText: "Wrist",
-                                  )),
-                              Visibility(
-                                visible: state.wristError != null &&
-                                    state.wristError!.isNotEmpty,
-                                child: Text(
-                                  state.wristError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 15), // Spacing between columns
-                    BlocBuilder<MeasurementCubit, MeasurementState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onSleetsChange(value);
-                                    },
-                                    controller: state.sleetsController ??
-                                        TextEditingController(),
-                                    hintText: "Sleeves",
-                                  )),
-                              Visibility(
-                                visible: state.sleetsError != null &&
-                                    state.sleetsError!.isNotEmpty,
-                                child: Text(
-                                  state.sleetsError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 10), // Spacing between rows
-
-                // Row 5 - Collar and Daman
-                Row(
-                  children: [
-                    BlocBuilder<MeasurementCubit, MeasurementState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    keyboardType: TextInputType.number,
-                                    controller: state.colarController ??
-                                        TextEditingController(),
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onColarChange(value);
-                                    },
-                                    hintText: "Collar",
-                                  )),
-                              Visibility(
-                                visible: state.colarError != null &&
-                                    state.colarError!.isNotEmpty,
-                                child: Text(
-                                  state.colarError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 15), // Spacing between columns
-                    BlocBuilder<MeasurementCubit, MeasurementState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF4F4F4)),
-                                  child: CustomTextField(
-                                    onChanged: (value) {
-                                      context
-                                          .read<MeasurementCubit>()
-                                          .onDamanChange(value);
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    controller: state.damanController ??
-                                        TextEditingController(),
-                                    hintText: "Daman",
-                                  )),
-                              Visibility(
-                                visible: state.damanError != null &&
-                                    state.damanError!.isNotEmpty,
-                                child: Text(
-                                  state.damanError ?? "",
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
                 const SizedBox(
                   height: 55,
                 ),
@@ -686,3 +320,7 @@ class MeasurementAndDetails extends StatelessWidget {
     );
   }
 }
+
+
+
+
