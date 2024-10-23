@@ -196,7 +196,7 @@ class __$$BookingImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BookingImpl implements _Booking {
+class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
   const _$BookingImpl(
       {@JsonKey(name: "category_id") this.categoryId,
       @JsonKey(name: "ready_by_date") this.ready_by_date,
@@ -238,8 +238,21 @@ class _$BookingImpl implements _Booking {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Booking(categoryId: $categoryId, ready_by_date: $ready_by_date, type: $type, address: $address, measurementUnit: $measurementUnit, measurementDetails: $measurementDetails)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Booking'))
+      ..add(DiagnosticsProperty('categoryId', categoryId))
+      ..add(DiagnosticsProperty('ready_by_date', ready_by_date))
+      ..add(DiagnosticsProperty('type', type))
+      ..add(DiagnosticsProperty('address', address))
+      ..add(DiagnosticsProperty('measurementUnit', measurementUnit))
+      ..add(DiagnosticsProperty('measurementDetails', measurementDetails));
   }
 
   @override
@@ -336,7 +349,7 @@ mixin _$Address {
   @JsonKey(name: "area")
   String get area => throw _privateConstructorUsedError;
   @JsonKey(name: "pincode")
-  String get pincode => throw _privateConstructorUsedError;
+  dynamic get pincode => throw _privateConstructorUsedError;
   @JsonKey(name: "landmark")
   String get landmark => throw _privateConstructorUsedError;
 
@@ -357,7 +370,7 @@ abstract class $AddressCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "house_address") String houseAddress,
       @JsonKey(name: "area") String area,
-      @JsonKey(name: "pincode") String pincode,
+      @JsonKey(name: "pincode") dynamic pincode,
       @JsonKey(name: "landmark") String landmark});
 }
 
@@ -378,7 +391,7 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   $Res call({
     Object? houseAddress = null,
     Object? area = null,
-    Object? pincode = null,
+    Object? pincode = freezed,
     Object? landmark = null,
   }) {
     return _then(_value.copyWith(
@@ -390,10 +403,10 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as String,
-      pincode: null == pincode
+      pincode: freezed == pincode
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
       landmark: null == landmark
           ? _value.landmark
           : landmark // ignore: cast_nullable_to_non_nullable
@@ -412,7 +425,7 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "house_address") String houseAddress,
       @JsonKey(name: "area") String area,
-      @JsonKey(name: "pincode") String pincode,
+      @JsonKey(name: "pincode") dynamic pincode,
       @JsonKey(name: "landmark") String landmark});
 }
 
@@ -431,7 +444,7 @@ class __$$AddressImplCopyWithImpl<$Res>
   $Res call({
     Object? houseAddress = null,
     Object? area = null,
-    Object? pincode = null,
+    Object? pincode = freezed,
     Object? landmark = null,
   }) {
     return _then(_$AddressImpl(
@@ -443,10 +456,10 @@ class __$$AddressImplCopyWithImpl<$Res>
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as String,
-      pincode: null == pincode
+      pincode: freezed == pincode
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
       landmark: null == landmark
           ? _value.landmark
           : landmark // ignore: cast_nullable_to_non_nullable
@@ -457,7 +470,7 @@ class __$$AddressImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AddressImpl implements _Address {
+class _$AddressImpl with DiagnosticableTreeMixin implements _Address {
   const _$AddressImpl(
       {@JsonKey(name: "house_address") required this.houseAddress,
       @JsonKey(name: "area") required this.area,
@@ -475,14 +488,25 @@ class _$AddressImpl implements _Address {
   final String area;
   @override
   @JsonKey(name: "pincode")
-  final String pincode;
+  final dynamic pincode;
   @override
   @JsonKey(name: "landmark")
   final String landmark;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Address(houseAddress: $houseAddress, area: $area, pincode: $pincode, landmark: $landmark)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Address'))
+      ..add(DiagnosticsProperty('houseAddress', houseAddress))
+      ..add(DiagnosticsProperty('area', area))
+      ..add(DiagnosticsProperty('pincode', pincode))
+      ..add(DiagnosticsProperty('landmark', landmark));
   }
 
   @override
@@ -493,15 +517,15 @@ class _$AddressImpl implements _Address {
             (identical(other.houseAddress, houseAddress) ||
                 other.houseAddress == houseAddress) &&
             (identical(other.area, area) || other.area == area) &&
-            (identical(other.pincode, pincode) || other.pincode == pincode) &&
+            const DeepCollectionEquality().equals(other.pincode, pincode) &&
             (identical(other.landmark, landmark) ||
                 other.landmark == landmark));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, houseAddress, area, pincode, landmark);
+  int get hashCode => Object.hash(runtimeType, houseAddress, area,
+      const DeepCollectionEquality().hash(pincode), landmark);
 
   /// Create a copy of Address
   /// with the given fields replaced by the non-null parameter values.
@@ -523,7 +547,7 @@ abstract class _Address implements Address {
   const factory _Address(
           {@JsonKey(name: "house_address") required final String houseAddress,
           @JsonKey(name: "area") required final String area,
-          @JsonKey(name: "pincode") required final String pincode,
+          @JsonKey(name: "pincode") required final dynamic pincode,
           @JsonKey(name: "landmark") required final String landmark}) =
       _$AddressImpl;
 
@@ -537,7 +561,7 @@ abstract class _Address implements Address {
   String get area;
   @override
   @JsonKey(name: "pincode")
-  String get pincode;
+  dynamic get pincode;
   @override
   @JsonKey(name: "landmark")
   String get landmark;
@@ -671,7 +695,9 @@ class __$$MeasurementDetailImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MeasurementDetailImpl implements _MeasurementDetail {
+class _$MeasurementDetailImpl
+    with DiagnosticableTreeMixin
+    implements _MeasurementDetail {
   const _$MeasurementDetailImpl(
       {@JsonKey(name: "categoryId") required this.categoryId,
       @JsonKey(name: "name") required this.name,
@@ -691,8 +717,18 @@ class _$MeasurementDetailImpl implements _MeasurementDetail {
   final String value;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MeasurementDetail(categoryId: $categoryId, name: $name, value: $value)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MeasurementDetail'))
+      ..add(DiagnosticsProperty('categoryId', categoryId))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('value', value));
   }
 
   @override
@@ -752,5 +788,582 @@ abstract class _MeasurementDetail implements MeasurementDetail {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MeasurementDetailImplCopyWith<_$MeasurementDetailImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PreviousBooking _$PreviousBookingFromJson(Map<String, dynamic> json) {
+  return _PreviousBooking.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PreviousBooking {
+  @JsonKey(name: '_id')
+  String? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  String? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category_id')
+  String? get categoryId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'type')
+  String? get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'address')
+  Address? get address => throw _privateConstructorUsedError;
+  @JsonKey(name: 'measurement_unit')
+  String? get measurementUnit => throw _privateConstructorUsedError;
+  @JsonKey(name: 'measurement_details')
+  List<MeasurementDetail>? get measurementDetails =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: 'ready_by_date')
+  DateTime? get readyByDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delivery_date')
+  DateTime? get deliveryDate => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_deleted')
+  bool? get isDeleted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: '__v')
+  int? get v => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category')
+  CategoryModel? get category => throw _privateConstructorUsedError;
+
+  /// Serializes this PreviousBooking to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of PreviousBooking
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PreviousBookingCopyWith<PreviousBooking> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PreviousBookingCopyWith<$Res> {
+  factory $PreviousBookingCopyWith(
+          PreviousBooking value, $Res Function(PreviousBooking) then) =
+      _$PreviousBookingCopyWithImpl<$Res, PreviousBooking>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: '_id') String? id,
+      @JsonKey(name: 'user_id') String? userId,
+      @JsonKey(name: 'category_id') String? categoryId,
+      @JsonKey(name: 'type') String? type,
+      @JsonKey(name: 'address') Address? address,
+      @JsonKey(name: 'measurement_unit') String? measurementUnit,
+      @JsonKey(name: 'measurement_details')
+      List<MeasurementDetail>? measurementDetails,
+      @JsonKey(name: 'ready_by_date') DateTime? readyByDate,
+      @JsonKey(name: 'delivery_date') DateTime? deliveryDate,
+      String status,
+      @JsonKey(name: 'is_deleted') bool? isDeleted,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: '__v') int? v,
+      @JsonKey(name: 'category') CategoryModel? category});
+
+  $AddressCopyWith<$Res>? get address;
+  $CategoryModelCopyWith<$Res>? get category;
+}
+
+/// @nodoc
+class _$PreviousBookingCopyWithImpl<$Res, $Val extends PreviousBooking>
+    implements $PreviousBookingCopyWith<$Res> {
+  _$PreviousBookingCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of PreviousBooking
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? userId = freezed,
+    Object? categoryId = freezed,
+    Object? type = freezed,
+    Object? address = freezed,
+    Object? measurementUnit = freezed,
+    Object? measurementDetails = freezed,
+    Object? readyByDate = freezed,
+    Object? deliveryDate = freezed,
+    Object? status = null,
+    Object? isDeleted = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? v = freezed,
+    Object? category = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address?,
+      measurementUnit: freezed == measurementUnit
+          ? _value.measurementUnit
+          : measurementUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      measurementDetails: freezed == measurementDetails
+          ? _value.measurementDetails
+          : measurementDetails // ignore: cast_nullable_to_non_nullable
+              as List<MeasurementDetail>?,
+      readyByDate: freezed == readyByDate
+          ? _value.readyByDate
+          : readyByDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      deliveryDate: freezed == deliveryDate
+          ? _value.deliveryDate
+          : deliveryDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      isDeleted: freezed == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      v: freezed == v
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as int?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as CategoryModel?,
+    ) as $Val);
+  }
+
+  /// Create a copy of PreviousBooking
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res>? get address {
+    if (_value.address == null) {
+      return null;
+    }
+
+    return $AddressCopyWith<$Res>(_value.address!, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
+  }
+
+  /// Create a copy of PreviousBooking
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CategoryModelCopyWith<$Res>? get category {
+    if (_value.category == null) {
+      return null;
+    }
+
+    return $CategoryModelCopyWith<$Res>(_value.category!, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$PreviousBookingImplCopyWith<$Res>
+    implements $PreviousBookingCopyWith<$Res> {
+  factory _$$PreviousBookingImplCopyWith(_$PreviousBookingImpl value,
+          $Res Function(_$PreviousBookingImpl) then) =
+      __$$PreviousBookingImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: '_id') String? id,
+      @JsonKey(name: 'user_id') String? userId,
+      @JsonKey(name: 'category_id') String? categoryId,
+      @JsonKey(name: 'type') String? type,
+      @JsonKey(name: 'address') Address? address,
+      @JsonKey(name: 'measurement_unit') String? measurementUnit,
+      @JsonKey(name: 'measurement_details')
+      List<MeasurementDetail>? measurementDetails,
+      @JsonKey(name: 'ready_by_date') DateTime? readyByDate,
+      @JsonKey(name: 'delivery_date') DateTime? deliveryDate,
+      String status,
+      @JsonKey(name: 'is_deleted') bool? isDeleted,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: '__v') int? v,
+      @JsonKey(name: 'category') CategoryModel? category});
+
+  @override
+  $AddressCopyWith<$Res>? get address;
+  @override
+  $CategoryModelCopyWith<$Res>? get category;
+}
+
+/// @nodoc
+class __$$PreviousBookingImplCopyWithImpl<$Res>
+    extends _$PreviousBookingCopyWithImpl<$Res, _$PreviousBookingImpl>
+    implements _$$PreviousBookingImplCopyWith<$Res> {
+  __$$PreviousBookingImplCopyWithImpl(
+      _$PreviousBookingImpl _value, $Res Function(_$PreviousBookingImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PreviousBooking
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? userId = freezed,
+    Object? categoryId = freezed,
+    Object? type = freezed,
+    Object? address = freezed,
+    Object? measurementUnit = freezed,
+    Object? measurementDetails = freezed,
+    Object? readyByDate = freezed,
+    Object? deliveryDate = freezed,
+    Object? status = null,
+    Object? isDeleted = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? v = freezed,
+    Object? category = freezed,
+  }) {
+    return _then(_$PreviousBookingImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address?,
+      measurementUnit: freezed == measurementUnit
+          ? _value.measurementUnit
+          : measurementUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      measurementDetails: freezed == measurementDetails
+          ? _value._measurementDetails
+          : measurementDetails // ignore: cast_nullable_to_non_nullable
+              as List<MeasurementDetail>?,
+      readyByDate: freezed == readyByDate
+          ? _value.readyByDate
+          : readyByDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      deliveryDate: freezed == deliveryDate
+          ? _value.deliveryDate
+          : deliveryDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      isDeleted: freezed == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      v: freezed == v
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as int?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as CategoryModel?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PreviousBookingImpl
+    with DiagnosticableTreeMixin
+    implements _PreviousBooking {
+  const _$PreviousBookingImpl(
+      {@JsonKey(name: '_id') this.id,
+      @JsonKey(name: 'user_id') this.userId,
+      @JsonKey(name: 'category_id') this.categoryId,
+      @JsonKey(name: 'type') this.type,
+      @JsonKey(name: 'address') this.address,
+      @JsonKey(name: 'measurement_unit') this.measurementUnit,
+      @JsonKey(name: 'measurement_details')
+      final List<MeasurementDetail>? measurementDetails,
+      @JsonKey(name: 'ready_by_date') this.readyByDate,
+      @JsonKey(name: 'delivery_date') this.deliveryDate,
+      required this.status,
+      @JsonKey(name: 'is_deleted') this.isDeleted,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'updated_at') this.updatedAt,
+      @JsonKey(name: '__v') this.v,
+      @JsonKey(name: 'category') this.category})
+      : _measurementDetails = measurementDetails;
+
+  factory _$PreviousBookingImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PreviousBookingImplFromJson(json);
+
+  @override
+  @JsonKey(name: '_id')
+  final String? id;
+  @override
+  @JsonKey(name: 'user_id')
+  final String? userId;
+  @override
+  @JsonKey(name: 'category_id')
+  final String? categoryId;
+  @override
+  @JsonKey(name: 'type')
+  final String? type;
+  @override
+  @JsonKey(name: 'address')
+  final Address? address;
+  @override
+  @JsonKey(name: 'measurement_unit')
+  final String? measurementUnit;
+  final List<MeasurementDetail>? _measurementDetails;
+  @override
+  @JsonKey(name: 'measurement_details')
+  List<MeasurementDetail>? get measurementDetails {
+    final value = _measurementDetails;
+    if (value == null) return null;
+    if (_measurementDetails is EqualUnmodifiableListView)
+      return _measurementDetails;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey(name: 'ready_by_date')
+  final DateTime? readyByDate;
+  @override
+  @JsonKey(name: 'delivery_date')
+  final DateTime? deliveryDate;
+  @override
+  final String status;
+  @override
+  @JsonKey(name: 'is_deleted')
+  final bool? isDeleted;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime? updatedAt;
+  @override
+  @JsonKey(name: '__v')
+  final int? v;
+  @override
+  @JsonKey(name: 'category')
+  final CategoryModel? category;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PreviousBooking(id: $id, userId: $userId, categoryId: $categoryId, type: $type, address: $address, measurementUnit: $measurementUnit, measurementDetails: $measurementDetails, readyByDate: $readyByDate, deliveryDate: $deliveryDate, status: $status, isDeleted: $isDeleted, createdAt: $createdAt, updatedAt: $updatedAt, v: $v, category: $category)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PreviousBooking'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('categoryId', categoryId))
+      ..add(DiagnosticsProperty('type', type))
+      ..add(DiagnosticsProperty('address', address))
+      ..add(DiagnosticsProperty('measurementUnit', measurementUnit))
+      ..add(DiagnosticsProperty('measurementDetails', measurementDetails))
+      ..add(DiagnosticsProperty('readyByDate', readyByDate))
+      ..add(DiagnosticsProperty('deliveryDate', deliveryDate))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('isDeleted', isDeleted))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt))
+      ..add(DiagnosticsProperty('v', v))
+      ..add(DiagnosticsProperty('category', category));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PreviousBookingImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.measurementUnit, measurementUnit) ||
+                other.measurementUnit == measurementUnit) &&
+            const DeepCollectionEquality()
+                .equals(other._measurementDetails, _measurementDetails) &&
+            (identical(other.readyByDate, readyByDate) ||
+                other.readyByDate == readyByDate) &&
+            (identical(other.deliveryDate, deliveryDate) ||
+                other.deliveryDate == deliveryDate) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.isDeleted, isDeleted) ||
+                other.isDeleted == isDeleted) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.v, v) || other.v == v) &&
+            (identical(other.category, category) ||
+                other.category == category));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      userId,
+      categoryId,
+      type,
+      address,
+      measurementUnit,
+      const DeepCollectionEquality().hash(_measurementDetails),
+      readyByDate,
+      deliveryDate,
+      status,
+      isDeleted,
+      createdAt,
+      updatedAt,
+      v,
+      category);
+
+  /// Create a copy of PreviousBooking
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PreviousBookingImplCopyWith<_$PreviousBookingImpl> get copyWith =>
+      __$$PreviousBookingImplCopyWithImpl<_$PreviousBookingImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PreviousBookingImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PreviousBooking implements PreviousBooking {
+  const factory _PreviousBooking(
+          {@JsonKey(name: '_id') final String? id,
+          @JsonKey(name: 'user_id') final String? userId,
+          @JsonKey(name: 'category_id') final String? categoryId,
+          @JsonKey(name: 'type') final String? type,
+          @JsonKey(name: 'address') final Address? address,
+          @JsonKey(name: 'measurement_unit') final String? measurementUnit,
+          @JsonKey(name: 'measurement_details')
+          final List<MeasurementDetail>? measurementDetails,
+          @JsonKey(name: 'ready_by_date') final DateTime? readyByDate,
+          @JsonKey(name: 'delivery_date') final DateTime? deliveryDate,
+          required final String status,
+          @JsonKey(name: 'is_deleted') final bool? isDeleted,
+          @JsonKey(name: 'created_at') final DateTime? createdAt,
+          @JsonKey(name: 'updated_at') final DateTime? updatedAt,
+          @JsonKey(name: '__v') final int? v,
+          @JsonKey(name: 'category') final CategoryModel? category}) =
+      _$PreviousBookingImpl;
+
+  factory _PreviousBooking.fromJson(Map<String, dynamic> json) =
+      _$PreviousBookingImpl.fromJson;
+
+  @override
+  @JsonKey(name: '_id')
+  String? get id;
+  @override
+  @JsonKey(name: 'user_id')
+  String? get userId;
+  @override
+  @JsonKey(name: 'category_id')
+  String? get categoryId;
+  @override
+  @JsonKey(name: 'type')
+  String? get type;
+  @override
+  @JsonKey(name: 'address')
+  Address? get address;
+  @override
+  @JsonKey(name: 'measurement_unit')
+  String? get measurementUnit;
+  @override
+  @JsonKey(name: 'measurement_details')
+  List<MeasurementDetail>? get measurementDetails;
+  @override
+  @JsonKey(name: 'ready_by_date')
+  DateTime? get readyByDate;
+  @override
+  @JsonKey(name: 'delivery_date')
+  DateTime? get deliveryDate;
+  @override
+  String get status;
+  @override
+  @JsonKey(name: 'is_deleted')
+  bool? get isDeleted;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt;
+  @override
+  @JsonKey(name: '__v')
+  int? get v;
+  @override
+  @JsonKey(name: 'category')
+  CategoryModel? get category;
+
+  /// Create a copy of PreviousBooking
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PreviousBookingImplCopyWith<_$PreviousBookingImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

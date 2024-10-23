@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sui_daga/controllers/ProfileScreenController/UserMeasureMentController/user_measure_ment_cubit.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_cubit.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_state.dart';
 import 'package:sui_daga/flavors/config/flavor_config.dart';
-import 'package:sui_daga/helpers/Methods/methods.dart';
+
 import 'package:sui_daga/widget/custom_textfield.dart';
 
 import '../../cache/shared_preference.dart';
@@ -14,6 +15,8 @@ import '../../routes/routes_helper.dart';
 import '../../style/Pallet.dart';
 import '../../style/style.dart';
 import '../../widget/custom_app_bar.dart';
+import 'AllPreviousBookings/previous_booking.dart';
+import 'UserMeasureMents/user_measurement.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -59,18 +62,22 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {
-                    context.read<MainScreenCubit>().setProfileModel(state.profileModel!, 2);
+                    context.read<MainScreenCubit>().setProfileModel(
+                        state.profileModel!, 2);
                     return GestureDetector(
                       onTap: () {
                         context.read<ProfileCubit>().setProfilePic(context);
                       },
                       child: CircleAvatar(
-                          radius: 48,
-                          backgroundImage: state.profileModel!.profileImage == null
-                              ? const AssetImage("assets/Images/dummyProfileImage.png")
-                              : NetworkImage("${FlavorConfig().baseUrl}/${state.profileModel!.profileImage!}"),
+                        radius: 48,
+                        backgroundImage: state.profileModel!.profileImage ==
+                            null
+                            ? const AssetImage(
+                            "assets/Images/dummyProfileImage.png")
+                            : NetworkImage("${FlavorConfig().baseUrl}/${state
+                            .profileModel!.profileImage!}"),
                       ),
-                      );
+                    );
                   },
                 ),
               ],
@@ -134,38 +141,49 @@ class ProfileScreen extends StatelessWidget {
                           border:
                           Border.all(width: 0, color: const Color(0xFFF2F2F2)),
                         ),
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all<Color>(
-                                  const Color(0xFFF2F2F2)),
-                              shape:
-                              WidgetStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(0),
-                                      side: const BorderSide(
-                                          color: Color(0xFFF2F2F2)))),
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Measurements',
-                                  style: TextStyle(
-                                    color: Color(0xFF212121),
-                                    fontSize: 16,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0,
-                                  ),
+                        child: BlocBuilder<ProfileCubit, ProfileState>(
+                          builder: (context, state) {
+                            return ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor: WidgetStateProperty.all<
+                                      Color>(
+                                      const Color(0xFFF2F2F2)),
+                                  shape:
+                                  WidgetStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              0),
+                                          side: const BorderSide(
+                                              color: Color(0xFFF2F2F2)))),
                                 ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Color(0xFF212121),
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                            onPressed: () {}),
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Measurements',
+                                      style: TextStyle(
+                                        color: Color(0xFF212121),
+                                        fontSize: 16,
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0,
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF212121),
+                                      size: 15,
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {
+                                  context.read<UserMeasureMentCubit>().getProfiledate(state.profileModel!);
+                                  Navigator.of(context).pushNamed(UserMeasurement.id);
+                                });
+                          },
+                        ),
                       ))
                 ],
               ),
@@ -218,7 +236,10 @@ class ProfileScreen extends StatelessWidget {
                                 )
                               ],
                             ),
-                            onPressed: () {}),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  PreviousBookingScreen.id);
+                            }),
                       ))
                 ],
               ),
@@ -435,7 +456,8 @@ class ProfileScreen extends StatelessWidget {
                                   "assets/Images/editIcon.svg"),
                             ),
                             onChanged: (value) {
-                              context.read<ProfileCubit>().onChangeAddress(value);
+                              context.read<ProfileCubit>().onChangeAddress(
+                                  value);
                             },
                             controller: context
                                 .read<ProfileCubit>()
@@ -498,9 +520,11 @@ extension on ProfileCubit {
   void logOut(BuildContext context) {
     Pref().pref.clear();
     if (Platform.isAndroid) {
-      Navigator.pushNamedAndRemoveUntil(context, LoginScreen.id, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, LoginScreen.id, (route) => false);
     } else {
-      Navigator.pushNamedAndRemoveUntil(context, LoginScreen.id, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, LoginScreen.id, (route) => false);
     }
   }
 }

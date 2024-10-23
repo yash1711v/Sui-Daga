@@ -22,7 +22,7 @@ final class MeasurementState extends Equatable {
    Booking? bookingModel;
   final String? selectedMeasurementType;
   final String? measurementUnit;
-  final List<Map<String,String>>? measurementData;
+   List<Map<String,String>>? measurementData;
 
    MeasurementState({
      this.measurementData,

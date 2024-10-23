@@ -7,6 +7,7 @@ import 'package:sui_daga/controllers/BookingController/booking_cubit.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_cubit.dart';
 import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
 import 'package:sui_daga/controllers/OtpController/otp_cubit.dart';
+import 'package:sui_daga/controllers/ProfileScreenController/UserMeasureMentController/user_measure_ment_cubit.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_cubit.dart';
 import 'package:sui_daga/controllers/RegisteratonScreenController/registeration_cubit.dart';
 import 'package:sui_daga/controllers/SplashScreen/splash_screen_cubit.dart';
@@ -15,6 +16,7 @@ import 'package:sui_daga/style/Pallet.dart';
 import 'package:sui_daga/view/SplashScreen/splash_screen.dart';
 
 import 'controllers/LoginScreenController/login_cubit.dart';
+import 'controllers/ProfileScreenController/PreviousBookingController/previous_cubit.dart';
 import 'flavors/config/flavor_config.dart';
 import 'models/ProfileModel/profile_model.dart';
 
@@ -68,6 +70,14 @@ class MyApp extends StatelessWidget {
           BlocProvider<RegisterationCubit>(
             create: (BuildContext context) =>
                 RegisterationCubit(),
+          ),
+          BlocProvider<PreviousCubit>(
+            create: (BuildContext context) =>
+            PreviousCubit()..getPreviousBooking(),
+          ),
+          BlocProvider<UserMeasureMentCubit>(
+            create: (BuildContext context) =>
+            UserMeasureMentCubit(),
           ),
         ],
         child: MaterialApp(

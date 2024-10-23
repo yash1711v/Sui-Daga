@@ -89,39 +89,33 @@ class MeasurementCubit extends Cubit<MeasurementState> {
 
 
   void selectMeasureMentItem(int index, [List<String>? values, List<CategoryModel>? categoryList]) {
-    List<Map<String,String>> measurementData = [];
+    state.measurementData = [];
     if (values != null) {
       String itemsSelected = "";
       for (var item in categoryList!) {
-        for (int i = 0; i < state.selectedMeasureMentItems!.length; i++) {
-          if (item.name == state.selectedMeasureMentItems![i]) {
+        for (int i = 0; i < values.length; i++) {
+          if (item.name == values[i]) {
             itemsSelected += "${item.id}";
           }
         }
       }
       _repo.getMeasurementsFields(categoryId: itemsSelected).then((value) {
-        debugPrint("Measurement Data: ${value}");
-        if (value != null) {
+        if (value != null ) {
           List<Map<String,String>> measurementDataTemp = [];
           for(var item in value['data']){
+
             measurementDataTemp.add({
               'name': item['name'].toString(),
               'value': item['value'].toString(),
             });
           }
-        debugPrint("Measurement Data: ${measurementDataTemp}");
           selectedMeasureMentItems = values;
-          state.measurementData?.clear();
-          state.measurementData?.addAll(measurementDataTemp);
-          debugPrint("Measurement Data: ${state.measurementData}");
-
           emit(state.copyWith(
             selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
             measureMentItems: state.measureMentItems,
-            measurementData: state.measurementData,
+            measurementData: measurementDataTemp,
           ));
-        }
-      });
+      }});
     } else {
       selectedMeasureMentItems = [state.measureMentItems![index]];
       emit(state.copyWith(
@@ -165,8 +159,7 @@ class MeasurementCubit extends Cubit<MeasurementState> {
                   selectMeasureMentError: "",
                   selectedMeasurementType: "Add New Measurements"));
             }
-            // emit(state.copyWith(
-            //     selectMeasureMentError: "", selectedMeasurementType: value));
+
           }
         });
       }
@@ -193,14 +186,36 @@ class MeasurementCubit extends Cubit<MeasurementState> {
               debugPrint("Category Id: ${item.id}");
               itemsSelected += "${item.id}";
             }
+          }}
+        List<bool> isAllValuesFilled = List.generate(state.measurementData!.length, (index) => false);
+        for(var item in state.measurementData!){
+          if(item['value']!.isNotEmpty && item['value'] != "0"){
+            isAllValuesFilled[state.measurementData!.indexOf(item)] = true;
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('All fill the required fields'),
+              ),
+            );
+            isAllValuesFilled[state.measurementData!.indexOf(item)] = false;
+            Navigator.pop(context);
+            break;
           }
+        }
+        bool isValuesFilled = isAllValuesFilled.every((element) => element == true);
+        debugPrint("isAllValuesFilled: ${isValuesFilled}");
+        if(isValuesFilled){
           Booking booking = state.bookingModel!.copyWith(
               categoryId: itemsSelected,
               measurementUnit: state.measurementUnit,
               measurementDetails: [
+                for(var item in state.measurementData!)
+                  MeasurementDetail(
+                    categoryId: itemsSelected,
+                    name: item['name']!,
+                    value: item['value']!,
+                  )
               ]);
-
-          emit(state.copyWith(bookingModel: booking));
           _repo.makeBooking(
               bookingData: booking, profilemodel: state.profileData).then((
               value) {
@@ -215,7 +230,10 @@ class MeasurementCubit extends Cubit<MeasurementState> {
               // Navigator.pushNamed(context, RoutesHelper.bookingScreen);
             }
           });
+          emit(state.copyWith(bookingModel: booking));
         }
+
+
       }
     } else {
       if (state.selectMeasureMentError == null) {
@@ -234,5 +252,21 @@ class MeasurementCubit extends Cubit<MeasurementState> {
     }
 
 
+  }
+
+  void onUpdateMeasurementData(int index, String value, BuildContext context) {
+    if(value.isNotEmpty && value != "0" && int.parse(value) < 200){
+      state.measurementData![index]['value'] = value;
+      emit(state.copyWith(measurementData: state.measurementData));
+    } else {
+      if(int.parse(value) > 200){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Value should be less than 200'),
+          ),
+        );
+      }
+    }
+    debugPrint("value: ${state.measurementData!}");
   }
 }

@@ -45,7 +45,7 @@ class MeasurementAndDetails extends StatelessWidget {
                   Text(
                     "Measurement Details",
                     style:
-                    Style.h18.copyWith(color: Pallet.primary, fontSize: 16),
+                        Style.h18.copyWith(color: Pallet.primary, fontSize: 16),
                   ),
                 ],
               ),
@@ -118,7 +118,7 @@ class MeasurementAndDetails extends StatelessWidget {
                               ),
                               Visibility(
                                   visible: state.selectMeasureMentError !=
-                                      null &&
+                                          null &&
                                       state.selectMeasureMentError!.isNotEmpty,
                                   child: Text(
                                     state.selectMeasureMentError ?? "",
@@ -156,7 +156,8 @@ class MeasurementAndDetails extends StatelessWidget {
                         onSelected: (List<String> values) {
                           context
                               .read<MeasurementCubit>()
-                              .selectMeasureMentItem(0, values,state.categoryList);
+                              .selectMeasureMentItem(
+                                  0, values, state.categoryList);
                         },
                         items: state.measureMentItems ?? [],
                         width: 80,
@@ -233,7 +234,7 @@ class MeasurementAndDetails extends StatelessWidget {
                             underline: const SizedBox(),
                             // Hides the default underline
                             isExpanded:
-                            true, // Makes dropdown take full width// Optional: Makes the dropdown transparent
+                                true, // Makes dropdown take full width// Optional: Makes the dropdown transparent
                           );
                         },
                       ),
@@ -248,10 +249,12 @@ class MeasurementAndDetails extends StatelessWidget {
                 ),
                 BlocBuilder<MeasurementCubit, MeasurementState>(
                   builder: (context, state) {
+                    debugPrint("Measurement Data: ${state.measurementData}");
                     return GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: 3.5, // Width to height ratio
                         crossAxisCount: 2, // Two elements per row
                         crossAxisSpacing: 10, // Horizontal space between items
@@ -261,23 +264,24 @@ class MeasurementAndDetails extends StatelessWidget {
                       // Total of 10 items (5 rows, 2 items per row)
                       itemBuilder: (context, index) {
                         return Container(
-                            decoration: const BoxDecoration(
-                                color: Color(0xFFF4F4F4)),
+                            decoration:
+                                const BoxDecoration(color: Color(0xFFF4F4F4)),
                             child: CustomTextField(
                               onChanged: (value) {
-
+                                context
+                                    .read<MeasurementCubit>()
+                                    .onUpdateMeasurementData(
+                                        index, value, context);
                               },
                               keyboardType: TextInputType.number,
-
-                              hintText: "${state
-                                  .measurementData?[index]['name']} j" ?? "",
+                              hintText:
+                                  "${state.measurementData?[index]['name']}",
                               controller: TextEditingController(),
                             ));
                       },
                     );
                   },
                 ),
-
                 const SizedBox(
                   height: 55,
                 ),
@@ -320,7 +324,3 @@ class MeasurementAndDetails extends StatelessWidget {
     );
   }
 }
-
-
-
-

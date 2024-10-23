@@ -1,5 +1,8 @@
 
+import '../models/BookingModel/booking_model.dart';
 import '../view/Authentication/Registeration/registeration_screen.dart';
+import '../view/ProfileScreen/AllPreviousBookings/previous_booking.dart';
+import '../view/ProfileScreen/UserMeasureMents/user_measurement.dart';
 import 'routes_helper.dart';
 
 class Routes {
@@ -109,6 +112,44 @@ class Routes {
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
                MeasurementAndDetails(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = 0.0;
+            const end = 1.0;
+            const curve = Curves.easeIn;
+
+            var tween = Tween<double>(begin: begin, end: end)
+                .chain(CurveTween(curve: curve));
+            var opacityAnimation = animation.drive(tween);
+
+            return FadeTransition(
+              opacity: opacityAnimation,
+              child: child,
+            );
+          },
+        );
+      case PreviousBookingScreen.id:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const PreviousBookingScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = 0.0;
+            const end = 1.0;
+            const curve = Curves.easeIn;
+
+            var tween = Tween<double>(begin: begin, end: end)
+                .chain(CurveTween(curve: curve));
+            var opacityAnimation = animation.drive(tween);
+
+            return FadeTransition(
+              opacity: opacityAnimation,
+              child: child,
+            );
+          },
+        );
+        case UserMeasurement.id:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const UserMeasurement(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = 0.0;
             const end = 1.0;

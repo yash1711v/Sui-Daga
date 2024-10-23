@@ -102,7 +102,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
 
   void runEvery10Seconds(BuildContext context) {
     Future.delayed(const Duration(seconds: 60), () {
-      getMainScreenData(context, state.index);
+      getMainScreenData(context, state.pageController!.page!.round());
       runEvery10Seconds(context);
     });
   }

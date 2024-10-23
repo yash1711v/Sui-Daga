@@ -87,11 +87,16 @@ class Repo {
     return await _apiCaller.post("/api/user/booking", body, withToken: true);
   }
 
-  getPreviousMeasurements({required String? categoryId}) {
+  Future<dynamic> getPreviousMeasurements({required String? categoryId}) {
     return _apiCaller.get("/api/user/measurement", withToken: true,query: {"category_id": categoryId ?? ""});
   }
-  getMeasurementsFields({required String? categoryId}) {
+
+  Future<dynamic> getMeasurementsFields({required String? categoryId}) {
     return _apiCaller.get("/api/user/measurement_field", withToken: true,query: {"category_id": categoryId ?? ""});
+  }
+
+  Future<dynamic>  getPreviousBooking() {
+    return _apiCaller.get("/api/user/booking", withToken: true,);
   }
 
 
