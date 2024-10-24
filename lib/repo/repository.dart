@@ -99,6 +99,15 @@ class Repo {
     return _apiCaller.get("/api/user/booking", withToken: true,);
   }
 
+  Future<dynamic> updateMeasurements({required List<Map<String, String>>? measurementDetails, String? measurementUnit, String? categoryId}) {
 
+    List<Map<String, dynamic>> measurement = measurementDetails!;
+  final body = {
+    "category_id": categoryId,
+    "measurement_unit": measurementUnit == "In" ? "inch" : "cm",
+    "measurement_details": measurement,
+    };
+    return _apiCaller.patch("/api/user/measurement",body, withToken: true);
+  }
 
 }

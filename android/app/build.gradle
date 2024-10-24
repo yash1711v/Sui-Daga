@@ -31,11 +31,17 @@ android {
     }
 
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+        debug {
+            signingConfig signingConfigs.debug // Use the debug signing config
         }
+//        release {
+//            // Use your release signing configuration
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//
+//            // Conditional signing config based on flavor
+//            signingConfig signingConfigs.release // For release build, you need a release key
+//        }
     }
 
     flavorDimensions "app"

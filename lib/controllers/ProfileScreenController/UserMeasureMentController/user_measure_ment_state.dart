@@ -10,7 +10,7 @@ final class UserMeasureMentState extends Equatable {
 
   UserMeasureMentState(
       {this.measureMentItems,
-      this.selectedMeasureMentItems,
+      this.selectedMeasureMentItems = const ["Kurta"],
       this.measurementData,
       this.profileData,
       this.measurementUnit = "CM",

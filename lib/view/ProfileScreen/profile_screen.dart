@@ -6,6 +6,7 @@ import 'package:sui_daga/controllers/ProfileScreenController/UserMeasureMentCont
 import 'package:sui_daga/controllers/ProfileScreenController/profile_cubit.dart';
 import 'package:sui_daga/controllers/ProfileScreenController/profile_state.dart';
 import 'package:sui_daga/flavors/config/flavor_config.dart';
+import 'package:sui_daga/models/ProfileModel/profile_model.dart';
 
 import 'package:sui_daga/widget/custom_textfield.dart';
 
@@ -24,33 +25,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size(412, 221),
-        child: CustomAppBar(
-          textUnderLogo: Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
-            ),
-            child: Text(
-              "PROFILE",
-              style: Style.h18.copyWith(
-                color: Colors.white,
-                fontSize: 16,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w600,
-                height: 0,
-              ),
-            ),
-          ),
-          actionButton: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-              // Add action here
-            },
-            color: Pallet.white,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -179,7 +153,7 @@ class ProfileScreen extends StatelessWidget {
                                   ],
                                 ),
                                 onPressed: () {
-                                  context.read<UserMeasureMentCubit>().getProfiledate(state.profileModel!);
+                                  context.read<UserMeasureMentCubit>().getProfiledate(state.profileModel ?? ProfileModel());
                                   Navigator.of(context).pushNamed(UserMeasurement.id);
                                 });
                           },

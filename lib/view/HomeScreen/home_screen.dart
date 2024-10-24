@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_cubit.dart';
 import 'package:sui_daga/controllers/HomeScreenController/home_state.dart';
+import 'package:sui_daga/controllers/MainScreenController/main_screen_cubit.dart';
 import 'package:sui_daga/flavors/config/flavor_config.dart';
 import 'package:sui_daga/helpers/Methods/methods.dart';
 import 'package:sui_daga/models/ProfileModel/profile_model.dart';
@@ -21,28 +22,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(profileModel.upperBanner == null || profileModel.middleBanner == null || profileModel.collectionBanner == null || profileModel.lowerBanner == null) {
+      return const Center(child: CircularProgressIndicator(),);
+    }
+
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size(412, 221),
-        child: CustomAppBar(
-          textUnderLogo: Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
-            ),
-            child: Text(
-              "WELCOME",
-              style: Style.h18.copyWith(color: Pallet.primary),
-            ),
-          ),
-          actionButton: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-              // Add action here
-            },
-            color: Pallet.white,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -51,9 +35,9 @@ class HomeScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: isValidUrl(
-                      "${FlavorConfig().baseUrl}/${profileModel!.upperBanner![0].image}")
+                      "${FlavorConfig().baseUrl}/${profileModel.upperBanner![0].image}")
                   ? Image.network(
-                      "${FlavorConfig().baseUrl}/${profileModel!.upperBanner![0].image}",
+                      "${FlavorConfig().baseUrl}/${profileModel.upperBanner![0].image}",
                       scale: 0.5,
                     )
                   : Image.asset("assets/Images/Banner.png"),

@@ -60,16 +60,13 @@ class CustomChipSelection extends StatelessWidget {
                 borderRadius: BorderRadius.circular(radius),
               ),
               child: Center(
-                child: FittedBox(
-                  fit: BoxFit.fitWidth, // Scale down to fit the container
-                  child: Text(
-                    items[index],
-                    style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w400,
-                    ),
+                child: Text(
+                  items[index],
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : Colors.black,
+                    fontSize: 16,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),

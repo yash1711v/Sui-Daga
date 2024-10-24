@@ -6,8 +6,11 @@ import 'package:sui_daga/controllers/MainScreenController/main_screen_state.dart
 import '../../cache/shared_preference.dart';
 import '../../models/ProfileModel/profile_model.dart';
 import '../../repo/repository.dart';
+import '../../routes/routes_helper.dart';
+import '../../routes/routes_helper.dart';
 import '../ProfileScreenController/profile_cubit.dart';
 
+dynamic mainScreenContext;
 class MainScreenCubit extends Cubit<MainScreenState> {
   PageController pageController = PageController();
 
@@ -15,7 +18,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
   final Repo _repo = Repo();
   final _pref = Pref().pref;
 
- void getMainScreenData(BuildContext context,[int? index]) async {
+ void getMainScreenData(BuildContext context,[int? index,BuildContext? mainScreenContext]) async {
     String? token = await _pref.getString("Token");
     if(token != null) {
       _repo.getProfileData().then((value) {
@@ -45,7 +48,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
 
           profileModel = profileModel.copyWith(categoryModel: categoryModel, upperBanner: upperBanner, middleBanner: middleBanner, lowerBanner: lowerBanner, collectionBanner: collectionBanner);
 
-          emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: index ?? 0, firtTimeOpen: true));
+          emit(state.copyWith(profileModel: profileModel, pageController: pageController, index: index ?? 0, firtTimeOpen: true, context: mainScreenContext));
 
           addDresses(profileModel);
         });
@@ -102,8 +105,13 @@ class MainScreenCubit extends Cubit<MainScreenState> {
 
   void runEvery10Seconds(BuildContext context) {
     Future.delayed(const Duration(seconds: 60), () {
-      getMainScreenData(context, state.pageController!.page!.round());
+      mainScreenContext = context;
+      getMainScreenData(context, state.pageController!.page!.round(), context);
       runEvery10Seconds(context);
     });
+  }
+
+  void openDrawer() {
+    Scaffold.of(mainScreenContext).openEndDrawer();
   }
 }

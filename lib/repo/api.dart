@@ -98,6 +98,7 @@ class ApiCaller {
         debugPrint('Response: ${response.data}');
       } else {
         // For standard JSON requests
+        debugPrint('Response: ${jsonEncode(data)}');
         response = await dio.patch(
           Uri.parse('$_baseUrl$url').toString(),
           options: Options(headers: header),

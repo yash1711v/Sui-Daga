@@ -24,27 +24,6 @@ class BookingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size(412, 221),
-        child: CustomAppBar(
-          textUnderLogo: Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
-            ),
-            child: Text(
-              "ENQUIRE BOOKING",
-              style: Style.h18.copyWith(color: Pallet.primary, fontSize: 16),
-            ),
-          ),
-          actionButton: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-              // Add action here
-            },
-            color: Pallet.white,
-          ),
-        ),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
