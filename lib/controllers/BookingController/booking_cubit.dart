@@ -51,7 +51,6 @@ class BookingCubit extends Cubit<BookingState> {
     } else {
       profileModel.categoryModel!.forEach((element) {
         if (element.name == value) {
-          debugPrint("Category Id: ${element.id}");
           emit(state.copyWith(
               selectedStitchingItem: "", CategoryId: element.id));
         }

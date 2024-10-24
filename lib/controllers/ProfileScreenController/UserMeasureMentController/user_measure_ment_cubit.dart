@@ -124,7 +124,6 @@ class UserMeasureMentCubit extends Cubit<UserMeasureMentState> {
                 }
               }
             }
-            debugPrint("Measurement Data: $measurementDataTemp");
           }
         });
 

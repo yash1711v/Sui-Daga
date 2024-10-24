@@ -5,7 +5,8 @@ import '../../controllers/MainScreenController/main_screen_cubit.dart';
 import '../../routes/routes_helper.dart';
 
 class CustomEndDrawer extends StatelessWidget {
-  const CustomEndDrawer({super.key});
+  final bool? isMainScreen;
+  const CustomEndDrawer({super.key, this.isMainScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,13 @@ class CustomEndDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Home'),
             onTap: () {
-              context.read<MainScreenCubit>().changeIndex(0, context);
-              Navigator.pop(context);
+
+              if(!(isMainScreen ?? true)){
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                context.read<MainScreenCubit>().changeIndex(0, context);
+              } else {
+                context.read<MainScreenCubit>().changeIndex(0, context);
+              }
             },
           ),
           ListTile(

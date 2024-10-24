@@ -8,6 +8,7 @@ import 'package:sui_daga/widget/custom_textfield.dart';
 import '../../../../routes/routes_helper.dart';
 import '../../../../style/Pallet.dart';
 import '../../../../style/style.dart';
+import '../../../../widget/customEndDrawer/custom_end_drawer.dart';
 import '../../../../widget/custom_app_bar.dart';
 
 class HomeService extends StatefulWidget {
@@ -89,15 +90,18 @@ class _HomeServiceState extends State<HomeService> {
               ),
             ),
           ),
-          actionButton: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-              // Add action here
-            },
-            color: Pallet.white,
-          ),
+          actionButton:  Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.more_vert),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                  // Add action here
+                },
+                color: Pallet.white,
+              )),
         ),
       ),
+      endDrawer: const CustomEndDrawer(isMainScreen: false,),
       body: SingleChildScrollView(
         controller: _scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

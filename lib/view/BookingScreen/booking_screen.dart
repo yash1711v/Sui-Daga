@@ -245,6 +245,9 @@ class BookingScreen extends StatelessWidget {
               );
             },
           ),
+          const SizedBox(
+            height: 10,
+          ),
         ],
       ),
       bottomNavigationBar: BlocBuilder<BookingCubit, BookingState>(

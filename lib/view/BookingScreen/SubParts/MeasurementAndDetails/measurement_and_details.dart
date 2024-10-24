@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_cubit.dart';
 import 'package:sui_daga/controllers/BookingController/MeasurementAndDetails/measurement_state.dart';
+import 'package:sui_daga/widget/customEndDrawer/custom_end_drawer.dart';
 import 'package:sui_daga/widget/custom_textfield.dart';
 
 import '../../../../routes/routes_helper.dart';
@@ -51,15 +52,18 @@ class MeasurementAndDetails extends StatelessWidget {
               ),
             ),
           ),
-          actionButton: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-              // Add action here
-            },
-            color: Pallet.white,
-          ),
+          actionButton: Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.more_vert),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                  // Add action here
+                },
+                color: Pallet.white,
+              )),
         ),
       ),
+      endDrawer: const CustomEndDrawer(isMainScreen: false,),
       body: SingleChildScrollView(
         controller: _scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -139,15 +143,6 @@ class MeasurementAndDetails extends StatelessWidget {
                 ),
                 BlocBuilder<MeasurementCubit, MeasurementState>(
                   builder: (context, state) {
-                    // if(state.bookingModel?.categoryId != null ){
-                    //   for (var item in state.categoryList ?? []) {
-                    //     if (item.id == state.bookingModel?.categoryId) {
-                    //       context
-                    //           .read<MeasurementCubit>()
-                    //           .selectMeasureMentItem(0, [item.name ?? ""]);
-                    //     }
-                    //   }
-                    // }
                     return SizedBox(
                       width: double.infinity,
                       height: 40,

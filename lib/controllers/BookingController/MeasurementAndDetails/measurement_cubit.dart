@@ -15,16 +15,6 @@ class MeasurementCubit extends Cubit<MeasurementState> {
   }
 
   final Repo _repo = Repo();
-  final TextEditingController lengthController = TextEditingController();
-  final TextEditingController chestController = TextEditingController();
-  final TextEditingController waistController = TextEditingController();
-  final TextEditingController hipController = TextEditingController();
-  final TextEditingController shoulderController = TextEditingController();
-  final TextEditingController armController = TextEditingController();
-  final TextEditingController wristController = TextEditingController();
-  final TextEditingController sleetsController = TextEditingController();
-  final TextEditingController colarController = TextEditingController();
-  final TextEditingController damanController = TextEditingController();
 
   List<String>? selectedMeasureMentItems = [];
 
@@ -47,17 +37,7 @@ class MeasurementCubit extends Cubit<MeasurementState> {
   }
 
   void resetValues() {
-    debugPrint("Calling resetValues");
-    lengthController.clear();
-    chestController.clear();
-    waistController.clear();
-    hipController.clear();
-    shoulderController.clear();
-    armController.clear();
-    wristController.clear();
-    sleetsController.clear();
-    colarController.clear();
-    damanController.clear();
+
     state.lengthError = null;
     state.chestError = null;
     state.waistError = null;
@@ -69,9 +49,13 @@ class MeasurementCubit extends Cubit<MeasurementState> {
     state.colarError = null;
     state.damanError = null;
     state.selectMeasureMentError = null;
+    List<Map<String,String>>? measurementDataTemp = state.measurementData;
+
+    for(var item in measurementDataTemp!){
+      item.update('value', (value) => value = "");
+    }
 
     emit(state.copyWith(
-
       lengthError: null,
       chestError: null,
       waistError: null,
@@ -82,8 +66,9 @@ class MeasurementCubit extends Cubit<MeasurementState> {
       sleetsError: null,
       colarError: null,
       damanError: null,
-      selectMeasureMentError: null,
-      selectedMeasurementType: null,
+      selectMeasureMentError: "",
+      selectedMeasurementType: "Add New Measurements",
+      measurementData: measurementDataTemp
     ));
   }
 
@@ -109,12 +94,44 @@ class MeasurementCubit extends Cubit<MeasurementState> {
               'value': item['value'].toString(),
             });
           }
+
+
           selectedMeasureMentItems = values;
+
+          if(state.selectedMeasurementType == "Previous Measurements"){
+            _repo.getPreviousMeasurements(categoryId: itemsSelected).then((data){
+              if(data["data"].isNotEmpty){
+                for(int i = 0; i<data['data'][0]["measurement_details"].length; i++){
+                  for(int j = 0; j<measurementDataTemp.length; j++){
+                    if(data['data'][0]["measurement_details"][i]['name'] == measurementDataTemp[j]['name']){
+                      dynamic val = data['data'][0]["measurement_details"][i]['value'];
+                      measurementDataTemp[j].update('value', (value) => value = val);
+                    }
+                  }
+                }
+                emit(state.copyWith(
+                  selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
+                  measureMentItems: state.measureMentItems,
+                  selectedMeasurementType: state.selectedMeasurementType,
+                  measurementData: measurementDataTemp,
+                ));
+              } else {
+                emit(state.copyWith(
+                  selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
+                  measureMentItems: state.measureMentItems,
+                  selectedMeasurementType: state.selectedMeasurementType,
+                  measurementData: measurementDataTemp,
+                ));
+              }
+            });
+          } else {
           emit(state.copyWith(
             selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
             measureMentItems: state.measureMentItems,
             measurementData: measurementDataTemp,
           ));
+
+          }
       }});
     } else {
       selectedMeasureMentItems = [state.measureMentItems![index]];
@@ -127,26 +144,24 @@ class MeasurementCubit extends Cubit<MeasurementState> {
 
   }
 
-  void onSelectMeasurement(String? value, [BuildContext? context]) {
-    if (value == null || value.isEmpty) {
+  void onSelectMeasurement(String? values, [BuildContext? context]) {
+    if (values == null || values.isEmpty) {
       emit(state.copyWith(
           selectMeasureMentError: 'Select measurement',
-          selectedMeasurementType: value));
+          selectedMeasurementType: values));
     } else {
-      if (value == "Previous Measurements") {
+      if (values == "Previous Measurements") {
         showLoader(context!);
         String itemsSelected = "";
         for (var item in state.categoryList!) {
           for (int i = 0; i < state.selectedMeasureMentItems!.length; i++) {
             if (item.name == state.selectedMeasureMentItems![i]) {
-              debugPrint("Category Id: ${item.id}");
               itemsSelected += "${item.id}";
             }
           }
         }
         _repo.getPreviousMeasurements(categoryId: itemsSelected).then((value) {
           if (value != null) {
-            debugPrint("Previous Measurements: ${value}");
             if (value['data'] == null || value['data'].isEmpty) {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
@@ -158,8 +173,10 @@ class MeasurementCubit extends Cubit<MeasurementState> {
               emit(state.copyWith(
                   selectMeasureMentError: "",
                   selectedMeasurementType: "Add New Measurements"));
-            } else {
+            }
+            else {
               List<Map<String, String>>? measurementDataTemp = state.measurementData;
+
               for (int i = 0;
               i < value['data'][0]['measurement_details'].length;
               i++) {
@@ -173,18 +190,26 @@ class MeasurementCubit extends Cubit<MeasurementState> {
                   }
                 }
               }
+
               emit(state.copyWith(
                   selectMeasureMentError: "",
+                  selectedMeasurementType:  values,
                   measurementData: measurementDataTemp));
               Navigator.pop(context);
             }
 
           }
         });
-      }
-      {
+      } else {
+        List<Map<String,String>>? measurementDataTemp = state.measurementData;
+
+        for(var item in measurementDataTemp!){
+          item.update('value', (value) => value = "");
+        }
         emit(state.copyWith(
-            selectMeasureMentError: "", selectedMeasurementType: value));
+            selectMeasureMentError: "",
+            selectedMeasurementType: values,
+            measurementData: measurementDataTemp));
       }
     }
   }
@@ -202,7 +227,6 @@ class MeasurementCubit extends Cubit<MeasurementState> {
         for (var item in state.categoryList!) {
           for (int i = 0; i < state.selectedMeasureMentItems!.length; i++) {
             if (item.name == state.selectedMeasureMentItems![i]) {
-              debugPrint("Category Id: ${item.id}");
               itemsSelected += "${item.id}";
             }
           }}
@@ -222,7 +246,6 @@ class MeasurementCubit extends Cubit<MeasurementState> {
           }
         }
         bool isValuesFilled = isAllValuesFilled.every((element) => element == true);
-        debugPrint("isAllValuesFilled: ${isValuesFilled}");
         if(isValuesFilled){
           Booking booking = state.bookingModel!.copyWith(
               categoryId: itemsSelected,
@@ -239,7 +262,6 @@ class MeasurementCubit extends Cubit<MeasurementState> {
               bookingData: booking, profilemodel: state.profileData).then((
               value) {
             if (value != null) {
-              debugPrint("Booking  ${value}");
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -286,6 +308,5 @@ class MeasurementCubit extends Cubit<MeasurementState> {
         );
       }
     }
-    debugPrint("value: ${state.measurementData!}");
   }
 }
