@@ -13,7 +13,7 @@ class UserMeasureMentCubit extends Cubit<UserMeasureMentState> {
 
   final Repo _repo = Repo();
 
-  void getProfiledate(ProfileModel profileModel) {
+  Future<void> getProfiledate(ProfileModel profileModel) async {
     List<String> dresses = [];
     selectedMeasureMentItems = ["Kurta"];
     for (var item in (profileModel.categoryModel ?? []) ){
@@ -31,27 +31,42 @@ class UserMeasureMentCubit extends Cubit<UserMeasureMentState> {
           }
         }
       }
-      _repo.getMeasurementsFields(categoryId: itemsSelected).then((value) {
-        if (value != null) {
-          List<Map<String, String>> measurementDataTemp = [];
-          for (var item in value['data']) {
+      await _repo.getMeasurementsFields(categoryId: itemsSelected).then((measurementFields) async {
+        List<Map<String, String>> measurementDataTemp = [];
+
+        if (measurementFields != null) {
+          for (var item in measurementFields['data']) {
             measurementDataTemp.add({
               'name': item['name'].toString(),
               'value': item['value'].toString(),
               "image": item['image'].toString(),
             });
           }
-          if(measurementDataTemp.length == value['data'].length){
-            emit(state.copyWith(
-              selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
-              measureMentItems: dresses,
-              measurementData: measurementDataTemp,
-              image: image,
-              profileData: profileModel,
-            ));
-          }
         }
+
+        await  _repo.getPreviousMeasurements(categoryId: itemsSelected).then((value){
+
+          if(value["data"].isNotEmpty){
+            for(int i = 0; i<value['data'][0]["measurement_details"].length; i++){
+              for(int j = 0; j<measurementDataTemp.length; j++){
+                if(value['data'][0]["measurement_details"][i]['name'] == measurementDataTemp[j]['name']){
+                  dynamic val = value['data'][0]["measurement_details"][i]['value'];
+                  measurementDataTemp[j].update('value', (value) => value = val);
+                }
+              }
+            }
+          }
+        });
+
+        emit(state.copyWith(
+          selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
+          measureMentItems: dresses,
+          measurementData: measurementDataTemp,
+          image: image,
+        ));
+
       });
+
     }
   }
   void onUpdateMeasurementData(int index, String value, BuildContext context) {
@@ -70,8 +85,8 @@ class UserMeasureMentCubit extends Cubit<UserMeasureMentState> {
     debugPrint("value: ${state.measurementData!}");
   }
 
-  void selectMeasureMentItem(int index,
-      [List<String>? values, List<CategoryModel>? categoryList]) {
+  Future<void> selectMeasureMentItem(int index,
+      [List<String>? values, List<CategoryModel>? categoryList]) async {
     state.measurementData = [];
     if (values != null) {
       String itemsSelected = "";
@@ -84,10 +99,11 @@ class UserMeasureMentCubit extends Cubit<UserMeasureMentState> {
           }
         }
       }
-      _repo.getMeasurementsFields(categoryId: itemsSelected).then((value) {
-        if (value != null) {
-          List<Map<String, String>> measurementDataTemp = [];
-          for (var item in value['data']) {
+     await _repo.getMeasurementsFields(categoryId: itemsSelected).then((measurementFields) async {
+       List<Map<String, String>> measurementDataTemp = [];
+
+       if (measurementFields != null) {
+          for (var item in measurementFields['data']) {
             measurementDataTemp.add({
               'name': item['name'].toString(),
               'value': item['value'].toString(),
@@ -95,14 +111,33 @@ class UserMeasureMentCubit extends Cubit<UserMeasureMentState> {
             });
           }
           selectedMeasureMentItems = values;
-          emit(state.copyWith(
-            selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
-            measureMentItems: state.measureMentItems,
-            measurementData: measurementDataTemp,
-            image: image,
-          ));
         }
+
+      await  _repo.getPreviousMeasurements(categoryId: itemsSelected).then((value){
+
+          if(value["data"].isNotEmpty){
+            for(int i = 0; i<value['data'][0]["measurement_details"].length; i++){
+              for(int j = 0; j<measurementDataTemp.length; j++){
+                if(value['data'][0]["measurement_details"][i]['name'] == measurementDataTemp[j]['name']){
+                  dynamic val = value['data'][0]["measurement_details"][i]['value'];
+                  measurementDataTemp[j].update('value', (value) => value = val);
+                }
+              }
+            }
+            debugPrint("Measurement Data: $measurementDataTemp");
+          }
+        });
+
+        emit(state.copyWith(
+          selectedMeasureMentItems: selectedMeasureMentItems, // Use a copy
+          measureMentItems: state.measureMentItems,
+          measurementData: measurementDataTemp,
+          image: image,
+        ));
+
       });
+
+
     } else {
       selectedMeasureMentItems = [state.measureMentItems![index]];
       emit(state.copyWith(

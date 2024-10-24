@@ -158,6 +158,25 @@ class MeasurementCubit extends Cubit<MeasurementState> {
               emit(state.copyWith(
                   selectMeasureMentError: "",
                   selectedMeasurementType: "Add New Measurements"));
+            } else {
+              List<Map<String, String>>? measurementDataTemp = state.measurementData;
+              for (int i = 0;
+              i < value['data'][0]['measurement_details'].length;
+              i++) {
+                for (int j = 0; j < measurementDataTemp!.length; j++) {
+                  if (value['data'][0]['measurement_details'][i]['name'] ==
+                      measurementDataTemp[j]['name']) {
+                    dynamic val =
+                    value['data'][0]['measurement_details'][i]['value'];
+                    measurementDataTemp[j]
+                        .update("value", (value) => value = val);
+                  }
+                }
+              }
+              emit(state.copyWith(
+                  selectMeasureMentError: "",
+                  measurementData: measurementDataTemp));
+              Navigator.pop(context);
             }
 
           }

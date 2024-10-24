@@ -249,7 +249,6 @@ class MeasurementAndDetails extends StatelessWidget {
                 ),
                 BlocBuilder<MeasurementCubit, MeasurementState>(
                   builder: (context, state) {
-                    debugPrint("Measurement Data: ${state.measurementData}");
                     return GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -276,7 +275,9 @@ class MeasurementAndDetails extends StatelessWidget {
                               keyboardType: TextInputType.number,
                               hintText:
                                   "${state.measurementData?[index]['name']}",
-                              controller: TextEditingController(),
+                              controller: TextEditingController(text: state
+                                      .measurementData?[index]['value'] ??
+                                  ""),
                             ));
                       },
                     );

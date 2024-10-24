@@ -20,7 +20,7 @@ class UserMeasurement extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserMeasureMentCubit, UserMeasureMentState>(
       builder: (context, state) {
-        if (state.profileData == null || state.measureMentItems == null || state.measurementData == null || state.image == null) {
+        if (state.profileData == null || state.measureMentItems == null || state.measurementData == null || state.image == null || state.measurementData!.isEmpty) {
           return const Center(child: CircularProgressIndicator());
         }
         return Scaffold(
