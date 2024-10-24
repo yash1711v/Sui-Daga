@@ -98,6 +98,7 @@ class BookingCubit extends Cubit<BookingState> {
       categoryId: state.CategoryId,
       ready_by_date: state.dateController!.text,
       type: state.selectedMakeBookingItem![0],
+      note: (state.optionalController ?? TextEditingController()).text,
     );
     context.read<MeasurementCubit>().setMeasurementScreen(
       profileModel,
@@ -106,5 +107,11 @@ class BookingCubit extends Cubit<BookingState> {
       bookingModel,
     );
     context.read<HomeServiceCubit>().setHomeServiceScreen(bookingModel);
+  }
+
+  void ontypeAddNote(String? value) {
+    TextEditingController optionalController = state.optionalController ?? TextEditingController();
+    optionalController.text = value ?? "";
+    emit(state.copyWith(optionalController: optionalController));
   }
 }

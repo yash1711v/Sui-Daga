@@ -152,9 +152,14 @@ class ProfileScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                onPressed: () {
-                                  context.read<UserMeasureMentCubit>().getProfiledate(state.profileModel ?? ProfileModel());
-                                  Navigator.of(context).pushNamed(UserMeasurement.id);
+                                onPressed: () async {
+                                  ProfileModel profileModel = state.profileModel!;
+                                  context.read<UserMeasureMentCubit>().getProfiledate(profileModel);
+                                   if(profileModel.categoryModel!.isNotEmpty){
+                                     await Future.delayed(const Duration(milliseconds: 500), () {
+                                       Navigator.of(context).pushNamed(UserMeasurement.id);
+                                     });
+                                   }
                                 });
                           },
                         ),

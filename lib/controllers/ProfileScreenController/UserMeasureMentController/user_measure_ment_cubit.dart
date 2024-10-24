@@ -63,6 +63,7 @@ class UserMeasureMentCubit extends Cubit<UserMeasureMentState> {
           measureMentItems: dresses,
           measurementData: measurementDataTemp,
           image: image,
+          profileData: profileModel,
         ));
 
       });

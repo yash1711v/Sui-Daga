@@ -17,6 +17,8 @@ class Booking with _$Booking {
      String? type,
     @JsonKey(name: "address")
      Address? address,
+    @JsonKey(name: "note")
+     String? note,
     @JsonKey(name: "measurement_unit")
      String? measurementUnit,
     @JsonKey(name: "measurement_details")

@@ -4,6 +4,7 @@ import 'package:sui_daga/flavors/config/flavor_config.dart';
 import 'package:sui_daga/widget/customEndDrawer/custom_end_drawer.dart';
 import 'package:sui_daga/widget/custom_button.dart';
 
+import '../../../models/ProfileModel/profile_model.dart';
 import '../../../routes/routes_helper.dart';
 import '../../../style/Pallet.dart';
 import '../../../style/style.dart';
@@ -20,7 +21,10 @@ class UserMeasurement extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserMeasureMentCubit, UserMeasureMentState>(
       builder: (context, state) {
-        if (state.profileData == null || state.measureMentItems == null || state.measurementData == null || state.image == null || state.measurementData!.isEmpty) {
+
+
+        if ( state.profileData == null || state.measureMentItems == null || state.measurementData == null || state.image == null || state.measurementData!.isEmpty) {
+
           return const Center(child: CircularProgressIndicator());
         }
         return Scaffold(
@@ -81,10 +85,13 @@ class UserMeasurement extends StatelessWidget {
                           child: CustomChipSelection(
                             isMultipleSelection: false,
                             onSelected: (List<String> values) {
-                              context
-                                  .read<UserMeasureMentCubit>()
-                                  .selectMeasureMentItem(0, values,
-                                      state.profileData!.categoryModel);
+                              ProfileModel profileModel = state.profileData ?? ProfileModel();
+                              if(profileModel.categoryModel!.isNotEmpty){
+                                context
+                                    .read<UserMeasureMentCubit>()
+                                    .selectMeasureMentItem(0, values,
+                                    profileModel.categoryModel);
+                              }
                             },
                             items: state.measureMentItems ?? [],
                             width: 80,

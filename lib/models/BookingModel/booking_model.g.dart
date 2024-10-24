@@ -14,6 +14,7 @@ _$BookingImpl _$$BookingImplFromJson(Map<String, dynamic> json) =>
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
+      note: json['note'] as String?,
       measurementUnit: json['measurement_unit'] as String?,
       measurementDetails: (json['measurement_details'] as List<dynamic>?)
           ?.map((e) => MeasurementDetail.fromJson(e as Map<String, dynamic>))
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$BookingImplToJson(_$BookingImpl instance) =>
       'ready_by_date': instance.ready_by_date,
       'type': instance.type,
       'address': instance.address,
+      'note': instance.note,
       'measurement_unit': instance.measurementUnit,
       'measurement_details': instance.measurementDetails,
     };

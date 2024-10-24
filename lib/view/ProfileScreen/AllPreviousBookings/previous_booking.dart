@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:sui_daga/widget/customEndDrawer/custom_end_drawer.dart';
 
 import '../../../controllers/ProfileScreenController/PreviousBookingController/previous_cubit.dart';
 import '../../../controllers/ProfileScreenController/PreviousBookingController/previous_state.dart';
@@ -44,15 +45,18 @@ class PreviousBookingScreen extends StatelessWidget {
               ),
             ),
           ),
-          actionButton: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-              // Add action here
-            },
-            color: Pallet.white,
-          ),
+          actionButton: Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.more_vert),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                  // Add action here
+                },
+                color: Pallet.white,
+              )),
         ),
       ),
+      endDrawer: const CustomEndDrawer(isMainScreen: false,),
       body: BlocBuilder<PreviousCubit, PreviousState>(
         builder: (context, state) {
           if (state.previousBooking == null ||
@@ -192,7 +196,7 @@ class PreviousBookingScreen extends StatelessWidget {
                                       onTap: (){
                                         debugPrint("View");
                                       },
-                                      child: Text("View",
+                                      child: const Text("View",
                                         style: TextStyle(
                                           color: Color(0xFF4B8CC2),
                                           fontSize: 13,

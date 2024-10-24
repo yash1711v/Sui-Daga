@@ -24,231 +24,301 @@ class BookingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(
-              left: 16.0,
-              top: 36.0,
-            ),
-            child: Text(
-              'We are here to stitch your perfect fit!',
-              style: TextStyle(
-                color: Color(0xB2212121),
-                fontSize: 16,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w700,
-                height: 0,
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 16.0,
+                top: 36.0,
               ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(
-              left: 16.0,
-              top: 11.0,
-            ),
-            child: Text(
-              'Fill the form to step forward with your design',
-              style: TextStyle(
-                color: Color(0xFF212121),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w400,
-                height: 0,
-              ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(
-              left: 16.0,
-              top: 22.0,
-            ),
-            child: Text(
-              'Stitching For',
-              style: TextStyle(
-                color: Color(0xFF212121),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w500,
-                height: 0,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          BlocBuilder<BookingCubit, BookingState>(
-            builder: (context, state) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomDropDown(
-                            items: makeBookingItems,
-                            onChanged: (String? value) {
-                              context
-                                  .read<BookingCubit>()
-                                  .onSelectStitching(value, profileModel);
-                              context
-                                  .read<MeasurementCubit>()
-                                  .selectMeasureMentItem(0, [value ?? "",], profileModel.categoryModel);
-                            },
-                            hintText: '',
-                          ),
-                        ),
-                      ],
-                    ),
-                    Visibility(
-                        visible: state.selectedStitchingItem != null &&
-                            state.selectedStitchingItem!.isNotEmpty,
-                        child: Text(
-                          state.selectedStitchingItem ?? "",
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 12,
-                          ),
-                        )),
-                  ],
+              child: Text(
+                'We are here to stitch your perfect fit!',
+                style: TextStyle(
+                  color: Color(0xB2212121),
+                  fontSize: 16,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w700,
+                  height: 0,
                 ),
-              );
-            },
-          ),
-          const Padding(
-            padding: EdgeInsets.only(
-              left: 16.0,
-              top: 15,
-            ),
-            child: Text(
-              'Ready On',
-              style: TextStyle(
-                color: Color(0xFF212121),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w500,
-                height: 0,
               ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: BlocBuilder<BookingCubit, BookingState>(
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 16.0,
+                top: 11.0,
+              ),
+              child: Text(
+                'Fill the form to step forward with your design',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 16.0,
+                top: 22.0,
+              ),
+              child: Text(
+                'Stitching For',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            BlocBuilder<BookingCubit, BookingState>(
               builder: (context, state) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                              width: 380,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF4F4F4),
-                                border: Border.all(color: const Color(0xFFF4F4F4)),
-                              ),
-                              child: CustomTextField(
-                                readOnly: true,
-                                style: const TextStyle(color: Colors.black),
-                                controller: state.dateController ?? TextEditingController(),
-                                hintText: "Select",
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) =>
-                                          Dialog(
-                                            backgroundColor: Colors.transparent,
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 16.0),
-                                              child: CustomCalendar(
-                                                onDateSelected: (DateTime date) {
-                                                  context
-                                                      .read<BookingCubit>()
-                                                      .onSelectDate(date);
-                                                  Navigator.pop(context);
-                                                },),
-                                            ),
-                                          ));
-                                },
-                                suffix: Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: SvgPicture.asset(
-                                    "assets/Images/Icons/calender_icon.svg",
-                                  ),
-                                ),
-                              )),
-
-                        ),
-                      ],
-                    ),
-                    Visibility(
-                        visible: state.dateError != null &&
-                            state.dateError!.isNotEmpty,
-                        child: Text(
-                          state.dateError ?? "",
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 12,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomDropDown(
+                              items: makeBookingItems,
+                              onChanged: (String? value) {
+                                context
+                                    .read<BookingCubit>()
+                                    .onSelectStitching(value, profileModel);
+                                context
+                                    .read<MeasurementCubit>()
+                                    .selectMeasureMentItem(0, [value ?? "",], profileModel.categoryModel);
+                              },
+                              hintText: '',
+                            ),
                           ),
-                        )),
-                  ],
+                        ],
+                      ),
+                      Visibility(
+                          visible: state.selectedStitchingItem != null &&
+                              state.selectedStitchingItem!.isNotEmpty,
+                          child: Text(
+                            state.selectedStitchingItem ?? "",
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          )),
+                    ],
+                  ),
                 );
               },
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(
-              left: 16.0,
-              top: 21,
-            ),
-            child: Text(
-              'Make Booking',
-              style: TextStyle(
-                color: Color(0xFF212121),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w500,
-                height: 0,
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 16.0,
+                top: 15,
+              ),
+              child: Text(
+                'Ready On',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          BlocBuilder<BookingCubit, BookingState>(
-            builder: (context, state) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: SizedBox(
-                  height: 45,
-                  width: double.infinity,
-                  child: CustomChipSelection(
-                    onSelected: (List<String> value) {
-                      context.read<BookingCubit>().selectMakeBookingItem(0, value);
-                    },
-                    items: state.makeBookingItems ?? [],
-                    width: 181,
-                    height: 45,
-                    scrollDirection: Axis.horizontal,
-                    selectedItems: state.selectedMakeBookingItem ?? [],
-                    radius: 5,
-                  ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: BlocBuilder<BookingCubit, BookingState>(
+                builder: (context, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                                width: 380,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF4F4F4),
+                                  border: Border.all(color: const Color(0xFFF4F4F4)),
+                                ),
+                                child: CustomTextField(
+                                  readOnly: true,
+                                  style: const TextStyle(color: Colors.black),
+                                  controller: state.dateController ?? TextEditingController(),
+                                  hintText: "Select",
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            Dialog(
+                                              backgroundColor: Colors.transparent,
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 16.0),
+                                                child: CustomCalendar(
+                                                  onDateSelected: (DateTime date) {
+                                                    context
+                                                        .read<BookingCubit>()
+                                                        .onSelectDate(date);
+                                                    Navigator.pop(context);
+                                                  },),
+                                              ),
+                                            ));
+                                  },
+                                  suffix: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: SvgPicture.asset(
+                                      "assets/Images/Icons/calender_icon.svg",
+                                    ),
+                                  ),
+                                )),
+        
+                          ),
+                        ],
+                      ),
+                      Visibility(
+                          visible: state.dateError != null &&
+                              state.dateError!.isNotEmpty,
+                          child: Text(
+                            state.dateError ?? "",
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          )),
+                    ],
+                  );
+                },
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 16.0,
+                top: 21,
+              ),
+              child: Text(
+                'Make Booking',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
                 ),
-              );
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            BlocBuilder<BookingCubit, BookingState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: SizedBox(
+                    height: 45,
+                    width: double.infinity,
+                    child: CustomChipSelection(
+                      onSelected: (List<String> value) {
+                        context.read<BookingCubit>().selectMakeBookingItem(0, value);
+                      },
+                      items: state.makeBookingItems ?? [],
+                      width: 181,
+                      height: 45,
+                      scrollDirection: Axis.horizontal,
+                      selectedItems: state.selectedMakeBookingItem ?? [],
+                      radius: 5,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 16.0,
+                top: 15,
+              ),
+              child: Text(
+                'Note (optional)',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontSize: 14,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: BlocBuilder<BookingCubit, BookingState>(
+                builder: (context, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                                width: 380,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF4F4F4),
+                                  border: Border.all(color: const Color(0xFFF4F4F4)),
+                                ),
+                                child: CustomTextField(
+                                  readOnly: false,
+                                  maxLines: 6,
+                                  style: const TextStyle(color: Colors.black),
+                                  controller: state.optionalController ?? TextEditingController(),
+                                  hintText: "Add additional note here",
+                                  onChanged: (value) {
+                                    context.read<BookingCubit>().ontypeAddNote(value);
+                                  },
+        
+                                )),
+        
+                          ),
+                        ],
+                      ),
+                      Visibility(
+                          visible: state.dateError != null &&
+                              state.dateError!.isNotEmpty,
+                          child: Text(
+                            state.dateError ?? "",
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          )),
+                    ],
+                  );
+                },
+              ),
+            ),
+        
+          ],
+        ),
       ),
       bottomNavigationBar: BlocBuilder<BookingCubit, BookingState>(
         builder: (context, state) {

@@ -28,6 +28,8 @@ mixin _$Booking {
   String? get type => throw _privateConstructorUsedError;
   @JsonKey(name: "address")
   Address? get address => throw _privateConstructorUsedError;
+  @JsonKey(name: "note")
+  String? get note => throw _privateConstructorUsedError;
   @JsonKey(name: "measurement_unit")
   String? get measurementUnit => throw _privateConstructorUsedError;
   @JsonKey(name: "measurement_details")
@@ -53,6 +55,7 @@ abstract class $BookingCopyWith<$Res> {
       @JsonKey(name: "ready_by_date") String? ready_by_date,
       @JsonKey(name: "type") String? type,
       @JsonKey(name: "address") Address? address,
+      @JsonKey(name: "note") String? note,
       @JsonKey(name: "measurement_unit") String? measurementUnit,
       @JsonKey(name: "measurement_details")
       List<MeasurementDetail>? measurementDetails});
@@ -79,6 +82,7 @@ class _$BookingCopyWithImpl<$Res, $Val extends Booking>
     Object? ready_by_date = freezed,
     Object? type = freezed,
     Object? address = freezed,
+    Object? note = freezed,
     Object? measurementUnit = freezed,
     Object? measurementDetails = freezed,
   }) {
@@ -99,6 +103,10 @@ class _$BookingCopyWithImpl<$Res, $Val extends Booking>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address?,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
       measurementUnit: freezed == measurementUnit
           ? _value.measurementUnit
           : measurementUnit // ignore: cast_nullable_to_non_nullable
@@ -137,6 +145,7 @@ abstract class _$$BookingImplCopyWith<$Res> implements $BookingCopyWith<$Res> {
       @JsonKey(name: "ready_by_date") String? ready_by_date,
       @JsonKey(name: "type") String? type,
       @JsonKey(name: "address") Address? address,
+      @JsonKey(name: "note") String? note,
       @JsonKey(name: "measurement_unit") String? measurementUnit,
       @JsonKey(name: "measurement_details")
       List<MeasurementDetail>? measurementDetails});
@@ -162,6 +171,7 @@ class __$$BookingImplCopyWithImpl<$Res>
     Object? ready_by_date = freezed,
     Object? type = freezed,
     Object? address = freezed,
+    Object? note = freezed,
     Object? measurementUnit = freezed,
     Object? measurementDetails = freezed,
   }) {
@@ -182,6 +192,10 @@ class __$$BookingImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address?,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
       measurementUnit: freezed == measurementUnit
           ? _value.measurementUnit
           : measurementUnit // ignore: cast_nullable_to_non_nullable
@@ -202,6 +216,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
       @JsonKey(name: "ready_by_date") this.ready_by_date,
       @JsonKey(name: "type") this.type,
       @JsonKey(name: "address") this.address,
+      @JsonKey(name: "note") this.note,
       @JsonKey(name: "measurement_unit") this.measurementUnit,
       @JsonKey(name: "measurement_details")
       final List<MeasurementDetail>? measurementDetails})
@@ -223,6 +238,9 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
   @JsonKey(name: "address")
   final Address? address;
   @override
+  @JsonKey(name: "note")
+  final String? note;
+  @override
   @JsonKey(name: "measurement_unit")
   final String? measurementUnit;
   final List<MeasurementDetail>? _measurementDetails;
@@ -239,7 +257,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Booking(categoryId: $categoryId, ready_by_date: $ready_by_date, type: $type, address: $address, measurementUnit: $measurementUnit, measurementDetails: $measurementDetails)';
+    return 'Booking(categoryId: $categoryId, ready_by_date: $ready_by_date, type: $type, address: $address, note: $note, measurementUnit: $measurementUnit, measurementDetails: $measurementDetails)';
   }
 
   @override
@@ -251,6 +269,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
       ..add(DiagnosticsProperty('ready_by_date', ready_by_date))
       ..add(DiagnosticsProperty('type', type))
       ..add(DiagnosticsProperty('address', address))
+      ..add(DiagnosticsProperty('note', note))
       ..add(DiagnosticsProperty('measurementUnit', measurementUnit))
       ..add(DiagnosticsProperty('measurementDetails', measurementDetails));
   }
@@ -266,6 +285,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
                 other.ready_by_date == ready_by_date) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.address, address) || other.address == address) &&
+            (identical(other.note, note) || other.note == note) &&
             (identical(other.measurementUnit, measurementUnit) ||
                 other.measurementUnit == measurementUnit) &&
             const DeepCollectionEquality()
@@ -280,6 +300,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
       ready_by_date,
       type,
       address,
+      note,
       measurementUnit,
       const DeepCollectionEquality().hash(_measurementDetails));
 
@@ -305,6 +326,7 @@ abstract class _Booking implements Booking {
       @JsonKey(name: "ready_by_date") final String? ready_by_date,
       @JsonKey(name: "type") final String? type,
       @JsonKey(name: "address") final Address? address,
+      @JsonKey(name: "note") final String? note,
       @JsonKey(name: "measurement_unit") final String? measurementUnit,
       @JsonKey(name: "measurement_details")
       final List<MeasurementDetail>? measurementDetails}) = _$BookingImpl;
@@ -323,6 +345,9 @@ abstract class _Booking implements Booking {
   @override
   @JsonKey(name: "address")
   Address? get address;
+  @override
+  @JsonKey(name: "note")
+  String? get note;
   @override
   @JsonKey(name: "measurement_unit")
   String? get measurementUnit;

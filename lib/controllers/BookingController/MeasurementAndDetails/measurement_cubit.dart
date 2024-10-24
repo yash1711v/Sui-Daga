@@ -258,6 +258,9 @@ class MeasurementCubit extends Cubit<MeasurementState> {
                     value: item['value']!,
                   )
               ]);
+            debugPrint(booking.toJson().toString());
+
+
           _repo.makeBooking(
               bookingData: booking, profilemodel: state.profileData).then((
               value) {
