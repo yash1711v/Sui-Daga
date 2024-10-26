@@ -23,9 +23,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if(profileModel.upperBanner == null || profileModel.middleBanner == null || profileModel.collectionBanner == null || profileModel.lowerBanner == null) {
+       debugPrint("Profile Model ${profileModel.upperBanner}");
+       debugPrint("Profile Model ${profileModel.middleBanner}");
+       debugPrint("Profile Model ${profileModel.lowerBanner}");
+       debugPrint("Profile Model ${profileModel}");
       return const Center(child: CircularProgressIndicator(),);
     }
-
+    debugPrint("Profile Model ${profileModel.upperBanner}");
+    debugPrint("Profile Model ${profileModel.middleBanner}");
+    debugPrint("Profile Model ${profileModel.lowerBanner}");
+    debugPrint("Profile Model ${profileModel}");
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

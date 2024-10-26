@@ -74,14 +74,6 @@ class _MainScreenState extends State<MainScreen> {
                   .read<ProfileCubit>()
                   .setProfileScreen(state.profileModel!);
             }
-            if (state.profileModel == null ||
-                state.dresses == null ||
-                state.pageController == null ||
-                state.index == null) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
             return PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: state.pageController,

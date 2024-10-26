@@ -110,6 +110,7 @@ class OtpScreen extends StatelessWidget{
                         width:400,
                         height: 75,
                         child: PinFieldAutoFill(
+                          currentCode: state.otp,
                           controller: context.read<OtpCubit>().otpController,
                           cursor:  Cursor(
                             width: 2,
@@ -119,9 +120,9 @@ class OtpScreen extends StatelessWidget{
                             enabled: true,
                           ),
                           autoFocus: false,
-                          codeLength: 4,
+                          codeLength: 6,
                           decoration: BoxLooseDecoration(
-                            hintText: "0000",
+                            hintText: "000000",
                             hintTextStyle: Style.h18.copyWith(color: Colors.grey),
                             gapSpace: 18,
                             bgColorBuilder: FixedColorBuilder(Colors.white.withOpacity(0.20000000298023224)),

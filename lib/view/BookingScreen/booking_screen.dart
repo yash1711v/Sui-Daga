@@ -228,7 +228,7 @@ class BookingScreen extends StatelessWidget {
             BlocBuilder<BookingCubit, BookingState>(
               builder: (context, state) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: SizedBox(
                     height: 45,
                     width: double.infinity,
@@ -240,6 +240,7 @@ class BookingScreen extends StatelessWidget {
                       width: 181,
                       height: 45,
                       scrollDirection: Axis.horizontal,
+                      physics: NeverScrollableScrollPhysics(),
                       selectedItems: state.selectedMakeBookingItem ?? [],
                       radius: 5,
                     ),

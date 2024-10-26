@@ -34,7 +34,7 @@ class CustomEndDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Home'),
             onTap: () {
-
+              Navigator.pop(context);
               if(!(isMainScreen ?? true)){
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 context.read<MainScreenCubit>().changeIndex(0, context);
@@ -46,6 +46,7 @@ class CustomEndDrawer extends StatelessWidget {
           ListTile(
             title: const Text('About'),
             onTap: () {
+              Navigator.pop(context);
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
@@ -67,6 +68,7 @@ class CustomEndDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Contact Us'),
             onTap: () {
+              Navigator.pop(context);
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
