@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sui_daga/view/AboutScreen/about_us_screen.dart';
+import 'package:sui_daga/view/ContactUs/contact_us.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../controllers/MainScreenController/main_screen_cubit.dart';
@@ -47,47 +49,14 @@ class CustomEndDrawer extends StatelessWidget {
             title: const Text('About'),
             onTap: () {
               Navigator.pop(context);
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-
-                    title: const Text("Contact Us"),
-                    content: const Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text("OK"))
-                    ],
-                    actionsAlignment: MainAxisAlignment.center,
-                  ));
+              Navigator.of(context).pushNamed(AboutUsScreen.id);
             },
           ),
           ListTile(
             title: const Text('Contact Us'),
             onTap: () {
               Navigator.pop(context);
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                      title: const Text("Contact Us"),
-                      content: SizedBox(
-                        width: 300,
-                        height: 80,
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: const [
-                            Text(
-                                "Email: "),
-                            Text(
-                                "Mobile Number: "),
-                            Text(
-                                "Address: "),
-                          ],
-                        ),
-                      )));
+              Navigator.of(context).pushNamed(ContactUs.id);
             },
           ),
           ListTile(
@@ -98,7 +67,7 @@ class CustomEndDrawer extends StatelessWidget {
             },
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height/1.3,
+            height: MediaQuery.of(context).size.height/2,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
