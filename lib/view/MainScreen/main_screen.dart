@@ -35,28 +35,31 @@ class _MainScreenState extends State<MainScreen> {
       showLater: false,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size(412, 221),
+          preferredSize: const Size(412, 180),
           child: BlocBuilder<MainScreenCubit, MainScreenState>(
             builder: (context, state) {
               return CustomAppBar(
-                textUnderLogo: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16.0,
-                  ),
-                  child: Text(
-                    state.index == 0
-                        ? "WELCOME"
-                        : state.index == 1
-                            ? "ENQUIRE BOOKING"
-                            : "PROFILE",
-                    style: Style.h18.copyWith(color: Pallet.primary),
-                  ),
+                textUnderLogo: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 20,),
+                    Text(
+                      state.index == 0
+                          ? "WELCOME"
+                          : state.index == 1
+                              ? "ENQUIRE BOOKING"
+                              : "PROFILE",
+                      style: Style.h18.copyWith(color: Pallet.white,fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
                 actionButton: Builder(
                     builder: (context) => IconButton(
-                          icon: const Icon(Icons.more_vert),
+                          icon: const ImageIcon(
+                            AssetImage("assets/Images/optionButton.png"),
+                          ),
                           onPressed: () {
-                            Scaffold.of(context).openEndDrawer();
+                            Scaffold.of(context).openDrawer();
                             // Add action here
                           },
                           color: Pallet.white,
@@ -66,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
         extendBody: true,
-        endDrawer: const CustomEndDrawer(),
+        drawer: const CustomEndDrawer(),
         body: BlocBuilder<MainScreenCubit, MainScreenState>(
           builder: (context, state) {
             if (state.firtTimeOpen ?? false) {

@@ -5,6 +5,7 @@ import '../../../routes/routes_helper.dart';
 
 final class HomeServiceState extends Equatable {
   String? addressError;
+  String? TimeError;
   String? numberError;
   String? number;
   String? alternativeMobileNumberError;
@@ -24,11 +25,13 @@ final class HomeServiceState extends Equatable {
   final TextEditingController? mobileController;
   final TextEditingController? alternativeMobileNumberController;
   final TextEditingController? dateController;
+  final TextEditingController? TimeController;
   String? dateError;
   DateTime? selectedDate;
 
   HomeServiceState({
     this.numberError,
+    this.TimeController,
     this.isHomeService,
     this.number,
     this.addressError,
@@ -47,6 +50,7 @@ final class HomeServiceState extends Equatable {
     this.alternativeMobileNumberController,
     this.dateController,
     this.dateError,
+    this.TimeError,
     this.selectedDate,
   });
 
@@ -70,7 +74,9 @@ final class HomeServiceState extends Equatable {
     String? alternativeMobileNumberError,
     bool? isHomeService,
     String? dateError,
+    String? TimeError,
     DateTime? selectedDate,
+    TextEditingController? TimeController,
   }) {
     return HomeServiceState(
       addressError: addressError ?? this.addressError,
@@ -95,8 +101,9 @@ final class HomeServiceState extends Equatable {
       isHomeService: isHomeService ?? this.isHomeService,
       dateController: dateController ?? this.dateController,
       dateError: dateError ?? this.dateError,
+      TimeError: TimeError ?? this.TimeError,
       selectedDate: selectedDate ?? this.selectedDate,
-
+      TimeController: TimeController ?? this.TimeController,
     );
   }
 
@@ -122,5 +129,7 @@ final class HomeServiceState extends Equatable {
         dateController,
         dateError,
         selectedDate,
+        TimeController,
+    TimeError
       ];
 }

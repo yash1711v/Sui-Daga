@@ -28,6 +28,8 @@ mixin _$Booking {
   String? get type => throw _privateConstructorUsedError;
   @JsonKey(name: "address")
   Address? get address => throw _privateConstructorUsedError;
+  @JsonKey(name: "home_booking")
+  MobileNumbers? get mobileNumbers => throw _privateConstructorUsedError;
   @JsonKey(name: "note")
   String? get note => throw _privateConstructorUsedError;
   @JsonKey(name: "measurement_unit")
@@ -55,12 +57,14 @@ abstract class $BookingCopyWith<$Res> {
       @JsonKey(name: "ready_by_date") String? ready_by_date,
       @JsonKey(name: "type") String? type,
       @JsonKey(name: "address") Address? address,
+      @JsonKey(name: "home_booking") MobileNumbers? mobileNumbers,
       @JsonKey(name: "note") String? note,
       @JsonKey(name: "measurement_unit") String? measurementUnit,
       @JsonKey(name: "measurement_details")
       List<MeasurementDetail>? measurementDetails});
 
   $AddressCopyWith<$Res>? get address;
+  $MobileNumbersCopyWith<$Res>? get mobileNumbers;
 }
 
 /// @nodoc
@@ -82,6 +86,7 @@ class _$BookingCopyWithImpl<$Res, $Val extends Booking>
     Object? ready_by_date = freezed,
     Object? type = freezed,
     Object? address = freezed,
+    Object? mobileNumbers = freezed,
     Object? note = freezed,
     Object? measurementUnit = freezed,
     Object? measurementDetails = freezed,
@@ -103,6 +108,10 @@ class _$BookingCopyWithImpl<$Res, $Val extends Booking>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address?,
+      mobileNumbers: freezed == mobileNumbers
+          ? _value.mobileNumbers
+          : mobileNumbers // ignore: cast_nullable_to_non_nullable
+              as MobileNumbers?,
       note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -131,6 +140,20 @@ class _$BookingCopyWithImpl<$Res, $Val extends Booking>
       return _then(_value.copyWith(address: value) as $Val);
     });
   }
+
+  /// Create a copy of Booking
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $MobileNumbersCopyWith<$Res>? get mobileNumbers {
+    if (_value.mobileNumbers == null) {
+      return null;
+    }
+
+    return $MobileNumbersCopyWith<$Res>(_value.mobileNumbers!, (value) {
+      return _then(_value.copyWith(mobileNumbers: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -145,6 +168,7 @@ abstract class _$$BookingImplCopyWith<$Res> implements $BookingCopyWith<$Res> {
       @JsonKey(name: "ready_by_date") String? ready_by_date,
       @JsonKey(name: "type") String? type,
       @JsonKey(name: "address") Address? address,
+      @JsonKey(name: "home_booking") MobileNumbers? mobileNumbers,
       @JsonKey(name: "note") String? note,
       @JsonKey(name: "measurement_unit") String? measurementUnit,
       @JsonKey(name: "measurement_details")
@@ -152,6 +176,8 @@ abstract class _$$BookingImplCopyWith<$Res> implements $BookingCopyWith<$Res> {
 
   @override
   $AddressCopyWith<$Res>? get address;
+  @override
+  $MobileNumbersCopyWith<$Res>? get mobileNumbers;
 }
 
 /// @nodoc
@@ -171,6 +197,7 @@ class __$$BookingImplCopyWithImpl<$Res>
     Object? ready_by_date = freezed,
     Object? type = freezed,
     Object? address = freezed,
+    Object? mobileNumbers = freezed,
     Object? note = freezed,
     Object? measurementUnit = freezed,
     Object? measurementDetails = freezed,
@@ -192,6 +219,10 @@ class __$$BookingImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address?,
+      mobileNumbers: freezed == mobileNumbers
+          ? _value.mobileNumbers
+          : mobileNumbers // ignore: cast_nullable_to_non_nullable
+              as MobileNumbers?,
       note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -216,6 +247,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
       @JsonKey(name: "ready_by_date") this.ready_by_date,
       @JsonKey(name: "type") this.type,
       @JsonKey(name: "address") this.address,
+      @JsonKey(name: "home_booking") this.mobileNumbers,
       @JsonKey(name: "note") this.note,
       @JsonKey(name: "measurement_unit") this.measurementUnit,
       @JsonKey(name: "measurement_details")
@@ -238,6 +270,9 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
   @JsonKey(name: "address")
   final Address? address;
   @override
+  @JsonKey(name: "home_booking")
+  final MobileNumbers? mobileNumbers;
+  @override
   @JsonKey(name: "note")
   final String? note;
   @override
@@ -257,7 +292,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Booking(categoryId: $categoryId, ready_by_date: $ready_by_date, type: $type, address: $address, note: $note, measurementUnit: $measurementUnit, measurementDetails: $measurementDetails)';
+    return 'Booking(categoryId: $categoryId, ready_by_date: $ready_by_date, type: $type, address: $address, mobileNumbers: $mobileNumbers, note: $note, measurementUnit: $measurementUnit, measurementDetails: $measurementDetails)';
   }
 
   @override
@@ -269,6 +304,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
       ..add(DiagnosticsProperty('ready_by_date', ready_by_date))
       ..add(DiagnosticsProperty('type', type))
       ..add(DiagnosticsProperty('address', address))
+      ..add(DiagnosticsProperty('mobileNumbers', mobileNumbers))
       ..add(DiagnosticsProperty('note', note))
       ..add(DiagnosticsProperty('measurementUnit', measurementUnit))
       ..add(DiagnosticsProperty('measurementDetails', measurementDetails));
@@ -285,6 +321,8 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
                 other.ready_by_date == ready_by_date) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.address, address) || other.address == address) &&
+            (identical(other.mobileNumbers, mobileNumbers) ||
+                other.mobileNumbers == mobileNumbers) &&
             (identical(other.note, note) || other.note == note) &&
             (identical(other.measurementUnit, measurementUnit) ||
                 other.measurementUnit == measurementUnit) &&
@@ -300,6 +338,7 @@ class _$BookingImpl with DiagnosticableTreeMixin implements _Booking {
       ready_by_date,
       type,
       address,
+      mobileNumbers,
       note,
       measurementUnit,
       const DeepCollectionEquality().hash(_measurementDetails));
@@ -326,6 +365,7 @@ abstract class _Booking implements Booking {
       @JsonKey(name: "ready_by_date") final String? ready_by_date,
       @JsonKey(name: "type") final String? type,
       @JsonKey(name: "address") final Address? address,
+      @JsonKey(name: "home_booking") final MobileNumbers? mobileNumbers,
       @JsonKey(name: "note") final String? note,
       @JsonKey(name: "measurement_unit") final String? measurementUnit,
       @JsonKey(name: "measurement_details")
@@ -345,6 +385,9 @@ abstract class _Booking implements Booking {
   @override
   @JsonKey(name: "address")
   Address? get address;
+  @override
+  @JsonKey(name: "home_booking")
+  MobileNumbers? get mobileNumbers;
   @override
   @JsonKey(name: "note")
   String? get note;
@@ -596,6 +639,254 @@ abstract class _Address implements Address {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddressImplCopyWith<_$AddressImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MobileNumbers _$MobileNumbersFromJson(Map<String, dynamic> json) {
+  return _MobileNumbers.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MobileNumbers {
+  @JsonKey(name: "mobile_number")
+  String get mobileNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: "alt_mobile_number")
+  String get altMobileNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: "available_date")
+  dynamic get availableDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "available_time")
+  dynamic get availableTime => throw _privateConstructorUsedError;
+
+  /// Serializes this MobileNumbers to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MobileNumbers
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MobileNumbersCopyWith<MobileNumbers> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MobileNumbersCopyWith<$Res> {
+  factory $MobileNumbersCopyWith(
+          MobileNumbers value, $Res Function(MobileNumbers) then) =
+      _$MobileNumbersCopyWithImpl<$Res, MobileNumbers>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: "mobile_number") String mobileNumber,
+      @JsonKey(name: "alt_mobile_number") String altMobileNumber,
+      @JsonKey(name: "available_date") dynamic availableDate,
+      @JsonKey(name: "available_time") dynamic availableTime});
+}
+
+/// @nodoc
+class _$MobileNumbersCopyWithImpl<$Res, $Val extends MobileNumbers>
+    implements $MobileNumbersCopyWith<$Res> {
+  _$MobileNumbersCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MobileNumbers
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? mobileNumber = null,
+    Object? altMobileNumber = null,
+    Object? availableDate = freezed,
+    Object? availableTime = freezed,
+  }) {
+    return _then(_value.copyWith(
+      mobileNumber: null == mobileNumber
+          ? _value.mobileNumber
+          : mobileNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      altMobileNumber: null == altMobileNumber
+          ? _value.altMobileNumber
+          : altMobileNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableDate: freezed == availableDate
+          ? _value.availableDate
+          : availableDate // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      availableTime: freezed == availableTime
+          ? _value.availableTime
+          : availableTime // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MobileNumbersImplCopyWith<$Res>
+    implements $MobileNumbersCopyWith<$Res> {
+  factory _$$MobileNumbersImplCopyWith(
+          _$MobileNumbersImpl value, $Res Function(_$MobileNumbersImpl) then) =
+      __$$MobileNumbersImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: "mobile_number") String mobileNumber,
+      @JsonKey(name: "alt_mobile_number") String altMobileNumber,
+      @JsonKey(name: "available_date") dynamic availableDate,
+      @JsonKey(name: "available_time") dynamic availableTime});
+}
+
+/// @nodoc
+class __$$MobileNumbersImplCopyWithImpl<$Res>
+    extends _$MobileNumbersCopyWithImpl<$Res, _$MobileNumbersImpl>
+    implements _$$MobileNumbersImplCopyWith<$Res> {
+  __$$MobileNumbersImplCopyWithImpl(
+      _$MobileNumbersImpl _value, $Res Function(_$MobileNumbersImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MobileNumbers
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? mobileNumber = null,
+    Object? altMobileNumber = null,
+    Object? availableDate = freezed,
+    Object? availableTime = freezed,
+  }) {
+    return _then(_$MobileNumbersImpl(
+      mobileNumber: null == mobileNumber
+          ? _value.mobileNumber
+          : mobileNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      altMobileNumber: null == altMobileNumber
+          ? _value.altMobileNumber
+          : altMobileNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableDate: freezed == availableDate
+          ? _value.availableDate
+          : availableDate // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      availableTime: freezed == availableTime
+          ? _value.availableTime
+          : availableTime // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MobileNumbersImpl
+    with DiagnosticableTreeMixin
+    implements _MobileNumbers {
+  const _$MobileNumbersImpl(
+      {@JsonKey(name: "mobile_number") required this.mobileNumber,
+      @JsonKey(name: "alt_mobile_number") required this.altMobileNumber,
+      @JsonKey(name: "available_date") required this.availableDate,
+      @JsonKey(name: "available_time") required this.availableTime});
+
+  factory _$MobileNumbersImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MobileNumbersImplFromJson(json);
+
+  @override
+  @JsonKey(name: "mobile_number")
+  final String mobileNumber;
+  @override
+  @JsonKey(name: "alt_mobile_number")
+  final String altMobileNumber;
+  @override
+  @JsonKey(name: "available_date")
+  final dynamic availableDate;
+  @override
+  @JsonKey(name: "available_time")
+  final dynamic availableTime;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MobileNumbers(mobileNumber: $mobileNumber, altMobileNumber: $altMobileNumber, availableDate: $availableDate, availableTime: $availableTime)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MobileNumbers'))
+      ..add(DiagnosticsProperty('mobileNumber', mobileNumber))
+      ..add(DiagnosticsProperty('altMobileNumber', altMobileNumber))
+      ..add(DiagnosticsProperty('availableDate', availableDate))
+      ..add(DiagnosticsProperty('availableTime', availableTime));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MobileNumbersImpl &&
+            (identical(other.mobileNumber, mobileNumber) ||
+                other.mobileNumber == mobileNumber) &&
+            (identical(other.altMobileNumber, altMobileNumber) ||
+                other.altMobileNumber == altMobileNumber) &&
+            const DeepCollectionEquality()
+                .equals(other.availableDate, availableDate) &&
+            const DeepCollectionEquality()
+                .equals(other.availableTime, availableTime));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      mobileNumber,
+      altMobileNumber,
+      const DeepCollectionEquality().hash(availableDate),
+      const DeepCollectionEquality().hash(availableTime));
+
+  /// Create a copy of MobileNumbers
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MobileNumbersImplCopyWith<_$MobileNumbersImpl> get copyWith =>
+      __$$MobileNumbersImplCopyWithImpl<_$MobileNumbersImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MobileNumbersImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MobileNumbers implements MobileNumbers {
+  const factory _MobileNumbers(
+      {@JsonKey(name: "mobile_number") required final String mobileNumber,
+      @JsonKey(name: "alt_mobile_number") required final String altMobileNumber,
+      @JsonKey(name: "available_date") required final dynamic availableDate,
+      @JsonKey(name: "available_time")
+      required final dynamic availableTime}) = _$MobileNumbersImpl;
+
+  factory _MobileNumbers.fromJson(Map<String, dynamic> json) =
+      _$MobileNumbersImpl.fromJson;
+
+  @override
+  @JsonKey(name: "mobile_number")
+  String get mobileNumber;
+  @override
+  @JsonKey(name: "alt_mobile_number")
+  String get altMobileNumber;
+  @override
+  @JsonKey(name: "available_date")
+  dynamic get availableDate;
+  @override
+  @JsonKey(name: "available_time")
+  dynamic get availableTime;
+
+  /// Create a copy of MobileNumbers
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MobileNumbersImplCopyWith<_$MobileNumbersImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

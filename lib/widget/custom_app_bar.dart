@@ -3,8 +3,8 @@ import '../routes/routes_helper.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Widget textUnderLogo;
-  final Widget actionButton;
-  const CustomAppBar({super.key, required this.textUnderLogo, required this.actionButton});
+  final Widget? actionButton;
+  const CustomAppBar({super.key, required this.textUnderLogo,  this.actionButton});
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +27,21 @@ class CustomAppBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                actionButton,
-                const Spacer(),
+                actionButton ?? Container(),
+                SizedBox(
+                  width: actionButton == null? 140 : 95,
+                ),
                 SvgPicture.asset(
                   "assets/Images/appBarLogo.svg",
                   width: 162,
-                  height: 54,
+                  height: 32.53,
                 ),
-                const Spacer(),
 
               ],
             ),
           ),
           const SizedBox(
-            height: 14,
+            height: 15,
           ),
           textUnderLogo,
 

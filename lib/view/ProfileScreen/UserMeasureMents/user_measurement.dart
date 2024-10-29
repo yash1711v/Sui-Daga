@@ -30,7 +30,7 @@ class UserMeasurement extends StatelessWidget {
         return Scaffold(
           extendBody: true,
           appBar: PreferredSize(
-            preferredSize: const Size(412, 221),
+            preferredSize: const Size(412, 200),
             child: CustomAppBar(
               textUnderLogo: Padding(
                 padding: const EdgeInsets.only(left: 16.0),
@@ -46,24 +46,16 @@ class UserMeasurement extends StatelessWidget {
                           },
                           child: const Icon(Icons.arrow_back_ios,
                               color: Pallet.white)),
+                      SizedBox(width: 85,),
                       Text(
                         "Measurement Details",
                         style: Style.h18
-                            .copyWith(color: Pallet.primary, fontSize: 16),
+                            .copyWith(color: Pallet.white, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
               ),
-              actionButton: Builder(
-                  builder: (context) => IconButton(
-                        icon: const Icon(Icons.more_vert),
-                        onPressed: () {
-                          Scaffold.of(context).openEndDrawer();
-                          // Add action here
-                        },
-                        color: Pallet.white,
-                      )),
             ),
           ),
           endDrawer: const CustomEndDrawer(),

@@ -68,16 +68,17 @@ class Repo {
       "measurement_unit": bookingData.measurementUnit == "In" ? "inch" : "cm",
       "type": bookingData.type == "Home Service" ? "home_booking" : "visit_shop",
       "note": bookingData.note,
-      "address":  bookingData.type == "Home Service" ?{
+      "address": {
         "house_address": bookingData.address!.houseAddress,
         "area": bookingData.address!.area,
         "pincode": bookingData.address!.pincode,
         "landmark": bookingData.address!.landmark,
-      } : {
-        "house_address": "house_address",
-        "area": "area",
-        "pincode": "201003",
-        "landmark": "landmark",
+      } ,
+      "home_booking": {
+        "mobile_number": bookingData.mobileNumbers!.mobileNumber,
+        "alt_mobile_number": bookingData.mobileNumbers!.mobileNumber,
+        "available_date": dateFormat.parse(bookingData.mobileNumbers!.availableDate ?? "").toString(),
+        "available_time": bookingData.mobileNumbers!.availableTime,
       },
       // Attaching the constructed list
       "measurement_details": measurementDetails,

@@ -14,6 +14,10 @@ _$BookingImpl _$$BookingImplFromJson(Map<String, dynamic> json) =>
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
+      mobileNumbers: json['home_booking'] == null
+          ? null
+          : MobileNumbers.fromJson(
+              json['home_booking'] as Map<String, dynamic>),
       note: json['note'] as String?,
       measurementUnit: json['measurement_unit'] as String?,
       measurementDetails: (json['measurement_details'] as List<dynamic>?)
@@ -27,6 +31,7 @@ Map<String, dynamic> _$$BookingImplToJson(_$BookingImpl instance) =>
       'ready_by_date': instance.ready_by_date,
       'type': instance.type,
       'address': instance.address,
+      'home_booking': instance.mobileNumbers,
       'note': instance.note,
       'measurement_unit': instance.measurementUnit,
       'measurement_details': instance.measurementDetails,
@@ -46,6 +51,22 @@ Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
       'area': instance.area,
       'pincode': instance.pincode,
       'landmark': instance.landmark,
+    };
+
+_$MobileNumbersImpl _$$MobileNumbersImplFromJson(Map<String, dynamic> json) =>
+    _$MobileNumbersImpl(
+      mobileNumber: json['mobile_number'] as String,
+      altMobileNumber: json['alt_mobile_number'] as String,
+      availableDate: json['available_date'],
+      availableTime: json['available_time'],
+    );
+
+Map<String, dynamic> _$$MobileNumbersImplToJson(_$MobileNumbersImpl instance) =>
+    <String, dynamic>{
+      'mobile_number': instance.mobileNumber,
+      'alt_mobile_number': instance.altMobileNumber,
+      'available_date': instance.availableDate,
+      'available_time': instance.availableTime,
     };
 
 _$MeasurementDetailImpl _$$MeasurementDetailImplFromJson(

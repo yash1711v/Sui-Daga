@@ -17,6 +17,8 @@ class Booking with _$Booking {
      String? type,
     @JsonKey(name: "address")
      Address? address,
+    @JsonKey(name: "home_booking")
+    MobileNumbers? mobileNumbers,
     @JsonKey(name: "note")
      String? note,
     @JsonKey(name: "measurement_unit")
@@ -42,6 +44,21 @@ class Address with _$Address {
   }) = _Address;
 
   factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+}
+@freezed
+class MobileNumbers with _$MobileNumbers {
+  const factory MobileNumbers({
+    @JsonKey(name: "mobile_number")
+    required String mobileNumber,
+    @JsonKey(name: "alt_mobile_number")
+    required String altMobileNumber,
+    @JsonKey(name: "available_date")
+    required dynamic availableDate,
+    @JsonKey(name: "available_time")
+    required dynamic availableTime,
+  }) = _MobileNumbers;
+
+  factory MobileNumbers.fromJson(Map<String, dynamic> json) => _$MobileNumbersFromJson(json);
 }
 
 @freezed

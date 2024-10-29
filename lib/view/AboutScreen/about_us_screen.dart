@@ -22,7 +22,6 @@ class AboutUsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16.0),
             child: GestureDetector(
               onTap: () {
-                context.read<HomeServiceCubit>().resetValues();
                 Navigator.pop(context);
               },
               child: Row(
@@ -33,6 +32,9 @@ class AboutUsScreen extends StatelessWidget {
                       },
                       child: const Icon(Icons.arrow_back_ios,
                           color: Pallet.white)),
+                  SizedBox(
+                    width: 150,
+                  ),
                   Text(
                     "About",
                     style:
@@ -42,19 +44,7 @@ class AboutUsScreen extends StatelessWidget {
               ),
             ),
           ),
-          actionButton: Builder(
-              builder: (context) => IconButton(
-                    icon: const Icon(Icons.more_vert),
-                    onPressed: () {
-                      Scaffold.of(context).openEndDrawer();
-                      // Add action here
-                    },
-                    color: Pallet.white,
-                  )),
         ),
-      ),
-      endDrawer: const CustomEndDrawer(
-        isMainScreen: false,
       ),
       body: SingleChildScrollView(
         child: Column(children: [

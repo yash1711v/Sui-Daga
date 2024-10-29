@@ -69,7 +69,7 @@ class _HomeServiceState extends State<HomeService> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size(412, 221),
+        preferredSize: const Size(412, 200),
         child: BlocBuilder<HomeServiceCubit, HomeServiceState>(
           builder: (context, state) {
             return CustomAppBar(
@@ -81,38 +81,34 @@ class _HomeServiceState extends State<HomeService> {
                     Navigator.pop(context);
                   },
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       GestureDetector(
                           onTap: () {
+                            context.read<HomeServiceCubit>().resetValues();
                             Navigator.pop(context);
                           },
                           child: const Icon(Icons.arrow_back_ios,
                               color: Pallet.white)),
+                       SizedBox(
+                        width: (state.isHomeService ?? false)?115:135,
+                      ),
                       Text(
                         (state.isHomeService ?? true)
                             ? "Home Booking"
                             : "Visit Shop",
                         style: Style.h18
-                            .copyWith(color: Pallet.primary, fontSize: 16),
+                            .copyWith(color: Pallet.white, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
               ),
-              actionButton: Builder(
-                  builder: (context) => IconButton(
-                        icon: const Icon(Icons.more_vert),
-                        onPressed: () {
-                          Scaffold.of(context).openEndDrawer();
-                          // Add action here
-                        },
-                        color: Pallet.white,
-                      )),
             );
           },
         ),
       ),
-      endDrawer: const CustomEndDrawer(
+      drawer: const CustomEndDrawer(
         isMainScreen: false,
       ),
       body: SingleChildScrollView(
@@ -650,8 +646,8 @@ class _HomeServiceState extends State<HomeService> {
                   builder: (context, state) {
                     return Visibility(
                       visible: state.isHomeService ?? true,
-                      child: Text(
-                        'Ready On',
+                      child: const Text(
+                        'Available Date',
                         style: TextStyle(
                           color: Color(0xFF212121),
                           fontSize: 14,
@@ -747,6 +743,96 @@ class _HomeServiceState extends State<HomeService> {
                     );
                   },
                 ),
+                BlocBuilder<HomeServiceCubit, HomeServiceState>(
+                  builder: (context, state) {
+                    return Visibility(
+                        visible: state.isHomeService ?? true,
+                        child: const SizedBox(height: 28));
+                  },
+                ),
+                BlocBuilder<HomeServiceCubit, HomeServiceState>(
+                  builder: (context, state) {
+                    return Visibility(
+                      visible: state.isHomeService ?? true,
+                      child: const Text(
+                        'Available Time',
+                        style: TextStyle(
+                          color: Color(0xFF212121),
+                          fontSize: 14,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w500,
+                          height: 0,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                BlocBuilder<HomeServiceCubit, HomeServiceState>(
+                  builder: (context, state) {
+                    return Visibility(
+                      visible: state.isHomeService ?? true,
+                      child: const SizedBox(
+                        height: 10,
+                      ),
+                    );
+                  },
+                ),
+                BlocBuilder<HomeServiceCubit, HomeServiceState>(
+                  builder: (context, state) {
+                    return Visibility(
+                      visible: state.isHomeService ?? true,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                    width: 380,
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFF4F4F4),
+                                      border: Border.all(
+                                          color: const Color(0xFFF4F4F4)),
+                                    ),
+                                    child: CustomTextField(
+                                      readOnly: true,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      controller: state.TimeController ??
+                                          TextEditingController(),
+                                      hintText: "Select",
+                                      onTap: () {
+                                        context
+                                            .read<
+                                            HomeServiceCubit>()
+                                            .selectTime(context);
+                                      },
+                                      suffix: const Padding(
+                                        padding:
+                                            EdgeInsets.only(right: 8.0),
+                                        child: Icon(Icons.watch_later_rounded),
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          Visibility(
+                              visible: state.TimeError != null &&
+                                  state.TimeError!.isNotEmpty,
+                              child: Text(
+                                state.TimeError ?? "",
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 12,
+                                ),
+                              )),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 20,)
               ],
             ),
           ),

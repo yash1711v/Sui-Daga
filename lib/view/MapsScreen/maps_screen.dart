@@ -85,6 +85,9 @@ class _MapScreenState extends State<MapScreen> {
       context.read<HomeServiceCubit>().addressController.text = "${place.street}";
       context.read<HomeServiceCubit>().areaController.text = place.locality!;
       context.read<HomeServiceCubit>().pincodeController.text = place.postalCode!;
+      context.read<HomeServiceCubit>().onAddressChange("${place.street}");
+      context.read<HomeServiceCubit>().onAreaChange(place.locality!);
+      context.read<HomeServiceCubit>().onPinCodeChange(place.postalCode!);
 
     } catch (e) {
       print(e);
@@ -170,7 +173,7 @@ class _MapScreenState extends State<MapScreen> {
                     "Address: $_address",
                     style: TextStyle(fontSize: 16),
                   ),
-                  CustomButton(child: Text("Save",style: Style.boldText,), onPressed: (){
+                  CustomButton(child: Text("Confirm",style: Style.boldText,), onPressed: (){
                     Navigator.pop(context);
                   })
                 ],

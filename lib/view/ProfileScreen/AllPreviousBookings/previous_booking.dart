@@ -20,7 +20,7 @@ class PreviousBookingScreen extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       appBar: PreferredSize(
-        preferredSize: const Size(412, 221),
+        preferredSize: const Size(412, 200),
         child: CustomAppBar(
           textUnderLogo: Padding(
             padding: const EdgeInsets.only(left: 16.0),
@@ -36,24 +36,16 @@ class PreviousBookingScreen extends StatelessWidget {
                       },
                       child: const Icon(Icons.arrow_back_ios,
                           color: Pallet.white)),
+                  SizedBox(width: 90,),
                   Text(
                     "Previous Bookings",
                     style:
-                    Style.h18.copyWith(color: Pallet.primary, fontSize: 16),
+                    Style.h18.copyWith(color: Pallet.white, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
           ),
-          actionButton: Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                  // Add action here
-                },
-                color: Pallet.white,
-              )),
         ),
       ),
       endDrawer: const CustomEndDrawer(isMainScreen: false,),
@@ -125,13 +117,13 @@ class PreviousBookingScreen extends StatelessWidget {
                                    decoration: const BoxDecoration(
                                      color: Color(0x332D5D72),
                                    ),
-                                   child: const Row(
+                                   child:  Row(
                                      mainAxisSize: MainAxisSize.min,
                                      mainAxisAlignment: MainAxisAlignment.center,
                                      crossAxisAlignment: CrossAxisAlignment.center,
                                      children: [
                                        Text(
-                                         'Pant Suit',
+                                         '${state.previousBooking![index].category!.name}',
                                          style: TextStyle(
                                            color: Color(0xFF2D5D72),
                                            fontSize: 12,

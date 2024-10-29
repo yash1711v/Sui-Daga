@@ -20,7 +20,6 @@ class ContactUs extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16.0),
             child: GestureDetector(
               onTap: () {
-                context.read<HomeServiceCubit>().resetValues();
                 Navigator.pop(context);
               },
               child: Row(
@@ -31,6 +30,7 @@ class ContactUs extends StatelessWidget {
                       },
                       child: const Icon(Icons.arrow_back_ios,
                           color: Pallet.white)),
+                  const SizedBox(width: 140,),
                   Text(
                     "CONTACT",
                     style:
@@ -40,15 +40,6 @@ class ContactUs extends StatelessWidget {
               ),
             ),
           ),
-          actionButton: Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                  // Add action here
-                },
-                color: Pallet.white,
-              )),
         ),
       ),
       body: Padding(
@@ -85,7 +76,7 @@ class ContactUs extends StatelessWidget {
                     SizedBox(height: 10,),
                     Expanded(
                       child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                        'Gojwara chowk , Near Islamia college Srinagar -Jammu and Kashmir-19003.',
                         style: TextStyle(
                           color: Color(0xB2212121),
                           fontSize: 14,
@@ -119,7 +110,7 @@ class ContactUs extends StatelessWidget {
                     Icon(Icons.mail, color: Pallet.grey, size: 25,),
                     SizedBox(height: 15,),
                     Text(
-                      'Address',
+                      'Email',
                       style: TextStyle(
                         color: Color(0xFF212121),
                         fontSize: 16,
@@ -131,7 +122,7 @@ class ContactUs extends StatelessWidget {
                     SizedBox(height: 10,),
                     Expanded(
                       child: Text(
-                        'Loremipsum@gmail.com',
+                        'email-suidagaa@gmail.com',
                         style: TextStyle(
                           color: Color(0xB2212121),
                           fontSize: 14,
@@ -189,6 +180,56 @@ class ContactUs extends StatelessWidget {
                         overflow: TextOverflow.clip,
                       ),
                     )
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 12,),
+            Container(
+              width: 380,
+              height: 51.85,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFE3C5CF),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+              ),
+              child:  Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          'Follow On',
+                          style: TextStyle(
+                            color: Color(0xFF212121),
+                            fontSize: 16,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w600,
+                            height: 0.08,
+                          ),
+                        ),
+                        const Spacer(),
+                        GestureDetector(
+                            onTap: () {
+                              // Add action here
+                            },
+                            child: Image.asset("assets/Images/Icons/Facebook.png",scale: 3,)),
+                        const SizedBox(width: 10,),
+                        GestureDetector(
+                            onTap: () {
+                              // Add action here
+                            },
+                            child: Image.asset("assets/Images/Icons/Instagram.png",scale: 3,)),
+                        const SizedBox(width: 10,),
+                        GestureDetector(
+                            onTap: () {
+                              // Add action here
+                            },
+                            child: Image.asset("assets/Images/Icons/Twitter.png",scale: 3,)),
+                      ],
+                    ),
                   ],
                 ),
               ),
