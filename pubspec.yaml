@@ -1,0 +1,78 @@
+name: sui_daga
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  flutter_bloc: ^8.1.6
+  flutter_screenutil: ^5.9.3
+  equatable: ^2.0.5
+  flutter_svg: ^2.0.10+1
+  intl: ^0.19.0
+  vibration: ^2.0.1
+  sms_autofill: ^2.4.0
+  flutter_gallery_3d: ^1.1.1
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  image_picker: ^1.1.2
+  permission_handler: ^11.3.1
+  dio: ^5.7.0
+  upgrader: ^11.3.0
+  http: ^1.2.2
+  http_parser: ^4.0.2
+  mime: ^1.0.0
+  dotted_border: ^2.1.0
+  url_launcher: ^6.3.1
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  geocoding: ^3.0.0
+  google_maps_flutter: ^2.9.0
+  google_places_flutter: ^2.0.9
+  geolocator: ^13.0.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.13
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+#  flutter_local_notifications: ^17.2.3
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+     - assets/Images/
+     - assets/Images/HomeScreenCategories/
+     - assets/Images/BottomNavigationIcons/
+     - assets/Images/Icons/
+
+  fonts:
+     - family: Montserrat
+       fonts:
+         - asset: assets/Fonts/Montserrat-Medium.ttf
+         - asset: assets/Fonts/Montserrat-Bold.ttf
+         - asset: assets/Fonts/Montserrat-ExtraBold.ttf
+         - asset: assets/Fonts/Montserrat-Light.ttf
+         - asset: assets/Fonts/Montserrat-Regular.ttf
+         - asset: assets/Fonts/Montserrat-SemiBold.ttf
+         - asset: assets/Fonts/Montserrat-Thin.ttf
+         - asset: assets/Fonts/Montserrat-Black.ttf
+         - asset: assets/Fonts/Montserrat-ExtraLight.ttf
+         - asset: assets/Fonts/Montserrat-MediumItalic.ttf
+         - asset: assets/Fonts/Montserrat-BoldItalic.ttf
+         - asset: assets/Fonts/Montserrat-ExtraBoldItalic.ttf
+
