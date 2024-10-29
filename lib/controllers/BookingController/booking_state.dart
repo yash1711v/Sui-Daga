@@ -14,7 +14,7 @@ class BookingState {
     this.optionalController,
      this.dateController,
     this.makeBookingItems = const [
-      "Visit Shop",
+      "Walk-in",
       "Home Service",
     ],
     this.selectedMakeBookingItem = const [],

@@ -66,7 +66,7 @@ class Repo {
       "category_id": bookingData.categoryId,
       "ready_by_date": dateFormat.parse(bookingData.ready_by_date ?? "").toString(),
       "measurement_unit": bookingData.measurementUnit == "In" ? "inch" : "cm",
-      "type": bookingData.type == "Home Service" ? "home_booking" : "visit_shop",
+      "type": bookingData.type == " Home Service" ? "home_booking" : "visit_shop",
       "note": bookingData.note,
       "address": {
         "house_address": bookingData.address!.houseAddress,

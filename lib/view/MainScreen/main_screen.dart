@@ -42,12 +42,12 @@ class _MainScreenState extends State<MainScreen> {
                 textUnderLogo: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(width: 20,),
+                    const SizedBox(width: 20,),
                     Text(
                       state.index == 0
                           ? "WELCOME"
                           : state.index == 1
-                              ? "ENQUIRE BOOKING"
+                              ? "APPOINTMENT BOOKING"
                               : "PROFILE",
                       style: Style.h18.copyWith(color: Pallet.white,fontWeight: FontWeight.bold),
                     ),

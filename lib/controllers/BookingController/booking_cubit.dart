@@ -75,7 +75,7 @@ class BookingCubit extends Cubit<BookingState> {
       vibratePhone();
       Navigator.pop(context);
     } else {
-      if (state.selectedMakeBookingItem!.contains("Home Service")) {
+      if (state.selectedMakeBookingItem!.contains(" Home Service")) {
         addingDataToModel(context, profileModel, categoryList, measureMentItems, true);
         Navigator.pop(context);
         Navigator.pushNamed(context, HomeService.id);

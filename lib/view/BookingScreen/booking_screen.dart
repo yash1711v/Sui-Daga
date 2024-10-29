@@ -212,7 +212,7 @@ class BookingScreen extends StatelessWidget {
                 top: 21,
               ),
               child: Text(
-                'Make Booking',
+                'AppointMent Booking',
                 style: TextStyle(
                   color: Color(0xFF212121),
                   fontSize: 14,

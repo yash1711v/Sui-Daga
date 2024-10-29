@@ -67,6 +67,7 @@ class CustomChipSelection extends StatelessWidget {
                     fontSize: 16,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w400,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),

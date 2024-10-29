@@ -96,7 +96,7 @@ class _HomeServiceState extends State<HomeService> {
                       Text(
                         (state.isHomeService ?? true)
                             ? "Home Booking"
-                            : "Visit Shop",
+                            : " Walk-in",
                         style: Style.h18
                             .copyWith(color: Pallet.white, fontWeight: FontWeight.bold),
                       ),
